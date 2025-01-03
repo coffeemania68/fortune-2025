@@ -1,0 +1,63 @@
+/* 기본 스타일 리셋 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Pretendard', sans-serif;
+    background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+    color: #fff;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.main-header {
+    text-align: center;
+    padding: 40px 0;
+}
+
+h1 {
+    font-size: 3em;
+    background: linear-gradient(45deg, #D4AF37, #FFD700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 1.2em;
+    color: #ffffff80;
+}
+
+.start-box {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.main-image {
+    max-width: 100%;
+    border-radius: 20px;
+    margin-bottom: 30px;
+}
+
+.start-button {
+    background: linear-gradient(45deg, #D4AF37, #FFD700);
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.2em;
+    border-radius: 50px;
+    color: #000;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.start-button:hover {
+    transform: translateY(-3px);
+}
