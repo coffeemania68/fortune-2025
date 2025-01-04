@@ -7,110 +7,91 @@
     <meta name="description" content="나의 2025년 목표 달성 확률은? 12가지 질문으로 알아보는 새해 목표 달성 가능성 테스트">
     <meta name="keywords" content="목표달성테스트, 새해목표, 2025년계획, 성공확률">
     <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            font-family: 'Noto Sans KR', sans-serif;
-        }
-
-        .video-container {
-            width: 100%;
-            height: 85vh;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .main-video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .button-container {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 15vh;
-            background: white;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            gap: 10px;
-            padding: 15px;
-            box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
-        }
-
-        .start-button {
-            background: linear-gradient(45deg, #10B981, #059669);
-            color: white;
-            padding: 15px 0;
-            border-radius: 25px;
-            font-weight: bold;
-            font-size: 1.2em;
-            border: none;
-            cursor: pointer;
-            animation: pulse 2s infinite;
-        }
-
-        .planner-button {
-            background: white;
-            border: 2px solid #10B981;
-            color: #10B981;
-            padding: 12px 0;
-            border-radius: 25px;
-            font-weight: bold;
-            text-decoration: none;
-            text-align: center;
-        }
-
-      @keyframes pulse {
-    0% { transform: translateX(-50%) scale(1); }
-    50% { transform: translateX(-50%) scale(1.05); }
-    100% { transform: translateX(-50%) scale(1); }
-}
-
-/* 웹 접근성을 위한 스크린리더 전용 클래스 */
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
+       body, html {
+    margin: 0;
     padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0;
+    height: 100%;
+    font-family: 'Noto Sans KR', sans-serif;
 }
 
-/* 모바일 반응형 스타일 */
+.video-container {
+    width: 100%;
+    height: 85vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.main-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.button-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 15vh;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; /* 버튼 중앙 정렬을 위해 추가 */
+    gap: 10px;
+    padding: 15px;
+    box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
+}
+
+.start-button {
+    background: linear-gradient(45deg, #10B981, #059669);
+    color: white;
+    padding: 15px 0;
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: 1.2em;
+    border: none;
+    cursor: pointer;
+    animation: pulse 2s infinite;
+    width: 90%; /* 버튼 너비 설정 */
+    max-width: 400px; /* 최대 너비 설정 */
+}
+
+.planner-button {
+    background: white;
+    border: 2px solid #10B981;
+    color: #10B981;
+    padding: 12px 0;
+    border-radius: 25px;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+    width: 90%; /* 버튼 너비 설정 */
+    max-width: 400px; /* 최대 너비 설정 */
+}
+
+/* 모바일 최적화를 위한 미디어 쿼리 추가 */
 @media screen and (max-width: 768px) {
-    .video-container {
-        height: 80vh;  /* 모바일에서는 조금 더 작게 */
-    }
-
-    .main-video {
-        object-fit: contain;
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-    }
-    
     .button-container {
-        height: 20vh;  /* 모바일에서는 버튼 영역 더 크게 */
-        padding: 10px 15px;
+        padding: 10px;
+        height: auto;
+        min-height: 15vh;
     }
 
-    .start-button {
-        padding: 14px 0;
+    .start-button,
+    .planner-button {
+        width: 95%;
+        padding: 12px 0;
         font-size: 1.1em;
     }
-    
+}
+
+/* 작은 모바일 화면을 위한 추가 최적화 */
+@media screen and (max-width: 320px) {
+    .start-button,
     .planner-button {
-        padding: 12px 0;
-        font-size: 0.9em;
+        font-size: 1em;
+        padding: 10px 0;
     }
 }
     </style>
