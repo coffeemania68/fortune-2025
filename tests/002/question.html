@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>새해 목표 달성 확률 테스트</title>
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        .answer-button {
+            transition: all 0.3s ease;
+        }
+        .answer-button:hover {
+            transform: translateY(-2px);
+        }
+        .final-question {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+        .planner-button {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-green-50 to-emerald-50 min-h-screen">
+    <div class="max-w-lg mx-auto px-4 py-8">
+        <!-- 진행 상태 -->
+        <div class="text-center mb-6">
+            <span id="progress-text" class="text-lg font-medium text-green-800">
+                <span id="current-number">1</span>/12
+            </span>
+        </div>
+        
+        <!-- 프로그레스 바 -->
+        <div class="bg-green-100 h-2 rounded-full mb-8">
+            <div class="progress bg-green-500 h-full rounded-full transition-all duration-300"></div>
+        </div>
+
+        <!-- 질문 -->
+        <div id="question" class="text-2xl font-bold text-center mb-8 text-green-900"></div>
+
+        <!-- 답변 버튼들 -->
+        <div class="space-y-4" id="answer-container">
+            <!-- 버튼들은 JavaScript로 동적 생성됨 -->
+        </div>
+
+        <!-- 버킷리스트 플래너 버튼 -->
+        <div class="mt-8 text-center">
+            <a href="https://coffeemania68.github.io/share/" 
+               target="_blank" 
+               rel="noopener noreferrer" 
+               class="planner-button inline-block px-6 py-3 bg-gradient-to-r from-green-400 to-emerald-500 text-white rounded-full font-bold shadow-lg hover:shadow-xl transition-all duration-300">
+                2025 버킷리스트 플래너 받기 ✨
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // 여기에 질문 배열과 함수들이 들어갑니다
+const questions = [
+    {
+        question: "평소 목표를 세울 때 당신의 스타일은?",
+        answers: [
+            "구체적인 계획과 기한을 정한다",
+            "큰 방향만 정하고 유연하게 진행한다",
+            "떠오르는 대로 자유롭게 정한다",
+            "주변 사람들의 조언을 참고한다"
+        ]
+    },
+    // ... (앞서 작성한 12개 질문 전체)
+];
+
+let currentQuestion = 0;
+let userAnswers = [];
+
+function createAnswerButton(text, index) {
+    const button = document.createElement('button');
+    button.className = 'answer-button w-full p-4 text-left rounded-xl bg-white shadow-md hover:shadow-lg transition-all duration-300 border border-green-100';
+    button.onclick = () => selectAnswer(index + 1);
+    button.textContent = text;
+    return button;
+}
+
+function updateQuestion() {
+    console.log('Current Question:', questions[currentQuestion].question);
+    
+    document.getElementById('current-number').textContent = currentQuestion + 1;
+    
+    const questionEl = document.getElementById('question');
+    questionEl.textContent = questions[currentQuestion].question;
+
+    // 마지막 질문에 특별한 스타일 적용
+    if (currentQuestion === questions.length - 1) {
+        questionEl.innerHTML = `
+            <div class="final-question">
+                <div class="text-2xl font-bold text-green-900 mb-4">${questions[currentQuestion].question}</div>
+                <div class="text-sm text-green-700 mb-4">
+                    마지막 질문입니다!<br>
+                    곧 당신의 목표 달성 확률을 확인하실 수 있어요
+                </div>
+            </div>
+        `;
+    }
+
+    const answerContainer = document.getElementById('answer-container');
+    answerContainer.innerHTML = '';
+    
+    questions[currentQuestion].answers.forEach((answer, index) => {
+        const button = createAnswerButton(answer, index);
+        if (currentQuestion === questions.length - 1) {
+            button.className += ' hover:bg-green-50';
+        }
+        answerContainer.appendChild(button);
+    });
+
+    const progress = document.querySelector('.progress');
+    progress.style.width = `${((currentQuestion + 1) / questions.length) * 100}%`;
+}
+
+function calculateResult() {
+    let patterns = {
+        type1: 0,  // 실행력/계획 중심
+        type2: 0,  // 관계/지지 중심
+        type3: 0,  // 전략/분석 중심
+        type4: 0   // 직관/유연성 중심
+    };
+
+    userAnswers.forEach(answer => {
+        switch(answer) {
+            case 1: patterns.type1++; break;
+            case 2: patterns.type2++; break;
+            case 3: patterns.type3++; break;
+            case 4: patterns.type4++; break;
+        }
+    });
+
+    // 각 유형별 점수를 기반으로 확률 계산
+    const totalPoints = Object.values(patterns).reduce((a, b) => a + b, 0);
+    const maxPoints = Math.max(...Object.values(patterns));
+    const successRate = Math.round((maxPoints / totalPoints) * 100);
+
+    // 확률에 따른 결과 인덱스 반환
+    if (successRate >= 90) return 0;      // 95% (탁월한 달성 가능성)
+    else if (successRate >= 80) return 1;  // 85% (높은 달성 가능성)
+    else if (successRate >= 70) return 2;  // 75% (양호한 달성 가능성)
+    else if (successRate >= 60) return 3;  // 65% (보통의 달성 가능성)
+    else if (successRate >= 50) return 4;  // 55% (노력 필요)
+    else return 5;                         // 45% (전략 수정 필요)
+}
+
+function selectAnswer(choice) {
+    userAnswers.push(choice);
+    
+    if (currentQuestion < questions.length - 1) {
+        currentQuestion++;
+        updateQuestion();
+    } else {
+        const resultIndex = calculateResult();
+        window.location.href = `result.html?result=${resultIndex}`;
+    }
+}
+
+// 페이지 로드 시 첫 질문 표시
+window.onload = function() {
+    console.log('Page loaded');
+    updateQuestion();
+};      
+    </script>
+</body>
+</html>
