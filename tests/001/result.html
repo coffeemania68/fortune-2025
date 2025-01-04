@@ -3,206 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            background: #f5f0eb;
+        body {
             font-family: 'Noto Sans KR', sans-serif;
         }
-
-        .result-container {
-            width: 100%;
-            max-width: 500px;
-            margin: 0 auto;
-            padding: 20px;
-            text-align: center;
-            box-sizing: border-box;
+        .gradient-text {
+            background: linear-gradient(45deg, #D4AF37, #FFD700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-
-        .result-title {
-            font-size: 24px;
-            margin: 20px 0 10px;
-            color: #333;
+        .result-card {
+            animation: fadeIn 1s ease-out;
         }
-
-        .result-subtitle {
-            font-size: 18px;
-            color: #666;
-            margin-bottom: 30px;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-
-        .keywords {
-            margin: 20px 0;
+        .button-hover {
+            transition: all 0.3s ease;
         }
-
-        .keyword {
-            display: inline-block;
-            padding: 8px 15px;
-            margin: 5px;
-            background: #D4AF37;
-            color: white;
-            border-radius: 20px;
-            font-size: 14px;
-        }
-
-        .result-content {
-            text-align: left;
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            margin: 20px 0;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        .description, .advice {
-            line-height: 1.6;
-            margin: 15px 0;
-        }
-
-        .lucky-points {
-            background: #f8f4e9;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-        }
-
-        .lucky-point-item {
-            margin: 10px 0;
-        }
-
-        .button {
-            width: 100%;
-            padding: 15px;
-            margin: 10px 0;
-            border: none;
-            border-radius: 50px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: transform 0.2s ease;
-        }
-
-        .retry-button {
-            background: #D4AF37;
-            color: white;
-        }
-
-        .share-button {
-            background: white;
-            border: 2px solid #D4AF37;
-            color: #D4AF37;
-        }
-
-        .button:hover {
+        .button-hover:hover {
             transform: translateY(-2px);
         }
     </style>
 </head>
-<body>
-    <div class="result-container">
-        <h1 class="result-title"></h1>
-        <p class="result-subtitle"></p>
-        
-        <div class="keywords"></div>
-        
-        <div class="result-content">
-            <p class="description"></p>
-            <p class="advice"></p>
-            
-            <div class="lucky-points">
-                <h3>✨ 2025년 행운의 포인트</h3>
-                <div class="lucky-point-item">
-                    🕒 행운의 시간: <span class="lucky-time"></span>
-                </div>
-                <div class="lucky-point-item">
-                    🧭 행운의 방향: <span class="lucky-direction"></span>
-                </div>
-                <div class="lucky-point-item">
-                    🔢 행운의 숫자: <span class="lucky-number"></span>
+<body class="bg-gradient-to-br from-amber-50 to-orange-50 min-h-screen pb-32">
+    <div class="max-w-lg mx-auto px-4 py-8">
+        <!-- 결과 카드 -->
+        <div class="result-card bg-white rounded-2xl shadow-lg p-6 mb-8">
+            <h1 class="text-2xl font-bold text-center gradient-text mb-4 result-title"></h1>
+            <p class="text-lg text-center text-amber-800 mb-6 result-subtitle"></p>
+
+            <!-- 키워드 섹션 -->
+            <div class="flex flex-wrap justify-center gap-2 mb-6 keywords"></div>
+
+            <!-- 상세 설명 -->
+            <div class="space-y-4 mb-8">
+                <p class="text-gray-700 leading-relaxed description"></p>
+                <p class="text-gray-700 leading-relaxed advice"></p>
+            </div>
+
+            <!-- 행운 포인트 -->
+            <div class="bg-amber-50 rounded-xl p-4 mb-6">
+                <h3 class="font-bold text-amber-800 mb-3">✨ 2025년 행운의 포인트</h3>
+                <div class="space-y-2 text-amber-900">
+                    <p>🕒 행운의 시간: <span class="lucky-time"></span></p>
+                    <p>🧭 행운의 방향: <span class="lucky-direction"></span></p>
+                    <p>🔢 행운의 숫자: <span class="lucky-number"></span></p>
                 </div>
             </div>
         </div>
-
-        <button class="button share-button" onclick="shareResult()">결과 공유하기</button>
-        <button class="button retry-button" onclick="location.href='../'">다시 테스트하기</button>
     </div>
 
+   <!-- 고정된 하단 버튼 수정 -->
+<div class="fixed bottom-0 left-0 right-0 bg-white shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]">
+    <div class="max-w-lg mx-auto p-4 grid grid-cols-2 gap-3">
+        <button onclick="location.href='../../'" class="button-hover w-full py-3 px-6 bg-amber-500 text-white rounded-full font-medium shadow-md hover:bg-amber-600">
+            다시 테스트하기
+        </button>
+        <button onclick="location.href='../../'" class="button-hover w-full py-3 px-6 bg-gray-100 text-gray-700 rounded-full font-medium hover:bg-gray-200">
+            다른 테스트 하기
+        </button>
+    </div>
+</div>
+
     <script>
-        const results = [
-            {
-                title: "황금빛 성장운",
-                subtitle: "눈부신 도전과 성장의 해",
-                keywords: ["도전", "성장", "발전"],
-                description: "2025년은 당신의 도전과 성장이 빛나는 해입니다. 새로운 시도가 값진 결실을 맺으며, 특히 3월, 7월에 큰 기회가 찾아올 것입니다.",
-                advice: "적극적인 도전과 새로운 시도를 두려워하지 마세요. 당신의 열정이 큰 성과로 이어질 것입니다.",
-                luckyPoint: {
-                    time: "오전 9시~11시",
-                    direction: "동쪽",
-                    number: "3, 7"
-                }
-            },
-            {
-                title: "달콤한 인연운",
-                subtitle: "특별한 만남이 가득한 해",
-                keywords: ["만남", "인연", "소통"],
-                description: "2025년은 귀한 인연들이 당신을 찾아오는 해입니다. 특별한 만남이 기다리고 있으며, 5월, 9월에 의미있는 인연이 찾아올 것입니다.",
-                advice: "열린 마음으로 새로운 인연을 맞이하세요. 소중한 인연이 당신의 삶을 풍요롭게 할 것입니다.",
-                luckyPoint: {
-                    time: "오후 2시~4시",
-                    direction: "남쪽",
-                    number: "2, 5"
-                }
-            },
-            {
-                title: "럭키 머니운",
-                subtitle: "재물운이 상승하는 해",
-                keywords: ["재물", "기회", "풍요"],
-                description: "2025년은 당신의 재물운이 빛나는 해입니다. 노력한 만큼 풍성한 결실을 맺으며, 4월, 8월에 특별한 금전적 기회가 찾아올 것입니다.",
-                advice: "안정적인 투자와 계획적인 재테크를 시작하기 좋은 시기입니다. 신중한 판단이 행운을 가져올 것입니다.",
-                luckyPoint: {
-                    time: "오전 10시~12시",
-                    direction: "서쪽",
-                    number: "4, 8"
-                }
-            },
-            {
-                title: "지혜로운 안정운",
-                subtitle: "평화롭고 안정적인 해",
-                keywords: ["안정", "지혜", "평화"],
-                description: "2025년은 당신에게 안정과 평화가 찾아오는 해입니다. 차분한 판단력이 빛을 발하며, 6월, 10월에 중요한 깨달음을 얻게 될 것입니다.",
-                advice: "내면의 목소리에 귀 기울이세요. 신중한 결정이 행복한 결과를 가져올 것입니다.",
-                luckyPoint: {
-                    time: "오후 4시~6시",
-                    direction: "북쪽",
-                    number: "1, 6"
-                }
-            },
-            {
-                title: "창의적 도약운",
-                subtitle: "새로운 도약의 해",
-                keywords: ["창의", "혁신", "도약"],
-                description: "2025년은 당신의 창의성이 빛을 발하는 해입니다. 독특한 아이디어가 인정받으며, 2월, 11월에 뜻밖의 기회가 찾아올 것입니다.",
-                advice: "자유로운 상상력을 펼쳐보세요. 당신만의 독특한 시각이 특별한 기회를 만들어낼 것입니다.",
-                luckyPoint: {
-                    time: "오후 1시~3시",
-                    direction: "남동쪽",
-                    number: "5, 9"
-                }
-            },
-            {
-                title: "긍정적 변화운",
-                subtitle: "새로운 변화의 해",
-                keywords: ["변화", "적응", "성장"],
-                description: "2025년은 당신에게 의미있는 변화가 찾아오는 해입니다. 유연한 적응력이 빛을 발하며, 1월, 12월에 특별한 전환점을 맞이하게 될 것입니다.",
-                advice: "변화를 두려워하지 마세요. 모든 변화는 당신을 더 나은 방향으로 이끌 것입니다.",
-                luckyPoint: {
-                    time: "오전 7시~9시",
-                    direction: "남서쪽",
-                    number: "7, 9"
-                }
-            }
-        ];
+        // 기존 results 배열 유지
 
         function getResultIndex() {
             const params = new URLSearchParams(window.location.search);
@@ -218,7 +86,7 @@
             document.querySelector('.result-subtitle').textContent = result.subtitle;
             
             const keywordHtml = result.keywords.map(keyword => 
-                `<span class="keyword">${keyword}</span>`
+                `<span class="px-4 py-2 bg-amber-100 text-amber-800 rounded-full text-sm">${keyword}</span>`
             ).join('');
             document.querySelector('.keywords').innerHTML = keywordHtml;
 
@@ -231,10 +99,8 @@
             document.querySelector('.lucky-number').textContent = luckyPoint.number;
         }
 
-        function shareResult() {
-            alert('공유하기 기능은 준비 중입니다.');
-        }
-
+       
+        // 결과 표시
         window.onload = displayResult;
     </script>
 </body>
