@@ -65,29 +65,40 @@
         }
 
         function updateQuestion() {
-            document.getElementById('current-number').textContent = currentQuestion + 1;
-            
-            const questionEl = document.getElementById('question');
-            questionEl.textContent = questions[currentQuestion].question;
+    // 진행 상태 업데이트
+    document.getElementById('current-number').textContent = currentQuestion + 1;
+    
+    const questionEl = document.getElementById('question');
+    questionEl.textContent = questions[currentQuestion].question;
 
-            // 마지막 질문인 경우 특별한 스타일 적용
-            if (currentQuestion === questions.length - 1) {
-                questionEl.classList.add('final-question', 'gradient-text');
-            } else {
-                questionEl.classList.remove('final-question', 'gradient-text');
-            }
+    // 마지막 질문(12번째)일 때 특별한 메시지 추가
+    if (currentQuestion === questions.length - 1) {
+        questionEl.innerHTML = `
+            <div class="final-question">
+                <div class="text-2xl font-bold text-amber-900 mb-4">${questions[currentQuestion].question}</div>
+                <div class="text-sm text-amber-700 mb-4">
+                    마지막 질문입니다!<br>
+                    곧 당신의 2025년 운세를 확인하실 수 있어요
+                </div>
+            </div>
+        `;
+    }
 
-            const answerContainer = document.getElementById('answer-container');
-            answerContainer.innerHTML = '';
-            
-            questions[currentQuestion].answers.forEach((answer, index) => {
-                const button = createAnswerButton(answer, index);
-                answerContainer.appendChild(button);
-            });
-
-            const progress = document.querySelector('.progress');
-            progress.style.width = `${((currentQuestion + 1) / questions.length) * 100}%`;
+    // 답변 버튼 업데이트
+    const answerContainer = document.getElementById('answer-container');
+    answerContainer.innerHTML = '';
+    questions[currentQuestion].answers.forEach((answer, index) => {
+        const button = createAnswerButton(answer, index);
+        if (currentQuestion === questions.length - 1) {
+            button.className += ' hover:bg-amber-50'; // 마지막 질문의 답변 버튼 특별 스타일
         }
+        answerContainer.appendChild(button);
+    });
+
+    // 프로그레스 바 업데이트
+    const progress = document.querySelector('.progress');
+    progress.style.width = `${((currentQuestion + 1) / questions.length) * 100}%`;
+}
 
         function selectAnswer(choice) {
             userAnswers.push(choice);
