@@ -70,10 +70,10 @@
         <p>🎯 성공 확률 높이기: <span class="blur-sm">비공개</span></p>
     </div>
     
-    <button onclick="showFullAnalysis()" 
-            class="w-full mt-4 py-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 animate-pulse">
-        상세 분석 결과 보기 (무료)
-    </button>
+<button onclick="showFullAnalysis(event)" 
+        class="w-full mt-4 py-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 animate-pulse">
+    상세 분석 결과 보기 (무료)
+</button>
 </div>
 
             <!-- 버킷리스트 플래너 추천 -->
@@ -179,23 +179,31 @@
 
         window.onload = displayResult;
 
-function showFullAnalysis(event) {  // event 파라미터 추가
-    // 여기에 광고 표시 후 결과 보여주기
+// JavaScript 함수 수정
+function showFullAnalysis(event) {
+    // 결과 숨김 해제 및 내용 업데이트
     document.querySelectorAll('.blur-sm').forEach(el => {
         el.classList.remove('blur-sm');
-        if(el.textContent === '비공개') {
-            // 각 항목별 실제 분석 결과로 교체
-            switch(el.parentElement.textContent.charAt(0)) {
-                case '📈': el.textContent = '85% 이상 달성 가능'; break;
-                case '💪': el.textContent = '매우 높음'; break;
-                case '🎯': el.textContent = '플래너 활용 시 +15%'; break;
-            }
+        
+        // 부모 요소의 전체 텍스트 내용 확인
+        const parentText = el.parentElement.textContent.trim();
+        
+        // 각 항목별 실제 분석 결과로 교체
+        if (parentText.startsWith('📈')) {
+            el.textContent = '85% 이상 달성 가능';
+        } else if (parentText.startsWith('💪')) {
+            el.textContent = '매우 높음';
+        } else if (parentText.startsWith('🎯')) {
+            el.textContent = '플래너 활용 시 +15%';
         }
     });
+
     // 버튼 숨기기
-    event.target.style.display = 'none';
+    if (event && event.target) {
+        event.target.style.display = 'none';
+    }
 }
-    
+ 
     </script>
 </body>
 </html>
