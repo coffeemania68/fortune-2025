@@ -9,11 +9,6 @@
         body {
             font-family: 'Noto Sans KR', sans-serif;
         }
-        .gradient-text {
-            background: linear-gradient(45deg, #D4AF37, #FFD700);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
         .answer-button {
             transition: all 0.3s ease;
         }
@@ -54,7 +49,119 @@
     </div>
 
     <script>
-        // 기존 questions 배열 유지
+        const questions = [
+            {
+                question: "2024년을 돌아보며, 가장 기억에 남는 것은?",
+                answers: [
+                    "새로운 도전과 변화",
+                    "소중한 인연과의 만남",
+                    "의미있는 성과 달성",
+                    "깊은 깨달음의 순간"
+                ]
+            },
+            {
+                question: "2025년 새해 첫 날, 가장 먼저 하고 싶은 일은?",
+                answers: [
+                    "계획 세우기",
+                    "가족/친구와 시간 보내기",
+                    "새로운 취미 시작하기",
+                    "조용히 휴식 취하기"
+                ]
+            },
+            {
+                question: "평소 행운이 온다고 느끼는 순간은?",
+                answers: [
+                    "열심히 노력한 후",
+                    "좋은 사람을 만날 때",
+                    "우연한 기회가 찾아올 때",
+                    "직감이 들 때"
+                ]
+            },
+            {
+                question: "힘들 때 나를 위로하는 방법은?",
+                answers: [
+                    "목표를 다시 세우기",
+                    "친구들과 이야기하기",
+                    "취미 활동하기",
+                    "혼자만의 시간 갖기"
+                ]
+            },
+            {
+                question: "내가 생각하는 성공의 모습은?",
+                answers: [
+                    "목표 달성",
+                    "행복한 관계",
+                    "풍요로운 생활",
+                    "내면의 평화"
+                ]
+            },
+            {
+                question: "변화가 찾아올 때 나는?",
+                answers: [
+                    "적극적으로 받아들인다",
+                    "주변과 상의한다",
+                    "신중하게 판단한다",
+                    "천천히 적응한다"
+                ]
+            },
+            {
+                question: "2025년에 가장 이루고 싶은 것은?",
+                answers: [
+                    "자기 발전",
+                    "인간관계",
+                    "물질적 성취",
+                    "정신적 성장"
+                ]
+            },
+            {
+                question: "기회가 왔을 때 나의 태도는?",
+                answers: [
+                    "즉시 도전한다",
+                    "함께할 동료를 찾는다",
+                    "철저히 준비한다",
+                    "신중히 고민한다"
+                ]
+            },
+            {
+                question: "스트레스 해소법으로 가장 선호하는 것은?",
+                answers: [
+                    "운동하기",
+                    "친구 만나기",
+                    "쇼핑하기",
+                    "명상하기"
+                ]
+            },
+            {
+                question: "나에게 가장 필요한 것은?",
+                answers: [
+                    "도전 정신",
+                    "인연",
+                    "기회",
+                    "지혜"
+                ]
+            },
+            {
+                question: "다가오는 변화 앞에서 나는?",
+                answers: [
+                    "적극적으로 준비한다",
+                    "주변인과 공유한다",
+                    "차분히 대응한다",
+                    "흐름을 지켜본다"
+                ]
+            },
+            {
+                question: "2025년, 나는 어떤 사람이 되고 싶은가?",
+                answers: [
+                    "열정적인 도전자",
+                    "신뢰받는 동료",
+                    "성공한 전문가",
+                    "지혜로운 조언자"
+                ]
+            }
+        ];
+
+        let currentQuestion = 0;
+        let userAnswers = [];
 
         function createAnswerButton(text, index) {
             const button = document.createElement('button');
@@ -65,40 +172,60 @@
         }
 
         function updateQuestion() {
-    // 진행 상태 업데이트
-    document.getElementById('current-number').textContent = currentQuestion + 1;
-    
-    const questionEl = document.getElementById('question');
-    questionEl.textContent = questions[currentQuestion].question;
+            console.log('Current Question:', questions[currentQuestion].question);
+            
+            document.getElementById('current-number').textContent = currentQuestion + 1;
+            
+            const questionEl = document.getElementById('question');
+            questionEl.textContent = questions[currentQuestion].question;
 
-    // 마지막 질문(12번째)일 때 특별한 메시지 추가
-    if (currentQuestion === questions.length - 1) {
-        questionEl.innerHTML = `
-            <div class="final-question">
-                <div class="text-2xl font-bold text-amber-900 mb-4">${questions[currentQuestion].question}</div>
-                <div class="text-sm text-amber-700 mb-4">
-                    마지막 질문입니다!<br>
-                    곧 당신의 2025년 운세를 확인하실 수 있어요
-                </div>
-            </div>
-        `;
-    }
+            if (currentQuestion === questions.length - 1) {
+                questionEl.classList.add('final-question', 'gradient-text');
+            } else {
+                questionEl.classList.remove('final-question', 'gradient-text');
+            }
 
-    // 답변 버튼 업데이트
-    const answerContainer = document.getElementById('answer-container');
-    answerContainer.innerHTML = '';
-    questions[currentQuestion].answers.forEach((answer, index) => {
-        const button = createAnswerButton(answer, index);
-        if (currentQuestion === questions.length - 1) {
-            button.className += ' hover:bg-amber-50'; // 마지막 질문의 답변 버튼 특별 스타일
+            const answerContainer = document.getElementById('answer-container');
+            answerContainer.innerHTML = '';
+            
+            questions[currentQuestion].answers.forEach((answer, index) => {
+                const button = createAnswerButton(answer, index);
+                answerContainer.appendChild(button);
+            });
+
+            const progress = document.querySelector('.progress');
+            progress.style.width = `${((currentQuestion + 1) / questions.length) * 100}%`;
         }
-        answerContainer.appendChild(button);
-    });
 
-    // 프로그레스 바 업데이트
-    const progress = document.querySelector('.progress');
-    progress.style.width = `${((currentQuestion + 1) / questions.length) * 100}%`;
-}
+        function calculateResult() {
+            let patterns = {
+                type1: 0,  // 도전/성장형
+                type2: 0,  // 인연/관계형
+                type3: 0,  // 성취/행운형
+                type4: 0   // 지혜/안정형
+            };
+
+            userAnswers.forEach(answer => {
+                switch(answer) {
+                    case 1: patterns.type1++; break;
+                    case 2: patterns.type2++; break;
+                    case 3: patterns.type3++; break;
+                    case 4: patterns.type4++; break;
+                }
+            });
+
+            let maxType = Object.keys(patterns).reduce((a, b) => 
+                patterns[a] > patterns[b] ? a : b
+            );
+
+            switch(maxType) {
+                case 'type1': return 0;
+                case 'type2': return 1;
+                case 'type3': return 2;
+                case 'type4': return 3;
+                default: return 0;
+            }
+        }
 
         function selectAnswer(choice) {
             userAnswers.push(choice);
@@ -107,17 +234,16 @@
                 currentQuestion++;
                 updateQuestion();
             } else {
-                // 마지막 질문 후 특별한 전환 효과
-                document.body.style.opacity = '0';
-                setTimeout(() => {
-                    const resultIndex = calculateResult();
-                    window.location.href = `result.html?result=${resultIndex}`;
-                }, 500);
+                const resultIndex = calculateResult();
+                window.location.href = `result.html?result=${resultIndex}`;
             }
         }
 
         // 페이지 로드 시 첫 질문 표시
-        window.onload = updateQuestion;
+        window.onload = function() {
+            console.log('Page loaded');
+            updateQuestion();
+        };
     </script>
 </body>
 </html>
