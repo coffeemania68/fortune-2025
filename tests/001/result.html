@@ -35,8 +35,7 @@
         <div class="result-card bg-white rounded-2xl shadow-lg p-6 mb-8">
               <div class="text-center mb-6">
         <div class="text-sm text-amber-600 mb-2">✨ 당신의 2025년 운세가 도착했습니다 ✨</div>
-        <div class="text-xs text-gray-500 mb-4">아래 결과를 확인해보세요!</div>
-    </div>
+        </div>
             <h1 class="text-2xl font-bold text-center gradient-text mb-4 result-title"></h1>
             <p class="text-lg text-center text-amber-800 mb-6 result-subtitle"></p>
 
@@ -46,12 +45,9 @@
             <!-- 여기에 새로운 메시지 추가 -->
 <div class="mt-6 text-center">
     <div class="text-sm text-amber-700 mb-2">
-        💫 이 운세는 당신의 답변을 기반으로 만들어졌습니다
+        💫더 자세한 운세가 궁금하다면 다른 테스트도 진행해보세요!
     </div>
-    <div class="text-xs text-gray-500">
-        더 자세한 운세가 궁금하다면 다른 테스트도 진행해보세요!
-    </div>
-</div>
+   </div>
 
             <!-- 상세 설명 -->
             <div class="space-y-4 mb-8">
@@ -59,14 +55,21 @@
                 <p class="text-gray-700 leading-relaxed advice"></p>
             </div>
 
-            <!-- 행운 포인트 -->
-            <div class="bg-amber-50 rounded-xl p-4 mb-6">
-                <h3 class="font-bold text-amber-800 mb-3">✨ 2025년 행운의 포인트</h3>
-                <div class="space-y-2 text-amber-900">
-                    <p>🕒 행운의 시간: <span class="lucky-time"></span></p>
-                    <p>🧭 행운의 방향: <span class="lucky-direction"></span></p>
-                    <p>🔢 행운의 숫자: <span class="lucky-number"></span></p>
-                </div>
+   <!-- 행운의 포인트 미리보기 -->
+<div class="bg-amber-50 rounded-xl p-4 mb-6">
+    <h3 class="font-bold text-amber-800 mb-3">✨ 2025년 행운의 포인트</h3>
+    <div class="space-y-2 text-amber-900">
+        <p>🕒 행운의 시간: <span class="lucky-time blur-sm">비공개</span></p>
+        <p>🧭 행운의 방향: <span class="lucky-direction blur-sm">비공개</span></p>
+        <p>🔢 행운의 숫자: <span class="lucky-number blur-sm">비공개</span></p>
+    </div>
+    
+    <!-- 새로운 CTA 버튼 -->
+    <button onclick="showFullLuckyPoints()" 
+            class="w-full mt-4 py-4 bg-gradient-to-r from-amber-500 to-yellow-500 text-white rounded-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 animate-pulse">
+        2025 행운의 시간/숫자 보러가기 (무료)
+    </button>
+</div>         
             </div>
         </div>
     </div>
@@ -185,7 +188,13 @@
             document.querySelector('.lucky-direction').textContent = luckyPoint.direction;
             document.querySelector('.lucky-number').textContent = luckyPoint.number;
         }
-
+     function showFullLuckyPoints() {
+        // 여기에 광고 표시 후 결과 보여주기
+        // 나중에 애드센스 코드 추가
+        document.querySelectorAll('.blur-sm').forEach(el => {
+            el.classList.remove('blur-sm');
+        });
+    }
        
         // 결과 표시
         window.onload = displayResult;
