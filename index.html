@@ -9,24 +9,41 @@
             padding: 0;
             height: 100%;
             overflow: hidden;
+            width: 100%;
         }
         
         .clickable-container {
-            width: 100vw;
+            width: 100%;
             height: 100vh;
             cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         
         .main-image {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            height: 100vh;
+            object-fit: contain;
+            max-width: 100%;
+            display: block;
+        }
+
+        @media screen and (max-width: 768px) {
+            .main-image {
+                object-fit: contain;
+                width: 100%;
+                height: auto;
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+            }
         }
     </style>
 </head>
 <body>
     <div class="clickable-container" onclick="location.href='tests/001/question.html'">
-        <img src="images/main/fortune-main.jpg" alt="2025 신년운세 테스트">
+        <img src="images/main/fortune-main.jpg" alt="2025 신년운세 테스트" class="main-image">
     </div>
 </body>
 </html>
