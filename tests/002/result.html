@@ -179,7 +179,7 @@
 
         window.onload = displayResult;
 
-      function showFullAnalysis() {
+function showFullAnalysis(event) {  // event 파라미터 추가
     // 여기에 광고 표시 후 결과 보여주기
     document.querySelectorAll('.blur-sm').forEach(el => {
         el.classList.remove('blur-sm');
@@ -194,7 +194,7 @@
     });
     // 버튼 숨기기
     event.target.style.display = 'none';
-};
+}
     
     </script>
 </body>
