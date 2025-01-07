@@ -1,1 +1,228 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESG 가치관 테스트 질문 | Fortune 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
 
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .category-indicator {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        .question-container {
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .progress-bar {
+            transition: width 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-green-50 to-teal-50 min-h-screen">
+    <!-- 진행바 -->
+    <div class="fixed top-0 left-0 w-full h-2 bg-gray-200 z-50">
+        <div id="progress" class="progress-bar h-full bg-gradient-to-r from-green-500 to-teal-500" style="width: 0%"></div>
+    </div>
+
+    <!-- 카테고리 표시 -->
+    <div id="categoryBadge" class="category-indicator bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg">
+        <span id="categoryIcon" class="text-xl">🌱</span>
+        <span id="categoryText" class="ml-2 font-bold text-green-800">Environmental</span>
+    </div>
+
+    <!-- 질문 컨테이너 -->
+    <div class="min-h-screen flex items-center justify-center px-4 py-20">
+        <div id="questionContainer" class="question-container w-full max-w-2xl">
+            <div class="text-center mb-8">
+                <span class="inline-block px-4 py-2 rounded-full bg-white/80 backdrop-blur-sm text-green-800 font-bold shadow-md" id="questionNumber">1/12</span>
+            </div>
+            
+            <div class="bg-white/90 backdrop-blur-sm rounded-3xl p-8 shadow-xl mb-8">
+                <h2 id="questionText" class="text-xl md:text-2xl font-bold text-center mb-4 text-gray-800">
+                    질문이 여기에 표시됩니다
+                </h2>
+                <p id="questionContext" class="text-center text-gray-600 text-sm md:text-base">
+                    부가설명이 여기에 표시됩니다
+                </p>
+            </div>
+
+            <!-- 답변 버튼들 -->
+            <div class="space-y-3">
+                <button class="answer-btn w-full p-5 rounded-xl border-2 border-transparent hover:border-green-400 transition-all duration-300 bg-gradient-to-r from-green-500 to-teal-500 text-white font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                    <div class="flex items-center space-x-3">
+                        <span class="text-xl">✨</span>
+                        <span class="flex-1 text-left">매우 그렇다</span>
+                    </div>
+                </button>
+                <!-- 나머지 버튼들은 그라데이션 색상만 다르게 -->
+                <button class="answer-btn w-full p-5 rounded-xl border-2 border-transparent hover:border-green-400 transition-all duration-300 bg-gradient-to-r from-teal-500 to-cyan-500 text-white font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                    <div class="flex items-center space-x-3">
+                        <span class="text-xl">💫</span>
+                        <span class="flex-1 text-left">그렇다</span>
+                    </div>
+                </button>
+                <button class="answer-btn w-full p-5 rounded-xl border-2 border-transparent hover:border-green-400 transition-all duration-300 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                    <div class="flex items-center space-x-3">
+                        <span class="text-xl">⭐</span>
+                        <span class="flex-1 text-left">보통이다</span>
+                    </div>
+                </button>
+                <button class="answer-btn w-full p-5 rounded-xl border-2 border-transparent hover:border-green-400 transition-all duration-300 bg-gradient-to-r from-blue-500 to-indigo-500 text-white font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                    <div class="flex items-center space-x-3">
+                        <span class="text-xl">🌟</span>
+                        <span class="flex-1 text-left">아니다</span>
+                    </div>
+                </button>
+                <button class="answer-btn w-full p-5 rounded-xl border-2 border-transparent hover:border-green-400 transition-all duration-300 bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                    <div class="flex items-center space-x-3">
+                        <span class="text-xl">☀️</span>
+                        <span class="flex-1 text-left">전혀 아니다</span>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            // Environmental 문항 (1-4번)
+            {
+                question: "친환경 제품이 조금 비싸더라도 구매하는 편이다",
+                context: "🌱 텀블러, 친환경 세제 등 구매 성향",
+                category: "Environmental",
+                icon: "🌱"
+            },
+            {
+                question: "일회용품 사용을 최소화하려고 노력한다",
+                context: "♻️ 분리수거, 다회용기 사용 등",
+                category: "Environmental",
+                icon: "🌱"
+            },
+            {
+                question: "전기/수도 사용량을 줄이기 위해 신경 쓴다",
+                context: "💡 에너지 절약 실천도",
+                category: "Environmental",
+                icon: "🌱"
+            },
+            {
+                question: "채식 지향 식단에 관심이 있다",
+                context: "🥗 환경을 위한 식습관 변화",
+                category: "Environmental",
+                icon: "🌱"
+            },
+            // Social 문항 (5-8번)
+            {
+                question: "기업의 사회공헌 활동은 구매 결정에 영향을 준다",
+                context: "🤝 윤리적 소비 성향",
+                category: "Social",
+                icon: "👥"
+            },
+            {
+                question: "직장 선택 시 기업의 복지와 근무환경을 중요하게 본다",
+                context: "👥 노동권, 근무환경 중시",
+                category: "Social",
+                icon: "👥"
+            },
+            {
+                question: "사회적 약자를 위한 정책과 캠페인에 관심이 많다",
+                context: "💕 사회적 형평성 관심도",
+                category: "Social",
+                icon: "👥"
+            },
+            {
+                question: "다양성과 포용성은 현대 사회의 중요한 가치라고 생각한다",
+                context: "🌈 DEI(다양성,형평성,포용성) 인식",
+                category: "Social",
+                icon: "👥"
+            },
+            // Governance 문항 (9-12번)
+            {
+                question: "투자나 소비 시 기업의 윤리경영을 고려한다",
+                context: "⚖️ 기업 투명성 중시도",
+                category: "Governance",
+                icon: "⚖️"
+            },
+            {
+                question: "기업의 내부고발자 보호는 매우 중요하다고 생각한다",
+                context: "🛡️ 기업 책임경영 인식",
+                category: "Governance",
+                icon: "⚖️"
+            },
+            {
+                question: "기업의 CEO 연봉이나 지배구조에 관심이 있다",
+                context: "👔 기업 운영 투명성 관심",
+                category: "Governance",
+                icon: "⚖️"
+            },
+            {
+                question: "공정거래와 상생협력을 실천하는 기업을 선호한다",
+                context: "🤲 기업의 공정성 중시",
+                category: "Governance",
+                icon: "⚖️"
+            }
+        ];
+
+        let currentQuestion = 0;
+        let scores = [];
+
+        function updateQuestion() {
+            const questionData = questions[currentQuestion];
+            document.getElementById('questionNumber').textContent = `${currentQuestion + 1}/12`;
+            document.getElementById('questionText').textContent = questionData.question;
+            document.getElementById('questionContext').textContent = questionData.context;
+            document.getElementById('progress').style.width = `${(currentQuestion / 12) * 100}%`;
+            
+            // 카테고리 표시 업데이트
+            document.getElementById('categoryIcon').textContent = questionData.icon;
+            document.getElementById('categoryText').textContent = questionData.category;
+            
+            // 질문 컨테이너 애니메이션 리셋
+            const container = document.getElementById('questionContainer');
+            container.style.animation = 'none';
+            container.offsetHeight; // reflow
+            container.style.animation = 'slideIn 0.5s ease-out';
+        }
+
+        function handleAnswer(score) {
+            scores.push(score);
+            if (currentQuestion < 11) {
+                currentQuestion++;
+                updateQuestion();
+            } else {
+                const totalScore = scores.reduce((a, b) => a + b, 0);
+                window.location.href = `result.html?score=${totalScore}`;
+            }
+        }
+
+        document.querySelectorAll('.answer-btn').forEach((button, index) => {
+            button.addEventListener('click', () => {
+                const scores = [10, 7, 5, 3, 0];
+                handleAnswer(scores[index]);
+            });
+        });
+
+        // 초기 질문 로드
+        updateQuestion();
+    </script>
+</body>
+</html>
