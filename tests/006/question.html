@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 시대 직업 적성 테스트 | Fortune 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes glowing {
+            0%, 100% { 
+                box-shadow: 0 0 5px #3b82f6,
+                           0 0 10px #3b82f6,
+                           0 0 15px #3b82f6;
+            }
+            50% { 
+                box-shadow: 0 0 10px #8b5cf6,
+                           0 0 20px #8b5cf6,
+                           0 0 30px #8b5cf6;
+            }
+        }
+
+        .cyber-gradient {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #d946ef 100%);
+        }
+
+        .category-indicator {
+            animation: glowing 2s infinite;
+        }
+
+        .question-container {
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .progress-bar {
+            transition: width 0.3s ease-in-out;
+        }
+
+        .neon-border {
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            animation: neonBorder 2s ease-in-out infinite;
+        }
+
+        @keyframes neonBorder {
+            0%, 100% { border-color: rgba(139, 92, 246, 0.5); }
+            50% { border-color: rgba(217, 70, 239, 0.8); }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 min-h-screen">
+    <!-- 진행바 -->
+    <div class="fixed top-0 left-0 w-full h-2 bg-gray-800 z-50">
+        <div id="progress" class="progress-bar h-full cyber-gradient" style="width: 0%"></div>
+    </div>
+
+    <!-- 카테고리 표시 -->
+    <div id="categoryBadge" class="category-indicator fixed top-6 right-6 bg-gray-800/80 backdrop-blur-sm px-4 py-2 rounded-full">
+        <span id="categoryIcon" class="text-xl"></span>
+        <span id="categoryText" class="ml-2 font-bold text-purple-300"></span>
+    </div>
+
+    <!-- 질문 컨테이너 -->
+    <div class="min-h-screen flex items-center justify-center px-4 py-20">
+        <div id="questionContainer" class="question-container w-full max-w-2xl">            
+            <div class="bg-gray-800/50 backdrop-blur-sm rounded-3xl p-8 shadow-xl mb-8 neon-border">
+                <h2 id="questionText" class="text-xl md:text-2xl font-bold text-center mb-4 text-purple-300">
+                    질문이 여기에 표시됩니다
+                </h2>
+                <p id="questionContext" class="text-center text-gray-400 text-sm md:text-base">
+                    부가설명이 여기에 표시됩니다
+                </p>
+            </div>
+
+            <!-- 답변 버튼들 -->
+            <div class="space-y-3">
+                <button class="answer-btn w-full p-5 rounded-xl border-2 border-transparent hover:border-purple-500 transition-all duration-300 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                    <div class="flex items-center space-x-3">
+                        <span class="text-xl">✨</span>
+                        <span class="flex-1 text-left">매우 그렇다</span>
+                    </div>
+                </button>
+
+                <button class="answer-btn w-full p-5 rounded-xl border-2 border-transparent hover:border-purple-500 transition-all duration-300 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                    <div class="flex items-center space-x-3">
+                        <span class="text-xl">💫</span>
+                        <span class="flex-1 text-left">그렇다</span>
+                    </div>
+                </button>
+
+                <button class="answer-btn w-full p-5 rounded-xl border-2 border-transparent hover:border-purple-500 transition-all duration-300 bg-gradient-to-r from-pink-600 to-red-600 text-white font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                    <div class="flex items-center space-x-3">
+                        <span class="text-xl">⭐</span>
+                        <span class="flex-1 text-left">보통이다</span>
+                    </div>
+                </button>
+
+                <button class="answer-btn w-full p-5 rounded-xl border-2 border-transparent hover:border-purple-500 transition-all duration-300 bg-gradient-to-r from-red-600 to-orange-600 text-white font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                    <div class="flex items-center space-x-3">
+                        <span class="text-xl">🌟</span>
+                        <span class="flex-1 text-left">아니다</span>
+                    </div>
+                </button>
+
+                <button class="answer-btn w-full p-5 rounded-xl border-2 border-transparent hover:border-purple-500 transition-all duration-300 bg-gradient-to-r from-orange-600 to-yellow-600 text-white font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                    <div class="flex items-center space-x-3">
+                        <span class="text-xl">☀️</span>
+                        <span class="flex-1 text-left">전혀 아니다</span>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 여기에 questions 배열 넣기 (위에서 정의한 내용)
+
+      const questions = [
+    // 기술 친숙도 (1-3)
+    {
+        question: "새로운 디지털 기기나 앱을 사용하는 것이 즐겁다",
+        context: "🤖 기술 적응력 체크",
+        category: "Tech",
+        icon: "💻"
+    },
+    {
+        question: "AI 챗봇과 대화하는 것이 자연스럽다",
+        context: "🗣️ AI 커뮤니케이션 성향",
+        category: "Tech",
+        icon: "💻"
+    },
+    {
+        question: "반복적인 일은 자동화하고 싶다",
+        context: "⚙️ 자동화/효율화 선호도",
+        category: "Tech",
+        icon: "💻"
+    },
+
+    // 창의성/문제해결 (4-6)
+    {
+        question: "AI가 제시한 아이디어를 발전시키는 것이 재미있다",
+        context: "💡 AI 협업 능력",
+        category: "Creative",
+        icon: "🎨"
+    },
+    {
+        question: "정해진 답이 없는 문제를 해결하는 것을 좋아한다",
+        context: "🔍 창의적 문제해결력",
+        category: "Creative",
+        icon: "🎨"
+    },
+    {
+        question: "다양한 분야의 지식을 연결하여 새로운 것을 만들어내는 것이 즐겁다",
+        context: "🌟 융합적 사고력",
+        category: "Creative",
+        icon: "🎨"
+    },
+
+    // 감성/인간관계 (7-9)
+    {
+        question: "다른 사람의 감정을 이해하고 공감하는 것이 자연스럽다",
+        context: "❤️ 감성 지능",
+        category: "Human",
+        icon: "🤝"
+    },
+    {
+        question: "복잡한 상황에서 사람들 간의 갈등을 조정하는 것이 능숙하다",
+        context: "🤗 대인관계 능력",
+        category: "Human",
+        icon: "🤝"
+    },
+    {
+        question: "기술이 발전해도 인간만이 할 수 있는 일이 있다고 믿는다",
+        context: "👥 휴먼 터치 가치관",
+        category: "Human",
+        icon: "🤝"
+    },
+
+    // 적응력/성장성 (10-12)
+    {
+        question: "새로운 기술이 등장할 때마다 빠르게 학습하고 적용한다",
+        context: "📚 학습 민첩성",
+        category: "Growth",
+        icon: "🚀"
+    },
+    {
+        question: "변화하는 환경에 유연하게 대처할 수 있다",
+        context: "🔄 변화 적응력",
+        category: "Growth",
+        icon: "🚀"
+    },
+    {
+        question: "나만의 전문성을 키우기 위해 끊임없이 노력한다",
+        context: "💪 자기 개발 의지",
+        category: "Growth",
+        icon: "🚀"
+    }
+];      
+
+        let currentQuestion = 0;
+        let scores = [];
+
+        function updateQuestion() {
+            const questionData = questions[currentQuestion];
+            document.getElementById('questionText').textContent = questionData.question;
+            document.getElementById('questionContext').textContent = questionData.context;
+            document.getElementById('progress').style.width = `${(currentQuestion / 12) * 100}%`;
+            
+            // 카테고리 표시 업데이트
+            document.getElementById('categoryIcon').textContent = questionData.icon;
+            document.getElementById('categoryText').textContent = questionData.category;
+            
+            // 질문 컨테이너 애니메이션 리셋
+            const container = document.getElementById('questionContainer');
+            container.style.animation = 'none';
+            container.offsetHeight; // reflow
+            container.style.animation = 'slideIn 0.5s ease-out';
+        }
+
+        function handleAnswer(score) {
+            scores.push(score);
+            if (currentQuestion < 11) {
+                currentQuestion++;
+                updateQuestion();
+            } else {
+                const totalScore = scores.reduce((a, b) => a + b, 0);
+                window.location.href = `result.html?score=${totalScore}`;
+            }
+        }
+
+        document.querySelectorAll('.answer-btn').forEach((button, index) => {
+            button.addEventListener('click', () => {
+                const scores = [10, 7, 5, 3, 0];
+                handleAnswer(scores[index]);
+            });
+        });
+
+        // 초기 질문 로드
+        updateQuestion();
+    </script>
+</body>
+</html>
