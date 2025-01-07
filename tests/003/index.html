@@ -4,60 +4,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>당신의 코인 투자 성공률은? | Fortune 2025</title>
-    <meta name="description" content="나의 코인 투자 성공 확률은 얼마나 될까? 12가지 질문으로 알아보는 코인 투자 성공 가능성 테스트">
-    <meta name="keywords" content="코인투자, 투자성공률, 재테크, 투자성향">
-    <!-- Open Graph 메타 태그 -->
-    <meta property="og:title" content="당신의 코인 투자 성공률은?">
-    <meta property="og:description" content="나의 코인 투자 성공 확률은 얼마나 될까?">
+    <meta name="description" content="12가지 질문에 답하고 나의 코인 투자 성공 가능성을 확인해보세요! 투자 성향 분석 및 맞춤 팁 제공. 지금 바로 테스트 시작!">
+    <meta name="keywords" content="코인투자, 투자성공률, 재테크, 투자성향, 테스트">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="당신의 코인 투자 성공률은? | Fortune 2025">
+    <meta property="og:description" content="12가지 질문으로 알아보는 코인 투자 성공 가능성 테스트! 지금 바로 시작하고 나에게 맞는 투자 전략을 찾아보세요.">
     <meta property="og:image" content="crypto-main.jpg">
+    <meta property="og:image:alt" content="코인 투자 성공률 테스트 이미지">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta property="og:url" content="https://coffeemania68.github.io/fortune-2025/tests/003/">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://coffeemania68.github.io/fortune-2025/tests/003/">
     <style>
-   
-        /* 기존 스타일 유지 */
-         body, html {
+        body {
             margin: 0;
             padding: 0;
-            height: 100%;
-            overflow: hidden;
             font-family: 'Noto Sans KR', sans-serif;
-        }
-        
-        .clickable-container {
-            width: 100vw;
-            height: 100vh;
-            cursor: pointer;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            position: relative;
+            min-height: 100vh;
+            overflow: hidden; /* 코인 애니메이션이 넘치지 않도록 설정 */
         }
-        
-        .main-image {
-            width: 100%;
-            height: 100vh;
-            object-fit: contain;
-            max-width: 100%;
-            display: block;
+
+        .clickable-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* 수직 중앙 정렬 */
+            align-items: center; /* 수평 중앙 정렬 */
+            position: relative;
+            background-image: url("crypto-main.jpg"); /* 배경 이미지 설정 */
+            background-size: cover; /* 배경 이미지 크기 조정 */
+            background-position: center; /* 배경 이미지 위치 설정 */
         }
 
         .button-wrapper {
             position: absolute;
-            bottom: 0;
+            bottom: calc(100vh / 3); /* 하단에서 1/3 지점에 위치 */
             left: 50%;
             transform: translateX(-50%);
-            width: 100%;
+            width: 90%; /* 너비 조정 - 필요에 따라 수정 */
             max-width: 500px;
             padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 20px 20px 0 0;
+            z-index: 10;
             display: flex;
             flex-direction: column;
             gap: 15px;
-            z-index: 10; /* 다른 요소 위에 표시 */
-            background: rgba(255, 255, 255, 0.8); /* 반투명 흰색 배경 추가 */
-            border-radius: 20px 20px 0 0; /* 위쪽 모서리 둥글게 */
         }
-        
+
         .start-button, .planner-button {
+            display: block;
             width: 100%;
             padding: 15px;
             border-radius: 25px;
@@ -65,70 +64,76 @@
             text-align: center;
             cursor: pointer;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            margin-bottom: 10px;
         }
 
         .start-button {
-            background-color: #000; /* 검정색 배경 */
+            background-color: #000;
             color: #fff;
             border: none;
         }
 
+        .start-button:hover {
+            background-color: #333;
+        }
+
         .planner-button {
-            background-color: #fff; /* 흰색 배경 */
+            background-color: #fff;
             color: #000;
-            border: 2px solid #000; /* 검정색 테두리 */
-            text-decoration: none;
+            border: 2px solid #000;
         }
 
-         @keyframes pulse {
-            0% { transform: translateX(-50%) scale(1); }
-            50% { transform: translateX(-50%) scale(1.05); }
-            100% { transform: translateX(-50%) scale(1); }
+        .planner-button:hover {
+            background-color: #eee;
         }
 
-        .sr-only {
+        /* 코인 애니메이션 */
+        .coin {
             position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            border: 0;
+            width: 50px; /* 코인 크기 조정 */
+            height: 50px; /* 코인 크기 조정 */
+            background-image: url('coin.png'); /* 코인 이미지 경로 */
+            background-size: contain; /* 코인 이미지 크기 조정 */
+            animation: coin-spin 5s linear infinite;
         }
 
-        @media screen and (max-width: 768px) {
-            .main-image {
-                object-fit: contain;
-                width: 100%;
-                height: auto;
-                position: absolute;
-                top: 50%;
-                transform: translateY(-50%);
+        @keyframes coin-spin {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(50px, 50px) rotate(180deg); }
+           100% { transform: translate(0, 0) rotate(360deg); }
+        }
+
+
+        /* 768px 이하 화면에서의 스타일 */
+        @media (max-width: 768px) {
+            .button-wrapper {
+                bottom: 20vh;
+                width: 90%;
+                padding: 15px;
             }
-            
-            .planner-button {
-                bottom: 40px;
-                padding: 12px 25px;
+            .start-button, .planner-button {
                 font-size: 14px;
+                padding: 12px;
             }
         }
+
     </style>
 </head>
 <body>
-    <h1 class="sr-only">당신의 코인 투자 성공률은?</h1>
-    <div class="clickable-container">
-        <img src="crypto-main.jpg" alt="당신의 코인 투자 성공률은?" class="main-image">
+    <main>
+        <div class="clickable-container">
+          <!-- 코인 추가 (여러 개 추가 가능) -->
+          <div class="coin" style="top: 20px; left: 20px;"></div>
+          <div class="coin" style="top: 100px; left: 150px; animation-delay: 1s;"></div>
+          <div class="coin" style="bottom: 20px; right: 20px; animation-delay: 2s;"></div>
 
-        <!-- 버튼 영역 -->
-        <div class="button-wrapper">
-            <button class="start-button" onclick="location.href='question.html'">
-                테스트 시작하기 →
-            </button>
-            <a href="https://coffeemania68.github.io/share/" class="planner-button" target="_blank" rel="noopener noreferrer">
-                2025 버킷리스트 플래너 받기 ✨
-            </a>
+            <div class="button-wrapper">
+                <a href="question.html" class="start-button">테스트 시작하기 →</a>
+                <a href="https://coffeemania68.github.io/share/" class="planner-button" target="_blank" rel="noopener noreferrer">2025 버킷리스트 플래너 받기 ✨</a>
+            </div>
         </div>
-    </div>
+    </main>
 </body>
 </html>
