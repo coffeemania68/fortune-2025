@@ -6,121 +6,146 @@
     <title>AI 시대 직업 적성 테스트 | Fortune 2025</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
+    @keyframes slideIn {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
         }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
 
-        @keyframes glowing {
-            0%, 100% { 
-                box-shadow: 0 0 5px #3b82f6,
-                           0 0 10px #3b82f6,
-                           0 0 15px #3b82f6;
-            }
-            50% { 
-                box-shadow: 0 0 10px #8b5cf6,
-                           0 0 20px #8b5cf6,
-                           0 0 30px #8b5cf6;
-            }
+    @keyframes glowing {
+        0%, 100% { 
+            box-shadow: 0 0 5px #3b82f6,
+                       0 0 10px #3b82f6,
+                       0 0 15px #3b82f6;
         }
+        50% { 
+            box-shadow: 0 0 10px #8b5cf6,
+                       0 0 20px #8b5cf6,
+                       0 0 30px #8b5cf6;
+        }
+    }
 
-        .cyber-gradient {
-            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #d946ef 100%);
-        }
+    .cyber-gradient {
+        background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #d946ef 100%);
+    }
 
-        .category-indicator {
-            animation: glowing 2s infinite;
-        }
+    .category-indicator {
+        animation: glowing 2s infinite;
+    }
 
-        .question-container {
-            animation: slideIn 0.5s ease-out;
-        }
+    .question-container {
+        animation: slideIn 0.5s ease-out;
+    }
 
-        .progress-bar {
-            transition: width 0.3s ease-in-out;
-        }
+    .progress-bar {
+        transition: width 0.3s ease-in-out;
+    }
 
-        .neon-border {
-            border: 2px solid transparent;
-            background-clip: padding-box;
-            animation: neonBorder 2s ease-in-out infinite;
-        }
+    .neon-border {
+        border: 2px solid transparent;
+        background-clip: padding-box;
+        animation: neonBorder 2s ease-in-out infinite;
+    }
 
-        @keyframes neonBorder {
-            0%, 100% { border-color: rgba(139, 92, 246, 0.5); }
-            50% { border-color: rgba(217, 70, 239, 0.8); }
-        }
-    </style>
+    @keyframes neonBorder {
+        0%, 100% { border-color: rgba(139, 92, 246, 0.5); }
+        50% { border-color: rgba(217, 70, 239, 0.8); }
+    }
+
+    /* 호버 효과 추가 */
+    .answer-btn:hover {
+        transform: translateY(-2px);
+        transition: all 0.3s ease;
+    }
+
+    .answer-btn:active {
+        transform: translateY(0);
+    }
+
+    /* 버튼 클릭 효과 */
+    .answer-btn.selected {
+        transform: scale(0.98);
+        transition: transform 0.2s ease;
+    }
+
+    /* 그라데이션 텍스트 효과 */
+    .gradient-text {
+        background: linear-gradient(to right, #3b82f6, #8b5cf6);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+</style>
 </head>
-<body class="bg-gray-900 min-h-screen">
+<body class="bg-gradient-to-br from-slate-100 to-blue-50 min-h-screen">
     <!-- 진행바 -->
     <div class="fixed top-0 left-0 w-full h-2 bg-gray-800 z-50">
         <div id="progress" class="progress-bar h-full cyber-gradient" style="width: 0%"></div>
     </div>
 
     <!-- 카테고리 표시 -->
-    <div id="categoryBadge" class="category-indicator fixed top-6 right-6 bg-gray-800/80 backdrop-blur-sm px-4 py-2 rounded-full">
-        <span id="categoryIcon" class="text-xl"></span>
-        <span id="categoryText" class="ml-2 font-bold text-purple-300"></span>
-    </div>
+    <div id="categoryBadge" class="category-indicator fixed top-6 right-6 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg">
+            <span id="categoryIcon" class="text-xl"></span>
+            <span id="categoryText" class="ml-2 font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"></span>
+        </div>
 
     <!-- 질문 컨테이너 -->
-    <div class="min-h-screen flex items-center justify-center px-4 py-20">
-        <div id="questionContainer" class="question-container w-full max-w-2xl">            
-            <div class="bg-gray-800/50 backdrop-blur-sm rounded-3xl p-8 shadow-xl mb-8 neon-border">
-                <h2 id="questionText" class="text-xl md:text-2xl font-bold text-center mb-4 text-purple-300">
-                    질문이 여기에 표시됩니다
-                </h2>
-                <p id="questionContext" class="text-center text-gray-400 text-sm md:text-base">
-                    부가설명이 여기에 표시됩니다
-                </p>
+   <div class="min-h-screen flex items-center justify-center px-4 py-20">
+    <div id="questionContainer" class="question-container w-full max-w-2xl">            
+        <div class="bg-white/90 backdrop-blur-sm rounded-3xl p-8 shadow-xl mb-8 neon-border">
+            <h2 id="questionText" class="text-xl md:text-2xl font-bold text-center mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                질문이 여기에 표시됩니다
+            </h2>
+            <p id="questionContext" class="text-center text-gray-600 text-sm md:text-base">
+                부가설명이 여기에 표시됩니다
+            </p>
             </div>
 
             <!-- 답변 버튼들 -->
-            <div class="space-y-3">
-                <button class="answer-btn w-full p-5 rounded-xl border-2 border-transparent hover:border-purple-500 transition-all duration-300 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                    <div class="flex items-center space-x-3">
-                        <span class="text-xl">✨</span>
-                        <span class="flex-1 text-left">매우 그렇다</span>
-                    </div>
-                </button>
+                    <div class="space-y-3">
+            <button class="answer-btn w-full p-5 rounded-xl border-2 border-transparent hover:border-purple-500 transition-all duration-300 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 text-white font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                <div class="flex items-center space-x-3">
+                    <span class="text-xl">✨</span>
+                    <span class="flex-1 text-left">매우 그렇다</span>
+                </div>
+            </button>
 
-                <button class="answer-btn w-full p-5 rounded-xl border-2 border-transparent hover:border-purple-500 transition-all duration-300 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                    <div class="flex items-center space-x-3">
-                        <span class="text-xl">💫</span>
-                        <span class="flex-1 text-left">그렇다</span>
-                    </div>
-                </button>
+            <!-- 나머지 버튼들도 비슷한 밝은 톤의 그라데이션으로 수정 -->
+            <button class="answer-btn w-full p-5 rounded-xl border-2 border-transparent hover:border-purple-500 transition-all duration-300 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                <div class="flex items-center space-x-3">
+                    <span class="text-xl">💫</span>
+                    <span class="flex-1 text-left">그렇다</span>
+                </div>
+            </button>
 
-                <button class="answer-btn w-full p-5 rounded-xl border-2 border-transparent hover:border-purple-500 transition-all duration-300 bg-gradient-to-r from-pink-600 to-red-600 text-white font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                    <div class="flex items-center space-x-3">
-                        <span class="text-xl">⭐</span>
-                        <span class="flex-1 text-left">보통이다</span>
-                    </div>
-                </button>
+            <button class="answer-btn w-full p-5 rounded-xl border-2 border-transparent hover:border-purple-500 transition-all duration-300 bg-gradient-to-r from-purple-500 via-pink-500 to-rose-500 text-white font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                <div class="flex items-center space-x-3">
+                    <span class="text-xl">⭐</span>
+                    <span class="flex-1 text-left">보통이다</span>
+                </div>
+            </button>
 
-                <button class="answer-btn w-full p-5 rounded-xl border-2 border-transparent hover:border-purple-500 transition-all duration-300 bg-gradient-to-r from-red-600 to-orange-600 text-white font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                    <div class="flex items-center space-x-3">
-                        <span class="text-xl">🌟</span>
-                        <span class="flex-1 text-left">아니다</span>
-                    </div>
-                </button>
+            <button class="answer-btn w-full p-5 rounded-xl border-2 border-transparent hover:border-purple-500 transition-all duration-300 bg-gradient-to-r from-pink-500 via-rose-500 to-orange-500 text-white font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                <div class="flex items-center space-x-3">
+                    <span class="text-xl">🌟</span>
+                    <span class="flex-1 text-left">아니다</span>
+                </div>
+            </button>
 
-                <button class="answer-btn w-full p-5 rounded-xl border-2 border-transparent hover:border-purple-500 transition-all duration-300 bg-gradient-to-r from-orange-600 to-yellow-600 text-white font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                    <div class="flex items-center space-x-3">
-                        <span class="text-xl">☀️</span>
-                        <span class="flex-1 text-left">전혀 아니다</span>
-                    </div>
-                </button>
-            </div>
+            <button class="answer-btn w-full p-5 rounded-xl border-2 border-transparent hover:border-purple-500 transition-all duration-300 bg-gradient-to-r from-rose-500 via-orange-500 to-amber-500 text-white font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                <div class="flex items-center space-x-3">
+                    <span class="text-xl">☀️</span>
+                    <span class="flex-1 text-left">전혀 아니다</span>
+                </div>
+            </button>
         </div>
     </div>
+</div>
 
     <script>
         // 여기에 questions 배열 넣기 (위에서 정의한 내용)
