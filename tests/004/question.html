@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MZ세대 트렌드 공감지수 테스트 | Fortune 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .progress-bar {
+            transition: width 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- 진행바 -->
+    <div class="fixed top-0 left-0 w-full h-2 bg-gray-200">
+        <div id="progress" class="progress-bar h-full bg-gradient-to-r from-purple-500 to-pink-500" style="width: 0%"></div>
+    </div>
+
+    <div class="container mx-auto px-4 py-8 max-w-2xl">
+        <!-- 질문 컨테이너 -->
+        <div id="questionContainer" class="mt-8">
+            <div class="text-center mb-8">
+                <span class="text-sm text-gray-500" id="questionNumber">1/12</span>
+            </div>
+            
+            <h2 id="questionText" class="text-xl md:text-2xl font-bold text-center mb-8">
+                질문이 여기에 표시됩니다
+            </h2>
+
+            <!-- 답변 버튼들 -->
+            <div class="space-y-4">
+                <button class="w-full p-4 text-left rounded-lg border border-gray-200 hover:bg-purple-50 transition duration-300 answer-btn">
+                    매우 그렇다
+                </button>
+                <button class="w-full p-4 text-left rounded-lg border border-gray-200 hover:bg-purple-50 transition duration-300 answer-btn">
+                    그렇다
+                </button>
+                <button class="w-full p-4 text-left rounded-lg border border-gray-200 hover:bg-purple-50 transition duration-300 answer-btn">
+                    보통이다
+                </button>
+                <button class="w-full p-4 text-left rounded-lg border border-gray-200 hover:bg-purple-50 transition duration-300 answer-btn">
+                    아니다
+                </button>
+                <button class="w-full p-4 text-left rounded-lg border border-gray-200 hover:bg-purple-50 transition duration-300 answer-btn">
+                    전혀 아니다
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "인스타/틱톡에서 본 '챌린지'에 참여한 적이 있다",
+                context: "✨ 댄스챌린지, 밈챌린지 등"
+            },
+            {
+                question: "'급만실'이나 '갠소하'같은 줄임말을 자주 쓴다",
+                context: "💬 MZ세대 줄임말 트렌드"
+            },
+            {
+                question: "숏폼 콘텐츠(릴스/쇼츠)를 하루 1시간 이상 본다",
+                context: "📱 숏폼 시청 습관"
+            },
+            {
+                question: "새로운 제품은 '오픈런'해서 구매한 경험이 있다",
+                context: "🏃‍♂️ 한정판 구매 경험"
+            },
+            {
+                question: "구독 경제 서비스를 3개 이상 이용중이다",
+                context: "💳 OTT, 음악, 식품 등"
+            },
+            {
+                question: "'MBTI'는 상대방과의 대화 필수 요소다",
+                context: "🤝 성격 유형 커뮤니케이션"
+            },
+            {
+                question: "일상을 기록하는 브이로그를 찍어본 적 있다",
+                context: "🎥 콘텐츠 제작 경험"
+            },
+            {
+                question: "'플렉스'는 자연스러운 문화라고 생각한다",
+                context: "💅 소비 문화 인식"
+            },
+            {
+                question: "'픽미/픽폴' 투표에 자주 참여한다",
+                context: "📊 SNS 참여도"
+            },
+            {
+                question: "다양한 페르소나로 SNS 계정을 운영해본 적 있다",
+                context: "🎭 멀티 페르소나"
+            },
+            {
+                question: "새로운 밈/드립을 빠르게 캐치하고 사용한다",
+                context: "🎯 트렌드 민감도"
+            },
+            {
+                question: "중고거래는 당근마켓이 기본이다",
+                context: "🥕 MZ플랫폼 활용도"
+            }
+        ];
+
+        let currentQuestion = 0;
+        let scores = [];
+
+        function updateQuestion() {
+            const questionData = questions[currentQuestion];
+            document.getElementById('questionNumber').textContent = `${currentQuestion + 1}/12`;
+            document.getElementById('questionText').innerHTML = 
+                `${questionData.question}<br><span class="text-sm text-gray-500">${questionData.context}</span>`;
+            document.getElementById('progress').style.width = `${(currentQuestion / 12) * 100}%`;
+        }
+
+        function handleAnswer(score) {
+            scores.push(score);
+            if (currentQuestion < 11) {
+                currentQuestion++;
+                updateQuestion();
+            } else {
+                const totalScore = scores.reduce((a, b) => a + b, 0);
+                window.location.href = `result.html?score=${totalScore}`;
+            }
+        }
+
+        document.querySelectorAll('.answer-btn').forEach((button, index) => {
+            button.addEventListener('click', () => {
+                const scores = [10, 7, 5, 3, 0];
+                handleAnswer(scores[index]);
+            });
+        });
+
+        // 초기 질문 로드
+        updateQuestion();
+    </script>
+</body>
+</html>
