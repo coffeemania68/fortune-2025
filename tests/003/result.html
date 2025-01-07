@@ -1,1 +1,217 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        .gradient-text {
+            background: linear-gradient(45deg, #059669, #10B981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .result-card {
+            animation: fadeIn 1s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .button-hover {
+            transition: all 0.3s ease;
+        }
+        .button-hover:hover {
+            transform: translateY(-2px);
+        }
+        .planner-button {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-green-50 to-emerald-50 min-h-screen pb-32">
+    <div class="max-w-lg mx-auto px-4 py-8">
+        <!-- 결과 카드 -->
+        <div class="result-card bg-white rounded-2xl shadow-lg p-6 mb-8">
+            <h1 class="text-2xl font-bold text-center gradient-text mb-4 result-title"></h1>
+            <p class="text-lg text-center text-green-800 mb-6 result-subtitle"></p>
 
+            <!-- 달성 확률 표시 -->
+            <div class="flex justify-center items-center mb-8">
+                <div class="w-32 h-32 rounded-full border-8 border-green-200 flex items-center justify-center">
+                    <span class="text-3xl font-bold text-green-600 success-rate"></span>
+                </div>
+            </div>
+
+            <!-- 차트 이미지 -->
+            <div class="flex justify-center mb-8">
+                <img src="" alt="" class="chart-image w-full max-w-sm rounded-lg shadow-md">
+            </div>
+
+            <!-- 키워드 섹션 -->
+            <div class="flex flex-wrap justify-center gap-2 mb-6 keywords"></div>
+
+            <!-- 결과 설명 -->
+            <div class="bg-green-50 rounded-xl p-6 mb-6">
+                <h3 class="font-bold text-green-800 mb-3">💫 당신의 투자 스타일</h3>
+                <p class="text-green-700 mb-4 description"></p>
+                <h3 class="font-bold text-green-800 mb-3">✨ 성공을 위한 조언</h3>
+                <p class="text-green-700 advice"></p>
+            </div>
+
+            <!-- CTA 섹션 -->
+            <div class="bg-green-50 rounded-xl p-4 mb-6">
+                <h3 class="font-bold text-green-800 mb-3">✨ 투자 성공률 높이기</h3>
+                <div class="space-y-2 text-green-900">
+                    <p>📈 예상 수익률: <span class="blur-sm">비공개</span></p>
+                    <p>💪 매매 성공률: <span class="blur-sm">비공개</span></p>
+                    <p>🎯 손실 방어율: <span class="blur-sm">비공개</span></p>
+                </div>
+                
+                <button onclick="showFullAnalysis()" 
+                        class="w-full mt-4 py-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 animate-pulse">
+                    상세 분석 결과 보기 (무료)
+                </button>
+            </div>
+
+            <!-- 버킷리스트 플래너 추천 -->
+            <div class="bg-gradient-to-r from-green-100 to-emerald-100 rounded-xl p-6 mb-6">
+                <h3 class="font-bold text-green-800 mb-2">🎯 추천 도구</h3>
+                <p class="text-green-700 mb-4">목표 달성을 위한 무료 플래너를 받아보세요!</p>
+                <a href="https://coffeemania68.github.io/share/" 
+                   target="_blank" 
+                   rel="noopener noreferrer"
+                   class="planner-button block w-full py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl font-bold text-center shadow-lg hover:shadow-xl transition-all duration-300">
+                    2025 버킷리스트 플래너 받기 ✨
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 고정된 하단 버튼 -->
+    <div class="fixed bottom-0 left-0 right-0 bg-white shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]">
+        <div class="max-w-lg mx-auto p-4 grid grid-cols-2 gap-3">
+            <button onclick="location.href='./'" class="button-hover w-full py-3 px-6 bg-green-500 text-white rounded-full font-medium shadow-md hover:bg-green-600">
+                다시 테스트하기
+            </button>
+            <button onclick="location.href='../../'" class="button-hover w-full py-3 px-6 bg-gray-100 text-gray-700 rounded-full font-medium hover:bg-gray-200">
+                다른 테스트 하기
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const results = [
+            {
+                title: "목표 달성 확률 95%",
+                subtitle: "비트코인 좀 하시는군요! 👑",
+                successRate: "95%",
+                chartImage: "chart-up-strong.png",
+                keywords: ["차트의 신", "존버의 왕", "수익실현"],
+                description: "당신은 코인 투자의 진정한 고수입니다. 차트 분석과 매매 타이밍이 정확하며, 감정에 휘둘리지 않는 멘탈의 소유자입니다.",
+                advice: "지금처럼만 하세요. 다만 과욕은 금물입니다. 정기적인 수익실현과 리스크 관리를 잊지 마세요."
+            },
+            {
+                title: "목표 달성 확률 85%",
+                subtitle: "문어보다 낫네요 🐙",
+                successRate: "85%",
+                chartImage: "chart-up.png",
+                keywords: ["냉철한 판단", "리스크 관리", "전략적"],
+                description: "시장을 냉철하게 분석하고 리스크를 적절히 관리하는 능력이 있습니다. 감정적 매매보다는 전략적 접근을 하는 편입니다.",
+                advice: "기술적 분석과 함께 펀더멘탈 분석도 병행하면 더 좋은 결과를 얻을 수 있습니다."
+            },
+            {
+                title: "목표 달성 확률 75%",
+                subtitle: "김치프리미엄급 실력이에요 🔥",
+                successRate: "75%",
+                chartImage: "chart-neutral-up.png",
+                keywords: ["안정적", "신중함", "꾸준함"],
+                description: "투자에 대한 기본기가 잘 갖춰져 있습니다. 신중한 접근과 안정적인 투자 스타일이 장점이지만, 때로는 기회를 놓칠 수 있습니다.",
+                advice: "더 높은 수익을 위해 과감한 결정이 필요한 순간도 있습니다. 리스크 관리 하에 조금 더 적극적인 투자를 고려해보세요."
+            },
+            {
+                title: "목표 달성 확률 65%",
+                subtitle: "HODL만 외치지 말고 공부하세요 📚",
+                successRate: "65%",
+                chartImage: "chart-neutral.png",
+                keywords: ["잠재력", "학습중", "발전가능"],
+                description: "기본적인 투자 지식은 있지만, 아직 실전 경험이 부족합니다. 하지만 학습 의지가 강해 발전 가능성이 높습니다.",
+                advice: "더 많은 투자 공부와 실전 경험이 필요합니다. 소액으로 시작해 점진적으로 투자금을 늘려가는 것이 좋습니다."
+            },
+            {
+                title: "목표 달성 확률 55%",
+                subtitle: "코인은 가상, 손실은 현실... 😱",
+                successRate: "55%",
+                chartImage: "chart-down.png",
+                keywords: ["위험감수", "도전적", "열정적"],
+                description: "투자에 대한 열정은 높지만, 감정적인 판단이 많습니다. 위험 관리 없이 높은 수익만을 쫓는 경향이 있습니다.",
+                advice: "투자 전 철저한 분석과 리스크 관리가 필요합니다. 감정적인 매매를 줄이고 투자 원칙을 세워보세요."
+            },
+            {
+                title: "목표 달성 확률 45%",
+                subtitle: "로또 당첨 확률이 더 높을지도... 🎲",
+                successRate: "45%",
+                chartImage: "chart-down-strong.png",
+                keywords: ["초보자", "충동적", "위험"],
+                description: "투자보다는 투기에 가까운 행동을 보입니다. 충동적인 매매가 많고, 손실 관리가 되지 않는 상태입니다.",
+                advice: "투자 공부부터 시작하세요. 기본적인 차트 분석과 리스크 관리 방법을 배우고 시작하는 것을 추천합니다."
+            }
+        ];
+
+        function getResultIndex() {
+            const params = new URLSearchParams(window.location.search);
+            const result = parseInt(params.get('result'));
+            return isNaN(result) ? 0 : result;
+        }
+
+        function displayResult() {
+            const resultIndex = getResultIndex();
+            const result = results[resultIndex];
+
+            document.querySelector('.result-title').textContent = result.title;
+            document.querySelector('.result-subtitle').textContent = result.subtitle;
+            document.querySelector('.success-rate').textContent = result.successRate;
+            document.querySelector('.chart-image').src = result.chartImage;
+            
+            const keywordHtml = result.keywords.map(keyword => 
+                `<span class="px-4 py-2 bg-green-100 text-green-800 rounded-full text-sm">${keyword}</span>`
+            ).join('');
+            document.querySelector('.keywords').innerHTML = keywordHtml;
+
+            document.querySelector('.description').textContent = result.description;
+            document.querySelector('.advice').textContent = result.advice;
+        }
+
+        function showFullAnalysis() {
+            // 현재 창에서 광고 페이지로 이동
+            window.location.href = '광고URL';
+            
+            // 블러 효과 제거 및 내용 표시
+            document.querySelectorAll('.blur-sm').forEach(el => {
+                el.classList.remove('blur-sm');
+                
+                const parentText = el.parentElement.textContent.trim();
+                if (parentText.startsWith('📈')) {
+                    el.textContent = '매수타이밍 포착률 85%';
+                } else if (parentText.startsWith('💪')) {
+                    el.textContent = '존버력 만렙';
+                } else if (parentText.startsWith('🎯')) {
+                    el.textContent = '고래되기 가능';
+                }
+            });
+
+            // 버튼 숨기기
+            document.querySelector('button[onclick="showFullAnalysis()"]').style.display = 'none';
+        }
+
+        window.onload = displayResult;
+    </script>
+</body>
+</html>
