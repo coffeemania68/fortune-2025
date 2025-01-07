@@ -190,27 +190,23 @@
         }
 
         function showFullAnalysis() {
-            // 현재 창에서 광고 페이지로 이동
-            window.location.href = '광고URL';
-            
-            // 블러 효과 제거 및 내용 표시
-            document.querySelectorAll('.blur-sm').forEach(el => {
-                el.classList.remove('blur-sm');
-                
-                const parentText = el.parentElement.textContent.trim();
-                if (parentText.startsWith('📈')) {
-                    el.textContent = '매수타이밍 포착률 85%';
-                } else if (parentText.startsWith('💪')) {
-                    el.textContent = '존버력 만렙';
-                } else if (parentText.startsWith('🎯')) {
-                    el.textContent = '고래되기 가능';
-                }
-            });
-
-            // 버튼 숨기기
-            document.querySelector('button[onclick="showFullAnalysis()"]').style.display = 'none';
+    // 블러 효과 제거 및 내용 표시
+    document.querySelectorAll('.blur-sm').forEach(el => {
+        el.classList.remove('blur-sm');
+        
+        const parentText = el.parentElement.textContent.trim();
+        if (parentText.startsWith('📈')) {
+            el.textContent = '매수타이밍 포착률 85%';
+        } else if (parentText.startsWith('💪')) {
+            el.textContent = '존버력 만렙';
+        } else if (parentText.startsWith('🎯')) {
+            el.textContent = '고래되기 가능';
         }
+    });
 
+    // 버튼 숨기기
+    document.querySelector('button[onclick="showFullAnalysis()"]').style.display = 'none';
+}
         window.onload = displayResult;
     </script>
 </body>
