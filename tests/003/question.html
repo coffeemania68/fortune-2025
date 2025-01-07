@@ -6,7 +6,6 @@
     <title>코인 투자 성공률 테스트</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* 커스텀 애니메이션이나 추가 스타일이 필요한 경우 */
         .fade-in {
             animation: fadeIn 0.5s ease-in;
         }
@@ -19,47 +18,37 @@
 <body class="bg-gradient-to-b from-amber-100 to-amber-50 min-h-screen">
     <!-- 진행 상태바 -->
     <div class="fixed top-0 left-0 w-full h-2 bg-gray-200">
-        <div class="h-full bg-amber-500 transition-all duration-300" style="width: 10%"></div>
+        <div class="progress-bar h-full bg-amber-500 transition-all duration-300" style="width: 8.33%"></div>
     </div>
 
     <!-- 메인 컨테이너 -->
-    <div class="container mx-auto px-4 py-8 mb-24"> <!-- mb-24로 하단 여백 확보 -->
+    <div class="container mx-auto px-4 py-8 mb-24">
         <!-- 질문 카드 -->
         <div class="max-w-lg mx-auto bg-white rounded-xl shadow-lg p-6 mt-16 fade-in">
-            <h2 class="text-2xl font-bold text-center mb-8 text-gray-800">
-                갑자기 코인 가격이 30% 폭락했다.<br>
+            <h2 class="text-xl md:text-2xl font-bold text-center mb-8 text-gray-800 whitespace-pre-line leading-relaxed question-text">
+                갑자기 코인 가격이 30% 폭락했다.
                 당신의 선택은?
             </h2>
 
             <!-- 답변 버튼들 -->
             <div class="space-y-4">
-                <button class="w-full p-4 text-left rounded-lg border-2 border-amber-200 hover:bg-amber-50 hover:border-amber-400 transition-all duration-300">
+                <button class="answer-button w-full p-4 text-left rounded-lg border-2 border-amber-200 hover:bg-amber-50 hover:border-amber-400 transition-all duration-300">
                     😤 추가 매수한다
                 </button>
-                <button class="w-full p-4 text-left rounded-lg border-2 border-amber-200 hover:bg-amber-50 hover:border-amber-400 transition-all duration-300">
+                <button class="answer-button w-full p-4 text-left rounded-lg border-2 border-amber-200 hover:bg-amber-50 hover:border-amber-400 transition-all duration-300">
                     😌 홀딩한다
                 </button>
-                <button class="w-full p-4 text-left rounded-lg border-2 border-amber-200 hover:bg-amber-50 hover:border-amber-400 transition-all duration-300">
+                <button class="answer-button w-full p-4 text-left rounded-lg border-2 border-amber-200 hover:bg-amber-50 hover:border-amber-400 transition-all duration-300">
                     😰 손절한다
                 </button>
-                <button class="w-full p-4 text-left rounded-lg border-2 border-amber-200 hover:bg-amber-50 hover:border-amber-400 transition-all duration-300">
+                <button class="answer-button w-full p-4 text-left rounded-lg border-2 border-amber-200 hover:bg-amber-50 hover:border-amber-400 transition-all duration-300">
                     🤯 패닉상태에 빠진다
                 </button>
             </div>
         </div>
 
-        <!-- 하단 코인 아이콘 장식 -->
-        <div class="fixed bottom-20 left-0 w-full overflow-hidden pointer-events-none">
-            <div class="flex justify-around">
-                <img src="bitcoin-icon.png" alt="" class="w-12 h-12 opacity-20">
-                <img src="ethereum-icon.png" alt="" class="w-12 h-12 opacity-20">
-                <img src="bitcoin-icon.png" alt="" class="w-12 h-12 opacity-20">
-            </div>
-        </div>
-
         <!-- 광고를 위한 하단 여백 -->
         <div class="fixed bottom-0 left-0 w-full h-20 bg-white/80 backdrop-blur-sm">
-            <!-- 광고가 들어갈 공간 -->
             <div class="h-full flex items-center justify-center text-gray-400">
                 광고 영역
             </div>
@@ -67,8 +56,162 @@
     </div>
 
     <!-- 상단 좌측 진행 상태 -->
-    <div class="fixed top-4 left-4 bg-white/80 backdrop-blur-sm rounded-full px-4 py-2 text-sm font-bold text-amber-600">
+    <div class="fixed top-4 left-4 bg-white/80 backdrop-blur-sm rounded-full px-4 py-2 text-sm font-bold text-amber-600 question-number">
         1/12
     </div>
+
+    <script>
+        // 질문 데이터
+        const questions = [
+    {
+        question: "갑자기 코인 가격이 30% 폭락했다.\n당신의 선택은?",
+        answers: [
+            "😤 추가 매수한다",
+            "😌 홀딩한다",
+            "😰 손절한다",
+            "🤯 패닉상태에 빠진다"
+        ]
+    },
+    {
+        question: "투자금이 2배가 되었다.\n당신의 행동은?",
+        answers: [
+            "💰 전액 현금화한다",
+            "🤔 절반만 현금화한다",
+            "✋ 계속 홀딩한다",
+            "🔄 추가 매수한다"
+        ]
+    },
+    {
+        question: "코인 투자 실패로 손실이 났다.\n당신의 생각은?",
+        answers: [
+            "📚 더 공부해서 다시 도전한다",
+            "💡 적은 금액으로 재도전한다",
+            "🚫 다시는 코인투자 안한다",
+            "😱 대출해서라도 본전을 찾는다"
+        ]
+    },
+    {
+        question: "새로운 코인이 상장된다.\n당신의 선택은?",
+        answers: [
+            "🚀 상장 즉시 매수한다",
+            "📊 차트 분석 후 매수한다",
+            "👀 며칠간 지켜본다",
+            "😶 관심없다"
+        ]
+    },
+    {
+        question: "당신의 코인 투자 경험은?",
+        answers: [
+            "🏆 1년 이상",
+            "🎯 6개월~1년",
+            "🌱 1~6개월",
+            "🆕 없음"
+        ]
+    },
+    {
+        question: "투자 전 어떤 분석을 하나요?",
+        answers: [
+            "🔍 기술적 분석과 펀더멘탈 모두",
+            "📈 기술적 분석 위주",
+            "📰 뉴스와 커뮤니티 반응",
+            "👥 친구/지인 추천"
+        ]
+    },
+    {
+        question: "투자금 관리는 어떻게 하나요?",
+        answers: [
+            "🎯 분산 투자한다",
+            "💎 주요 코인만 투자한다",
+            "🎲 하나의 코인에 올인한다",
+            "🤔 생각나면 투자한다"
+        ]
+    },
+    {
+        question: "코인 차트를 볼 때\n가장 중요하게 보는 것은?",
+        answers: [
+            "📊 이동평균선과 보조지표",
+            "📈 거래량",
+            "🕯️ 캔들 모양",
+            "❓ 차트를 잘 모른다"
+        ]
+    },
+    {
+        question: "투자할 때 당신의 성격은?",
+        answers: [
+            "🧊 차분하고 이성적이다",
+            "😌 대체로 침착하다",
+            "😅 가끔 감정적이 된다",
+            "😫 매우 감정적이다"
+        ]
+    },
+    {
+        question: "코인 가격을 확인하는 빈도는?",
+        answers: [
+            "📱 하루 1-2번",
+            "🕒 시간 날 때마다",
+            "⏰ 30분마다",
+            "👀 계속 확인한다"
+        ]
+    },
+    {
+        question: "투자 실패의 주된 원인이\n무엇이라고 생각하나요?",
+        answers: [
+            "📚 시장 분석 부족",
+            "😔 감정적 대응",
+            "🎲 운이 없어서",
+            "❓ 모르겠다"
+        ]
+    },
+    {
+        question: "당신의 투자 목표는?",
+        answers: [
+            "🌱 장기 자산 증식",
+            "📈 중기 수익 실현",
+            "💰 단기 시세차익",
+            "🎯 대박을 노린다"
+        ]
+    }
+];
+
+        let currentQuestion = 0;
+        const totalQuestions = questions.length;
+
+        // 질문 표시 함수
+        function showQuestion(index) {
+            const question = questions[index];
+            document.querySelector('.question-text').textContent = question.question;
+            
+            const buttons = document.querySelectorAll('.answer-button');
+            buttons.forEach((button, i) => {
+                button.textContent = question.answers[i];
+            });
+        }
+
+        // 다음 질문으로 이동
+        function nextQuestion() {
+            if (currentQuestion < totalQuestions - 1) {
+                currentQuestion++;
+                // 진행바 업데이트
+                document.querySelector('.progress-bar').style.width = 
+                    `${((currentQuestion + 1)/totalQuestions) * 100}%`;
+                // 질문 번호 업데이트
+                document.querySelector('.question-number').textContent = 
+                    `${currentQuestion + 1}/${totalQuestions}`;
+                // 다음 질문 표시
+                showQuestion(currentQuestion);
+            } else {
+                // 결과 페이지로 이동
+                window.location.href = 'result.html';
+            }
+        }
+
+        // 버튼 클릭 이벤트
+        document.querySelectorAll('.answer-button').forEach(button => {
+            button.addEventListener('click', nextQuestion);
+        });
+
+        // 초기 질문 표시
+        showQuestion(0);
+    </script>
 </body>
 </html>
