@@ -12,7 +12,9 @@
     <meta property="og:image" content="crypto-main.jpg">
     <meta property="og:url" content="https://coffeemania68.github.io/fortune-2025/tests/003/">
     <style>
-        body, html {
+   
+        /* 기존 스타일 유지 */
+         body, html {
             margin: 0;
             padding: 0;
             height: 100%;
@@ -39,25 +41,46 @@
             display: block;
         }
 
-        .planner-button {
-            position: fixed;
-            bottom: 20px;
+        .button-wrapper {
+            position: absolute;
+            bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            background: linear-gradient(45deg, #FFD700, #FFA500);
-            color: white;
-            padding: 15px 30px;
+            width: 100%;
+            max-width: 500px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 10; /* 다른 요소 위에 표시 */
+            background: rgba(255, 255, 255, 0.8); /* 반투명 흰색 배경 추가 */
+            border-radius: 20px 20px 0 0; /* 위쪽 모서리 둥글게 */
+        }
+        
+        .start-button, .planner-button {
+            width: 100%;
+            padding: 15px;
             border-radius: 25px;
-            text-decoration: none;
             font-weight: bold;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            animation: pulse 2s infinite;
-            z-index: 10;
             text-align: center;
-            min-width: 200px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
-        @keyframes pulse {
+        .start-button {
+            background-color: #000; /* 검정색 배경 */
+            color: #fff;
+            border: none;
+        }
+
+        .planner-button {
+            background-color: #fff; /* 흰색 배경 */
+            color: #000;
+            border: 2px solid #000; /* 검정색 테두리 */
+            text-decoration: none;
+        }
+
+         @keyframes pulse {
             0% { transform: translateX(-50%) scale(1); }
             50% { transform: translateX(-50%) scale(1.05); }
             100% { transform: translateX(-50%) scale(1); }
@@ -94,11 +117,18 @@
 </head>
 <body>
     <h1 class="sr-only">당신의 코인 투자 성공률은?</h1>
-    <div class="clickable-container" onclick="location.href='question.html'">
+    <div class="clickable-container">
         <img src="crypto-main.jpg" alt="당신의 코인 투자 성공률은?" class="main-image">
+
+        <!-- 버튼 영역 -->
+        <div class="button-wrapper">
+            <button class="start-button" onclick="location.href='question.html'">
+                테스트 시작하기 →
+            </button>
+            <a href="https://coffeemania68.github.io/share/" class="planner-button" target="_blank" rel="noopener noreferrer">
+                2025 버킷리스트 플래너 받기 ✨
+            </a>
+        </div>
     </div>
-    <a href="https://coffeemania68.github.io/share/" class="planner-button" target="_blank" rel="noopener noreferrer">
-        2025 버킷리스트 플래너 받기 ✨
-    </a>
 </body>
 </html>
