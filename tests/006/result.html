@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 시대 직업 적성 테스트 결과 | Fortune 2025</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        .result-card {
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .radar-chart {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+        }
+
+        .radar-chart canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .analysis-text {
+            font-weight: 700;
+            background: linear-gradient(to right, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .cyber-gradient {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #d946ef 100%);
+        }
+
+        .neon-border {
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            animation: neonBorder 2s ease-in-out infinite;
+        }
+
+        @keyframes neonBorder {
+            0%, 100% { border-color: rgba(139, 92, 246, 0.5); }
+            50% { border-color: rgba(217, 70, 239, 0.8); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-100 to-blue-50 min-h-screen pb-32">
+    <div class="max-w-lg mx-auto px-4 py-8">
+        <!-- 결과 카드 -->
+        <div class="result-card bg-white rounded-2xl shadow-lg p-6 mb-8">
+            <h1 class="text-2xl font-bold text-center mb-4 result-title bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"></h1>
+            <p class="text-lg text-center text-gray-600 mb-6 result-subtitle"></p>
+
+            <!-- 키워드 섹션 -->
+            <div class="flex flex-wrap justify-center gap-2 mb-6 keywords"></div>
+
+            <!-- 결과 설명 -->
+            <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-6 mb-6">
+                <h3 class="font-bold text-blue-800 mb-3">💫 당신의 AI 시대 적성</h3>
+                <p class="text-gray-700 mb-4 description"></p>
+                <h3 class="font-bold text-blue-800 mb-3">✨ 성장을 위한 조언</h3>
+                <p class="text-gray-700 advice"></p>
+            </div>
+
+            <!-- 상세 분석 섹션 -->
+            <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-4 mb-6">
+                <h3 class="font-bold mb-3 analysis-text">✨ 상세 역량 분석</h3>
+                <div class="space-y-2 text-gray-700">
+                    <p>💻 기술 친숙도: <span class="blur-sm">비공개</span></p>
+                    <p>🎨 창의성 지수: <span class="blur-sm">비공개</span></p>
+                    <p>🤝 인간관계 능력: <span class="blur-sm">비공개</span></p>
+                    <p>🚀 성장 가능성: <span class="blur-sm">비공개</span></p>
+                </div>
+                
+                <button onclick="showFullAnalysis()" 
+                        class="w-full mt-4 py-4 cyber-gradient text-white rounded-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 animate-pulse">
+                    상세 분석 결과 보기 (무료)
+                </button>
+
+                <!-- 레이더 차트가 여기에 표시됩니다 -->
+                <div id="radarChart" class="radar-chart mt-6 hidden"></div>
+            </div>
+
+            <!-- 추천 도구 -->
+            <div class="bg-gradient-to-r from-blue-100 to-purple-100 rounded-xl p-6 mb-6">
+                <h3 class="font-bold text-blue-800 mb-2">🎯 추천 도구</h3>
+                <p class="text-gray-700 mb-4">AI 시대 경력 개발을 위한 무료 플래너를 받아보세요!</p>
+                <a href="https://coffeemania68.github.io/share/" 
+                   target="_blank" 
+                   rel="noopener noreferrer"
+                   class="block w-full py-3 cyber-gradient text-white rounded-xl font-bold text-center shadow-lg hover:shadow-xl transition-all duration-300">
+                    2025 버킷리스트 플래너 받기 ✨
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 고정된 하단 버튼 -->
+    <div class="fixed bottom-0 left-0 right-0 bg-white shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]">
+        <div class="max-w-lg mx-auto p-4 grid grid-cols-2 gap-3">
+            <button onclick="location.href='https://coffeemania68.github.io/fortune-2025/tests/006/'" 
+                    class="button-hover w-full py-3 px-6 cyber-gradient text-white rounded-full font-medium shadow-md hover:opacity-90">
+                다시 테스트하기
+            </button>
+            <button onclick="location.href='https://coffeemania68.github.io/fortune-2025/'" 
+                    class="button-hover w-full py-3 px-6 bg-gray-100 text-gray-700 rounded-full font-medium hover:bg-gray-200">
+                다른 테스트 하기
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // results 배열은 이전에 정의한 내용 그대로 사용
+      
+     const results = [
+    {
+        title: "AI 크리에이티브 디렉터",
+        subtitle: "AI와 인간의 창의성을 연결하는 브릿지메이커 🎨",
+        successRate: "95%",
+        chartImage: "https://blog.kakaocdn.net/dn/bAymPL/btsLFhWZnAq/jFQgneAkWRhVYvrEGKDYmk/img.jpg",
+        keywords: ["창의성", "기술이해력", "프로젝트관리"],
+        description: "당신은 AI 기술을 활용해 창의적인 결과물을 만들어내는 능력이 뛰어납니다. AI의 기술적 가능성과 인간의 직관을 완벽하게 조화시키는 능력을 가졌네요.",
+        advice: "✨ AI 아트, 생성형 AI 등 최신 창작 도구들을 지속적으로 실험해보세요!",
+        scores: {
+            tech: 90,
+            creative: 95,
+            human: 85,
+            growth: 90
+        }
+    },
+    {
+        title: "AI 윤리 전문가",
+        subtitle: "기술과 인간의 균형을 지키는 가디언 ⚖️",
+        successRate: "85%",
+        chartImage: "https://blog.kakaocdn.net/dn/meEa1/btsLFExCUzR/QBJXO6n2HuIWf3ppdKEA60/img.webp",
+        keywords: ["윤리의식", "분석력", "문제해결"],
+        description: "AI 기술의 발전과 인간 가치의 공존을 추구하는 당신! 기술의 영향력을 이해하고, 올바른 방향을 제시하는 능력이 돋보입니다.",
+        advice: "💫 AI 윤리 가이드라인과 관련 법규에 대한 지속적인 학습을 추천합니다.",
+        scores: {
+            tech: 85,
+            creative: 80,
+            human: 95,
+            growth: 85
+        }
+    },
+    {
+        title: "AI 서비스 디자이너",
+        subtitle: "인간 중심의 AI 경험을 설계하는 아키텍트 🎯",
+        successRate: "75%",
+        chartImage: "https://blog.kakaocdn.net/dn/cLZls9/btsLFZ9jsjs/zK0nbtJ5LlaxfChjVOIZo0/img.jpg",
+        keywords: ["사용자경험", "서비스기획", "소통능력"],
+        description: "AI 기술을 인간 친화적인 서비스로 구현하는 능력이 뛰어납니다. 복잡한 기술을 누구나 쉽게 사용할 수 있도록 만드는 재능이 있네요.",
+        advice: "🌟 다양한 AI 서비스를 경험하고 사용자 관점에서 개선점을 연구해보세요.",
+        scores: {
+            tech: 80,
+            creative: 85,
+            human: 90,
+            growth: 75
+        }
+    },
+    {
+        title: "AI 비즈니스 전략가",
+        subtitle: "AI 시대의 새로운 기회를 포착하는 선구자 🚀",
+        successRate: "65%",
+        chartImage: "https://blog.kakaocdn.net/dn/bbyl6h/btsLGdMPbmt/W9fsg5DKqfbNDG8k3ESYVK/img.jpg",
+        keywords: ["전략수립", "시장분석", "혁신성"],
+        description: "AI 기술이 만드는 새로운 비즈니스 기회를 발견하는 안목이 있습니다. 기술 트렌드를 비즈니스에 접목시키는 능력이 뛰어나네요.",
+        advice: "💡 AI 산업 동향과 성공적인 비즈니스 케이스 스터디를 해보세요.",
+        scores: {
+            tech: 75,
+            creative: 70,
+            human: 80,
+            growth: 85
+        }
+    },
+    {
+        title: "AI 교육 퍼실리테이터",
+        subtitle: "AI 시대의 인재를 육성하는 안내자 📚",
+        successRate: "55%",
+        chartImage: "https://blog.kakaocdn.net/dn/dgzo1m/btsLHmoUquy/LKYBjnYvqyyXNuSAGbukck/img.png",
+        keywords: ["교육설계", "지식전달", "협력촉진"],
+        description: "AI 기술을 다른 사람들이 쉽게 이해하고 활용할 수 있도록 돕는 능력이 있습니다. 복잡한 개념을 쉽게 설명하는 재능이 돋보이네요.",
+        advice: "🎓 AI 관련 교육 콘텐츠를 만들어보고, 다양한 교육 방법론을 연구해보세요.",
+        scores: {
+            tech: 70,
+            creative: 75,
+            human: 85,
+            growth: 70
+        }
+    }
+];
+        function drawRadarChart(scores) {
+            const ctx = document.createElement('canvas');
+            ctx.width = 300;
+            ctx.height = 300;
+            document.getElementById('radarChart').appendChild(ctx);
+
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['Tech', 'Creative', 'Human', 'Growth'],
+                    datasets: [{
+                        data: [scores.tech, scores.creative, scores.human, scores.growth],
+                        backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                        borderColor: '#3b82f6',
+                        borderWidth: 2,
+                        pointBackgroundColor: '#3b82f6'
+                    }]
+                },
+                options: {
+                    scales: {
+                        r: {
+                            min: 0,
+                            max: 100,
+                            ticks: {
+                                stepSize: 20
+                            },
+                            grid: {
+                                color: 'rgba(59, 130, 246, 0.1)'
+                            },
+                            angleLines: {
+                                color: 'rgba(59, 130, 246, 0.1)'
+                            },
+                            pointLabels: {
+                                color: '#3b82f6',
+                                font: {
+                                    weight: 'bold'
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        }
+
+        function showFullAnalysis() {
+            document.querySelectorAll('.blur-sm').forEach(el => {
+                el.classList.remove('blur-sm');
+                
+                const parentText = el.parentElement.textContent.trim();
+                if (parentText.startsWith('💻')) {
+                    el.textContent = '뛰어난 적응력';
+                } else if (parentText.startsWith('🎨')) {
+                    el.textContent = '높은 창의성';
+                } else if (parentText.startsWith('🤝')) {
+                    el.textContent = '탁월한 공감능력';
+                } else if (parentText.startsWith('🚀')) {
+                    el.textContent = '무한한 가능성';
+                }
+            });
+
+            document.getElementById('radarChart').classList.remove('hidden');
+            const result = results[getResultIndex()];
+            drawRadarChart(result.scores);
+
+            const button = document.querySelector('button[onclick="showFullAnalysis()"]');
+            button.textContent = '분석 완료! 🎉';
+            button.classList.remove('animate-pulse');
+            button.classList.add('from-green-600', 'to-blue-600');
+            button.onclick = null;
+        }
+
+        function displayResult() {
+            const resultIndex = getResultIndex();
+            const result = results[resultIndex];
+
+            document.querySelector('.result-title').textContent = result.title;
+            document.querySelector('.result-subtitle').textContent = result.subtitle;
+            
+            const keywordHtml = result.keywords.map(keyword => 
+                `<span class="px-4 py-2 bg-gradient-to-r from-blue-100 to-purple-100 text-blue-800 rounded-full text-sm font-medium">${keyword}</span>`
+            ).join('');
+            document.querySelector('.keywords').innerHTML = keywordHtml;
+
+            document.querySelector('.description').textContent = result.description;
+            document.querySelector('.advice').textContent = result.advice;
+        }
+
+        function getResultIndex() {
+            const params = new URLSearchParams(window.location.search);
+            const score = parseInt(params.get('score'));
+            
+            if (score >= 90) return 0;
+            if (score >= 70) return 1;
+            if (score >= 50) return 2;
+            if (score >= 30) return 3;
+            return 4;
+        }
+
+        window.onload = displayResult;
+    </script>
+</body>
+</html>
