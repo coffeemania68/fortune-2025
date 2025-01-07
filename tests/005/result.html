@@ -4,83 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ESG 가치관 테스트 결과 | Fortune 2025</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<style>
-    .result-card {
-        animation: fadeIn 1s ease-out;
-    }
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        .result-card {
+            animation: fadeIn 1s ease-out;
+        }
 
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-    /* 레이더 차트를 위한 스타일 추가 */
-    .radar-chart {
-        position: relative;
-        width: 300px;
-        height: 300px;
-        margin: 0 auto;
-    }
+        .radar-chart {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+        }
 
-    .radar-chart canvas {
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
+        .radar-chart canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
 
-    .analysis-text {
-        font-weight: 700;
-        color: #065f46;
-    }
-</style>
+        .analysis-text {
+            font-weight: 700;
+            color: #065f46;
+        }
+    </style>
 </head>
 <body class="bg-gradient-to-br from-green-50 to-teal-50 min-h-screen pb-32">
+    <!-- 진행바 -->
+    <div class="fixed top-0 left-0 w-full h-2 bg-gray-200 z-50">
+        <div id="progress" class="progress-bar h-full bg-gradient-to-r from-green-500 to-teal-500" style="width: 100%"></div>
+    </div>
+
     <div class="max-w-lg mx-auto px-4 py-8">
         <!-- 결과 카드 -->
         <div class="result-card bg-white rounded-2xl shadow-lg p-6 mb-8">
             <h1 class="text-2xl font-bold text-center text-green-800 mb-4 result-title"></h1>
             <p class="text-lg text-center text-green-600 mb-6 result-subtitle"></p>
-
-            <!-- 기존 원형 차트 대신 들어갈 레이더 차트 스타일 -->
-<style>
-    .radar-chart {
-        position: relative;
-        width: 300px;
-        height: 300px;
-        margin: 0 auto;
-    }
-
-    .radar-chart canvas {
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
-
-    .analysis-text {
-        font-weight: 700;  /* 상세 분석 텍스트 더 진하게 */
-        color: #065f46;    /* 진한 녹색으로 강조 */
-    }
-</style>
-
-<!-- 상세 분석 섹션 수정 -->
-<div class="bg-gradient-to-r from-green-50 to-teal-50 rounded-xl p-4 mb-6">
-    <h3 class="font-bold text-green-800 mb-3 analysis-text">✨ 상세 ESG 분석</h3>
-    <div class="space-y-2 text-green-900">
-        <p>🌱 환경 실천력: <span class="blur-sm">비공개</span></p>
-        <p>🤝 사회 공헌도: <span class="blur-sm">비공개</span></p>
-        <p>⚖️ 윤리 의식도: <span class="blur-sm">비공개</span></p>
-    </div>
-    
-    <button onclick="showFullAnalysis()" 
-            class="w-full mt-4 py-4 bg-gradient-to-r from-green-500 to-teal-500 text-white rounded-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 animate-pulse">
-        상세 분석 결과 보기 (무료)
-    </button>
-
-    <!-- 레이더 차트가 여기에 표시됩니다 -->
-    <div id="radarChart" class="radar-chart mt-6 hidden"></div>
-</div>
 
             <!-- 키워드 섹션 -->
             <div class="flex flex-wrap justify-center gap-2 mb-6 keywords"></div>
@@ -95,7 +61,7 @@
 
             <!-- 상세 분석 섹션 -->
             <div class="bg-gradient-to-r from-green-50 to-teal-50 rounded-xl p-4 mb-6">
-                <h3 class="font-bold text-green-800 mb-3">✨ 상세 ESG 분석</h3>
+                <h3 class="font-bold text-green-800 mb-3 analysis-text">✨ 상세 ESG 분석</h3>
                 <div class="space-y-2 text-green-900">
                     <p>🌱 환경 실천력: <span class="blur-sm">비공개</span></p>
                     <p>🤝 사회 공헌도: <span class="blur-sm">비공개</span></p>
@@ -106,6 +72,9 @@
                         class="w-full mt-4 py-4 bg-gradient-to-r from-green-500 to-teal-500 text-white rounded-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 animate-pulse">
                     상세 분석 결과 보기 (무료)
                 </button>
+
+                <!-- 레이더 차트가 여기에 표시됩니다 -->
+                <div id="radarChart" class="radar-chart mt-6 hidden"></div>
             </div>
 
             <!-- 플래너 추천 -->
@@ -137,145 +106,141 @@
     </div>
 
     <script>
-        // results 배열은 이전 코드와 동일
-      // 먼저 결과 데이터를 보여드리겠습니다. 전체 코드는 이어서 공유하겠습니다.
-
-const results = [
-    {
-        title: "ESG 리더",
-        subtitle: "미래를 이끄는 지속가능한 라이프스타일의 선구자 🌟",
-        successRate: "95%",
-        chartImage: "https://blog.kakaocdn.net/dn/bAymPL/btsLFhWZnAq/jFQgneAkWRhVYvrEGKDYmk/img.jpg",
-        keywords: ["지속가능성", "친환경", "사회책임"],
-        description: "당신은 환경, 사회, 윤리경영의 가치를 깊이 이해하고 실천하는 진정한 ESG 리더입니다. 일상의 작은 선택부터 투자 결정까지, ESG 가치관이 자연스럽게 반영되고 있네요.",
-        advice: "✨ 더 많은 사람들에게 ESG의 중요성을 알리고, 긍정적인 변화를 이끌어보세요!",
-        scores: {
-            environmental: 95,
-            social: 92,
-            governance: 90
-        }
-    },
-    {
-        title: "ESG 프랙티셔너",
-        subtitle: "지속가능한 미래를 실천하는 당신 🌱",
-        successRate: "85%",
-        chartImage: "https://blog.kakaocdn.net/dn/meEa1/btsLFExCUzR/QBJXO6n2HuIWf3ppdKEA60/img.webp",
-        keywords: ["실천가", "변화주도", "가치소비"],
-        description: "ESG의 가치를 이해하고 실천하려 노력하는 당신! 환경보호와 사회적 가치를 중요하게 생각하며, 윤리적 소비를 실천하고 있습니다.",
-        advice: "💫 당신의 실천이 세상을 변화시키고 있어요. 더 나은 미래를 위해 한 걸음씩 나아가세요!",
-        scores: {
-            environmental: 85,
-            social: 80,
-            governance: 75
-        }
-    },
-    {
-        title: "ESG 러너",
-        subtitle: "지속가능한 미래를 향해 달리는 중 🏃‍♂️",
-        successRate: "65%",
-        chartImage: "https://blog.kakaocdn.net/dn/cLZls9/btsLFZ9jsjs/zK0nbtJ5LlaxfChjVOIZo0/img.jpg",
-        keywords: ["성장중", "관심증가", "발전가능"],
-        description: "ESG의 중요성을 인식하고 실천하려 노력하는 단계입니다. 환경과 사회적 가치에 대한 관심은 있지만, 실천이 아직 완벽하지 않네요.",
-        advice: "🌱 작은 실천부터 시작해보세요. 예를 들어 텀블러 사용이나 분리수거부터!",
-        scores: {
-            environmental: 70,
-            social: 65,
-            governance: 60
-        }
-    },
-    {
-        title: "ESG 비기너",
-        subtitle: "이제 막 ESG의 가치를 발견하기 시작했네요 📚",
-        successRate: "45%",
-        chartImage: "https://blog.kakaocdn.net/dn/bbyl6h/btsLGdMPbmt/W9fsg5DKqfbNDG8k3ESYVK/img.jpg",
-        keywords: ["초보자", "인식단계", "준비중"],
-        description: "ESG라는 개념은 알지만, 아직 실천으로 옮기기는 어려운 상태입니다. 하지만 관심을 가지기 시작했다는 것만으로도 훌륭해요!",
-        advice: "💡 ESG는 어려운 것이 아니에요. 오늘부터 일회용품 줄이기 같은 쉬운 것부터 시작해볼까요?",
-        scores: {
-            environmental: 50,
-            social: 45,
-            governance: 40
-        }
-    },
-    {
-        title: "ESG 옵저버",
-        subtitle: "지속가능성을 새롭게 발견하는 중 👀",
-        successRate: "25%",
-        chartImage: "https://blog.kakaocdn.net/dn/dgzo1m/btsLHmoUquy/LKYBjnYvqyyXNuSAGbukck/img.png",
-        keywords: ["관찰자", "인식전단계", "잠재력"],
-        description: "아직 ESG가 생소하게 느껴지시나요? 괜찮아요! ESG는 우리 모두가 함께 배우고 성장해야 할 가치니까요.",
-        advice: "👋 먼저 주변의 환경문제나 사회문제에 관심을 가져보는 것은 어떨까요?",
-        scores: {
-            environmental: 30,
-            social: 25,
-            governance: 20
-        }
-    }
-];
-
-function drawRadarChart(scores) {
-    const ctx = document.createElement('canvas');
-    ctx.width = 300;
-    ctx.height = 300;
-    document.getElementById('radarChart').appendChild(ctx);
-
-    new Chart(ctx, {
-        type: 'radar',
-        data: {
-            labels: ['Environmental', 'Social', 'Governance'],
-            datasets: [{
-                data: [scores.environmental, scores.social, scores.governance],
-                backgroundColor: 'rgba(4, 120, 87, 0.2)',
-                borderColor: '#047857',
-                borderWidth: 2,
-                pointBackgroundColor: '#047857'
-            }]
-        },
-        options: {
-            scales: {
-                r: {
-                    min: 0,
-                    max: 100,
-                    ticks: {
-                        stepSize: 20
-                    }
+        const results = [
+            {
+                title: "ESG 리더",
+                subtitle: "미래를 이끄는 지속가능한 라이프스타일의 선구자 🌟",
+                successRate: "95%",
+                chartImage: "https://blog.kakaocdn.net/dn/bAymPL/btsLFhWZnAq/jFQgneAkWRhVYvrEGKDYmk/img.jpg",
+                keywords: ["지속가능성", "친환경", "사회책임"],
+                description: "당신은 환경, 사회, 윤리경영의 가치를 깊이 이해하고 실천하는 진정한 ESG 리더입니다. 일상의 작은 선택부터 투자 결정까지, ESG 가치관이 자연스럽게 반영되고 있네요.",
+                advice: "✨ 더 많은 사람들에게 ESG의 중요성을 알리고, 긍정적인 변화를 이끌어보세요!",
+                scores: {
+                    environmental: 95,
+                    social: 92,
+                    governance: 90
                 }
             },
-            plugins: {
-                legend: {
-                    display: false
+            {
+                title: "ESG 프랙티셔너",
+                subtitle: "지속가능한 미래를 실천하는 당신 🌱",
+                successRate: "85%",
+                chartImage: "https://blog.kakaocdn.net/dn/meEa1/btsLFExCUzR/QBJXO6n2HuIWf3ppdKEA60/img.webp",
+                keywords: ["실천가", "변화주도", "가치소비"],
+                description: "ESG의 가치를 이해하고 실천하려 노력하는 당신! 환경보호와 사회적 가치를 중요하게 생각하며, 윤리적 소비를 실천하고 있습니다.",
+                advice: "💫 당신의 실천이 세상을 변화시키고 있어요. 더 나은 미래를 위해 한 걸음씩 나아가세요!",
+                scores: {
+                    environmental: 85,
+                    social: 80,
+                    governance: 75
+                }
+            },
+            {
+                title: "ESG 러너",
+                subtitle: "지속가능한 미래를 향해 달리는 중 🏃‍♂️",
+                successRate: "65%",
+                chartImage: "https://blog.kakaocdn.net/dn/cLZls9/btsLFZ9jsjs/zK0nbtJ5LlaxfChjVOIZo0/img.jpg",
+                keywords: ["성장중", "관심증가", "발전가능"],
+                description: "ESG의 중요성을 인식하고 실천하려 노력하는 단계입니다. 환경과 사회적 가치에 대한 관심은 있지만, 실천이 아직 완벽하지 않네요.",
+                advice: "🌱 작은 실천부터 시작해보세요. 예를 들어 텀블러 사용이나 분리수거부터!",
+                scores: {
+                    environmental: 70,
+                    social: 65,
+                    governance: 60
+                }
+            },
+            {
+                title: "ESG 비기너",
+                subtitle: "이제 막 ESG의 가치를 발견하기 시작했네요 📚",
+                successRate: "45%",
+                chartImage: "https://blog.kakaocdn.net/dn/bbyl6h/btsLGdMPbmt/W9fsg5DKqfbNDG8k3ESYVK/img.jpg",
+                keywords: ["초보자", "인식단계", "준비중"],
+                description: "ESG라는 개념은 알지만, 아직 실천으로 옮기기는 어려운 상태입니다. 하지만 관심을 가지기 시작했다는 것만으로도 훌륭해요!",
+                advice: "💡 ESG는 어려운 것이 아니에요. 오늘부터 일회용품 줄이기 같은 쉬운 것부터 시작해볼까요?",
+                scores: {
+                    environmental: 50,
+                    social: 45,
+                    governance: 40
+                }
+            },
+            {
+                title: "ESG 옵저버",
+                subtitle: "지속가능성을 새롭게 발견하는 중 👀",
+                successRate: "25%",
+                chartImage: "https://blog.kakaocdn.net/dn/dgzo1m/btsLHmoUquy/LKYBjnYvqyyXNuSAGbukck/img.png",
+                keywords: ["관찰자", "인식전단계", "잠재력"],
+                description: "아직 ESG가 생소하게 느껴지시나요? 괜찮아요! ESG는 우리 모두가 함께 배우고 성장해야 할 가치니까요.",
+                advice: "👋 먼저 주변의 환경문제나 사회문제에 관심을 가져보는 것은 어떨까요?",
+                scores: {
+                    environmental: 30,
+                    social: 25,
+                    governance: 20
                 }
             }
+        ];
+
+        function drawRadarChart(scores) {
+            const ctx = document.createElement('canvas');
+            ctx.width = 300;
+            ctx.height = 300;
+            document.getElementById('radarChart').appendChild(ctx);
+
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['Environmental', 'Social', 'Governance'],
+                    datasets: [{
+                        data: [scores.environmental, scores.social, scores.governance],
+                        backgroundColor: 'rgba(4, 120, 87, 0.2)',
+                        borderColor: '#047857',
+                        borderWidth: 2,
+                        pointBackgroundColor: '#047857'
+                    }]
+                },
+                options: {
+                    scales: {
+                        r: {
+                            min: 0,
+                            max: 100,
+                            ticks: {
+                                stepSize: 20
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
         }
-    });
-}
 
-// showFullAnalysis 함수 수정
-function showFullAnalysis() {
-    document.querySelectorAll('.blur-sm').forEach(el => {
-        el.classList.remove('blur-sm');
-        
-        const parentText = el.parentElement.textContent.trim();
-        if (parentText.startsWith('🌱')) {
-            el.textContent = '탄소중립 실천가';
-        } else if (parentText.startsWith('🤝')) {
-            el.textContent = '사회적 가치 창출자';
-        } else if (parentText.startsWith('⚖️')) {
-            el.textContent = '윤리경영 지지자';
+        function showFullAnalysis() {
+            document.querySelectorAll('.blur-sm').forEach(el => {
+                el.classList.remove('blur-sm');
+                
+                const parentText = el.parentElement.textContent.trim();
+                if (parentText.startsWith('🌱')) {
+                    el.textContent = '탄소중립 실천가';
+                } else if (parentText.startsWith('🤝')) {
+                    el.textContent = '사회적 가치 창출자';
+                } else if (parentText.startsWith('⚖️')) {
+                    el.textContent = '윤리경영 지지자';
+                }
+            });
+
+            // 레이더 차트 표시
+            document.getElementById('radarChart').classList.remove('hidden');
+            const result = results[getResultIndex()];
+            drawRadarChart(result.scores);
+
+            const button = document.querySelector('button[onclick="showFullAnalysis()"]');
+            button.textContent = '분석 완료! 🎉';
+            button.classList.remove('animate-pulse');
+            button.classList.add('bg-gradient-to-r', 'from-green-600', 'to-teal-600');
+            button.onclick = null;
         }
-    });
-
-    // 레이더 차트 표시
-    document.getElementById('radarChart').classList.remove('hidden');
-    const result = results[getResultIndex()];
-    drawRadarChart(result.scores);
-
-    const button = document.querySelector('button[onclick="showFullAnalysis()"]');
-    button.textContent = '분석 완료! 🎉';
-    button.classList.remove('animate-pulse');
-    button.classList.add('bg-gradient-to-r', 'from-green-600', 'to-teal-600');
-    button.onclick = null;
-}
 
         function displayResult() {
             const resultIndex = getResultIndex();
@@ -283,11 +248,6 @@ function showFullAnalysis() {
 
             document.querySelector('.result-title').textContent = result.title;
             document.querySelector('.result-subtitle').textContent = result.subtitle;
-            
-            // ESG 점수 설정
-            setProgress('environmental-progress', result.scores.environmental);
-            setProgress('social-progress', result.scores.social);
-            setProgress('governance-progress', result.scores.governance);
             
             const keywordHtml = result.keywords.map(keyword => 
                 `<span class="px-4 py-2 bg-gradient-to-r from-green-100 to-teal-100 text-green-800 rounded-full text-sm font-medium">${keyword}</span>`
