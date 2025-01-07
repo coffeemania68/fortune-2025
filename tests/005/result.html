@@ -5,47 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ESG 가치관 테스트 결과 | Fortune 2025</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        .circle-progress {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            background: #f3f4f6;
-        }
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+    .result-card {
+        animation: fadeIn 1s ease-out;
+    }
 
-        .circle-progress::before {
-            content: '';
-            position: absolute;
-            width: 110px;
-            height: 110px;
-            border-radius: 50%;
-            background: white;
-        }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
 
-        .progress-value {
-            position: relative;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #059669;
-        }
+    /* 레이더 차트를 위한 스타일 추가 */
+    .radar-chart {
+        position: relative;
+        width: 300px;
+        height: 300px;
+        margin: 0 auto;
+    }
 
-        .progress-ring {
-            transform: rotate(-90deg);
-        }
+    .radar-chart canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
 
-        .result-card {
-            animation: fadeIn 1s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
+    .analysis-text {
+        font-weight: 700;
+        color: #065f46;
+    }
+</style>
 </head>
 <body class="bg-gradient-to-br from-green-50 to-teal-50 min-h-screen pb-32">
     <div class="max-w-lg mx-auto px-4 py-8">
@@ -54,39 +43,44 @@
             <h1 class="text-2xl font-bold text-center text-green-800 mb-4 result-title"></h1>
             <p class="text-lg text-center text-green-600 mb-6 result-subtitle"></p>
 
-            <!-- ESG 점수 원형 차트 -->
-            <div class="grid grid-cols-3 gap-4 mb-8">
-                <div class="text-center">
-                    <div class="circle-progress mx-auto" id="environmental-progress">
-                        <svg class="progress-ring" width="120" height="120">
-                            <circle class="progress-ring-circle" stroke="#059669" stroke-width="6" fill="transparent" r="52" cx="60" cy="60"/>
-                        </svg>
-                        <span class="progress-value">0%</span>
-                    </div>
-                    <p class="mt-2 font-medium text-green-800">Environmental</p>
-                    <p class="text-sm text-gray-600">환경</p>
-                </div>
-                <div class="text-center">
-                    <div class="circle-progress mx-auto" id="social-progress">
-                        <svg class="progress-ring" width="120" height="120">
-                            <circle class="progress-ring-circle" stroke="#0d9488" stroke-width="6" fill="transparent" r="52" cx="60" cy="60"/>
-                        </svg>
-                        <span class="progress-value">0%</span>
-                    </div>
-                    <p class="mt-2 font-medium text-green-800">Social</p>
-                    <p class="text-sm text-gray-600">사회</p>
-                </div>
-                <div class="text-center">
-                    <div class="circle-progress mx-auto" id="governance-progress">
-                        <svg class="progress-ring" width="120" height="120">
-                            <circle class="progress-ring-circle" stroke="#0891b2" stroke-width="6" fill="transparent" r="52" cx="60" cy="60"/>
-                        </svg>
-                        <span class="progress-value">0%</span>
-                    </div>
-                    <p class="mt-2 font-medium text-green-800">Governance</p>
-                    <p class="text-sm text-gray-600">지배구조</p>
-                </div>
-            </div>
+            <!-- 기존 원형 차트 대신 들어갈 레이더 차트 스타일 -->
+<style>
+    .radar-chart {
+        position: relative;
+        width: 300px;
+        height: 300px;
+        margin: 0 auto;
+    }
+
+    .radar-chart canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .analysis-text {
+        font-weight: 700;  /* 상세 분석 텍스트 더 진하게 */
+        color: #065f46;    /* 진한 녹색으로 강조 */
+    }
+</style>
+
+<!-- 상세 분석 섹션 수정 -->
+<div class="bg-gradient-to-r from-green-50 to-teal-50 rounded-xl p-4 mb-6">
+    <h3 class="font-bold text-green-800 mb-3 analysis-text">✨ 상세 ESG 분석</h3>
+    <div class="space-y-2 text-green-900">
+        <p>🌱 환경 실천력: <span class="blur-sm">비공개</span></p>
+        <p>🤝 사회 공헌도: <span class="blur-sm">비공개</span></p>
+        <p>⚖️ 윤리 의식도: <span class="blur-sm">비공개</span></p>
+    </div>
+    
+    <button onclick="showFullAnalysis()" 
+            class="w-full mt-4 py-4 bg-gradient-to-r from-green-500 to-teal-500 text-white rounded-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 animate-pulse">
+        상세 분석 결과 보기 (무료)
+    </button>
+
+    <!-- 레이더 차트가 여기에 표시됩니다 -->
+    <div id="radarChart" class="radar-chart mt-6 hidden"></div>
+</div>
 
             <!-- 키워드 섹션 -->
             <div class="flex flex-wrap justify-center gap-2 mb-6 keywords"></div>
@@ -219,53 +213,69 @@ const results = [
     }
 ];
 
-        function setProgress(elementId, percentage) {
-            const circle = document.querySelector(`#${elementId} circle`);
-            const value = document.querySelector(`#${elementId} .progress-value`);
-            const radius = circle.r.baseVal.value;
-            const circumference = radius * 2 * Math.PI;
-            
-            circle.style.strokeDasharray = `${circumference} ${circumference}`;
-            circle.style.strokeDashoffset = circumference;
+function drawRadarChart(scores) {
+    const ctx = document.createElement('canvas');
+    ctx.width = 300;
+    ctx.height = 300;
+    document.getElementById('radarChart').appendChild(ctx);
 
-            const offset = circumference - (percentage / 100) * circumference;
-            circle.style.strokeDashoffset = offset;
-            
-            // 숫자 카운트 업 애니메이션
-            let current = 0;
-            const duration = 1000; // 1초
-            const step = percentage / (duration / 16);
-            
-            const timer = setInterval(() => {
-                current += step;
-                if (current > percentage) {
-                    current = percentage;
-                    clearInterval(timer);
+    new Chart(ctx, {
+        type: 'radar',
+        data: {
+            labels: ['Environmental', 'Social', 'Governance'],
+            datasets: [{
+                data: [scores.environmental, scores.social, scores.governance],
+                backgroundColor: 'rgba(4, 120, 87, 0.2)',
+                borderColor: '#047857',
+                borderWidth: 2,
+                pointBackgroundColor: '#047857'
+            }]
+        },
+        options: {
+            scales: {
+                r: {
+                    min: 0,
+                    max: 100,
+                    ticks: {
+                        stepSize: 20
+                    }
                 }
-                value.textContent = `${Math.round(current)}%`;
-            }, 16);
-        }
-
-        function showFullAnalysis() {
-            document.querySelectorAll('.blur-sm').forEach(el => {
-                el.classList.remove('blur-sm');
-                
-                const parentText = el.parentElement.textContent.trim();
-                if (parentText.startsWith('🌱')) {
-                    el.textContent = '탄소중립 실천가';
-                } else if (parentText.startsWith('🤝')) {
-                    el.textContent = '사회적 가치 창출자';
-                } else if (parentText.startsWith('⚖️')) {
-                    el.textContent = '윤리경영 지지자';
+            },
+            plugins: {
+                legend: {
+                    display: false
                 }
-            });
-
-            const button = document.querySelector('button[onclick="showFullAnalysis()"]');
-            button.textContent = '분석 완료! 🎉';
-            button.classList.remove('animate-pulse');
-            button.classList.add('bg-gradient-to-r', 'from-green-600', 'to-teal-600');
-            button.onclick = null;
+            }
         }
+    });
+}
+
+// showFullAnalysis 함수 수정
+function showFullAnalysis() {
+    document.querySelectorAll('.blur-sm').forEach(el => {
+        el.classList.remove('blur-sm');
+        
+        const parentText = el.parentElement.textContent.trim();
+        if (parentText.startsWith('🌱')) {
+            el.textContent = '탄소중립 실천가';
+        } else if (parentText.startsWith('🤝')) {
+            el.textContent = '사회적 가치 창출자';
+        } else if (parentText.startsWith('⚖️')) {
+            el.textContent = '윤리경영 지지자';
+        }
+    });
+
+    // 레이더 차트 표시
+    document.getElementById('radarChart').classList.remove('hidden');
+    const result = results[getResultIndex()];
+    drawRadarChart(result.scores);
+
+    const button = document.querySelector('button[onclick="showFullAnalysis()"]');
+    button.textContent = '분석 완료! 🎉';
+    button.classList.remove('animate-pulse');
+    button.classList.add('bg-gradient-to-r', 'from-green-600', 'to-teal-600');
+    button.onclick = null;
+}
 
         function displayResult() {
             const resultIndex = getResultIndex();
