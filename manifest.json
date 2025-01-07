@@ -1,0 +1,20 @@
+{
+    "name": "TestLab",
+    "short_name": "TestLab",
+    "icons": [
+        {
+            "src": "https://blog.kakaocdn.net/dn/bEDDn7/btsLFzQORov/Nm9jS9siEMIaD7nLJdmLU1/img.jpg",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "https://blog.kakaocdn.net/dn/bEDDn7/btsLFzQORov/Nm9jS9siEMIaD7nLJdmLU1/img.jpg",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#87CEEB",
+    "theme_color": "#87CEEB"
+}
