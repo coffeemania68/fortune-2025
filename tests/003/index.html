@@ -1,1 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>당신의 코인 투자 성공률은? | Fortune 2025</title>
+    <meta name="description" content="나의 코인 투자 성공 확률은 얼마나 될까? 12가지 질문으로 알아보는 코인 투자 성공 가능성 테스트">
+    <meta name="keywords" content="코인투자, 투자성공률, 재테크, 투자성향">
+    <!-- Open Graph 메타 태그 -->
+    <meta property="og:title" content="당신의 코인 투자 성공률은?">
+    <meta property="og:description" content="나의 코인 투자 성공 확률은 얼마나 될까?">
+    <meta property="og:image" content="crypto-main.jpg">
+    <meta property="og:url" content="https://coffeemania68.github.io/fortune-2025/tests/003/">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        
+        .clickable-container {
+            width: 100vw;
+            height: 100vh;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        
+        .main-image {
+            width: 100%;
+            height: 100vh;
+            object-fit: contain;
+            max-width: 100%;
+            display: block;
+        }
 
+        .planner-button {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            animation: pulse 2s infinite;
+            z-index: 10;
+            text-align: center;
+            min-width: 200px;
+        }
+
+        @keyframes pulse {
+            0% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.05); }
+            100% { transform: translateX(-50%) scale(1); }
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
+        @media screen and (max-width: 768px) {
+            .main-image {
+                object-fit: contain;
+                width: 100%;
+                height: auto;
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+            
+            .planner-button {
+                bottom: 40px;
+                padding: 12px 25px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1 class="sr-only">당신의 코인 투자 성공률은?</h1>
+    <div class="clickable-container" onclick="location.href='question.html'">
+        <img src="crypto-main.jpg" alt="당신의 코인 투자 성공률은?" class="main-image">
+    </div>
+    <a href="https://coffeemania68.github.io/share/" class="planner-button" target="_blank" rel="noopener noreferrer">
+        2025 버킷리스트 플래너 받기 ✨
+    </a>
+</body>
+</html>
