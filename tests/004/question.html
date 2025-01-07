@@ -44,126 +44,199 @@
     </div>
 
     <div class="container mx-auto px-4 py-8 max-w-2xl">
-        <!-- 질문 컨테이너 -->
-        <div id="questionContainer" class="mt-8 animate-fade-in">
-            <div class="text-center mb-8">
-                <span class="inline-block px-4 py-2 rounded-full bg-white shadow-lg text-purple-600 font-bold animate-bounce-slow" id="questionNumber">1/12</span>
-            </div>
-            
-            <div class="bg-white rounded-2xl p-6 shadow-lg mb-8 transform hover:scale-102 transition duration-300">
-                <h2 id="questionText" class="text-xl md:text-2xl font-bold text-center mb-4 text-gray-800">
-                    질문이 여기에 표시됩니다
-                </h2>
-            </div>
-
-            <!-- 답변 버튼들 -->
-            <div class="space-y-4">
-                <button class="w-full p-5 text-left rounded-xl border-2 border-transparent hover:border-purple-400 transition-all duration-300 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold shadow-md hover:shadow-xl transform hover:-translate-y-1 answer-btn">
-                    ✨ 매우 그렇다
-                </button>
-                <button class="w-full p-5 text-left rounded-xl border-2 border-transparent hover:border-blue-400 transition-all duration-300 bg-gradient-to-r from-blue-400 to-purple-500 text-white font-bold shadow-md hover:shadow-xl transform hover:-translate-y-1 answer-btn">
-                    💫 그렇다
-                </button>
-                <button class="w-full p-5 text-left rounded-xl border-2 border-transparent hover:border-indigo-400 transition-all duration-300 bg-gradient-to-r from-indigo-400 to-blue-400 text-white font-bold shadow-md hover:shadow-xl transform hover:-translate-y-1 answer-btn">
-                    ⭐ 보통이다
-                </button>
-                <button class="w-full p-5 text-left rounded-xl border-2 border-transparent hover:border-teal-400 transition-all duration-300 bg-gradient-to-r from-teal-400 to-indigo-400 text-white font-bold shadow-md hover:shadow-xl transform hover:-translate-y-1 answer-btn">
-                    🌟 아니다
-                </button>
-                <button class="w-full p-5 text-left rounded-xl border-2 border-transparent hover:border-green-400 transition-all duration-300 bg-gradient-to-r from-green-400 to-teal-400 text-white font-bold shadow-md hover:shadow-xl transform hover:-translate-y-1 answer-btn">
-                    ☀️ 전혀 아니다
-                </button>
-            </div>
-        </div>
+       <!-- 질문 컨테이너 부분 수정 -->
+<div id="questionContainer" class="mt-8 animate-fade-in">
+    <div class="text-center mb-8">
+        <span class="inline-block px-4 py-2 rounded-full bg-white shadow-lg text-purple-600 font-bold animate-bounce-slow" id="questionNumber">1/12</span>
+    </div>
+    
+    <div class="bg-white rounded-2xl p-8 shadow-lg mb-8 transform hover:scale-102 transition duration-300">
+        <h2 id="questionText" class="text-xl md:text-2xl font-bold text-center leading-relaxed break-keep text-gray-800">
+            질문이 여기에 표시됩니다
+        </h2>
+        <p id="questionContext" class="mt-4 text-center text-gray-600 text-sm md:text-base leading-relaxed break-keep">
+            부가설명이 여기에 표시됩니다
+        </p>
     </div>
 
-    <!-- 추가된 장식 요소들 -->
-    <div class="fixed top-20 left-10 w-12 h-12 bg-purple-400 rounded-full opacity-50 animate-bounce-slow"></div>
-    <div class="fixed bottom-20 right-10 w-8 h-8 bg-pink-400 rounded-full opacity-50 animate-wiggle"></div>
+            <!-- 답변 버튼들의 텍스트 정렬도 수정 -->
+<div class="space-y-4">
+    <button class="w-full p-5 rounded-xl border-2 border-transparent hover:border-purple-400 transition-all duration-300 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold shadow-md hover:shadow-xl transform hover:-translate-y-1 answer-btn">
+        <div class="flex items-center space-x-3">
+            <span class="text-xl">✨</span>
+            <span class="flex-1 text-left leading-relaxed break-keep">매우 그렇다</span>
+        </div>
+    </button>
 
-    <script>
-        const questions = [
-            {
-                question: "인스타/틱톡에서 본 '챌린지'에 참여한 적이 있다",
-                context: "✨ 댄스챌린지, 밈챌린지 등"
-            },
-            {
-                question: "'급만실'이나 '갠소하'같은 줄임말을 자주 쓴다",
-                context: "💬 MZ세대 줄임말 트렌드"
-            },
-            {
-                question: "숏폼 콘텐츠(릴스/쇼츠)를 하루 1시간 이상 본다",
-                context: "📱 숏폼 시청 습관"
-            },
-            {
-                question: "새로운 제품은 '오픈런'해서 구매한 경험이 있다",
-                context: "🏃‍♂️ 한정판 구매 경험"
-            },
-            {
-                question: "구독 경제 서비스를 3개 이상 이용중이다",
-                context: "💳 OTT, 음악, 식품 등"
-            },
-            {
-                question: "'MBTI'는 상대방과의 대화 필수 요소다",
-                context: "🤝 성격 유형 커뮤니케이션"
-            },
-            {
-                question: "일상을 기록하는 브이로그를 찍어본 적 있다",
-                context: "🎥 콘텐츠 제작 경험"
-            },
-            {
-                question: "'플렉스'는 자연스러운 문화라고 생각한다",
-                context: "💅 소비 문화 인식"
-            },
-            {
-                question: "'픽미/픽폴' 투표에 자주 참여한다",
-                context: "📊 SNS 참여도"
-            },
-            {
-                question: "다양한 페르소나로 SNS 계정을 운영해본 적 있다",
-                context: "🎭 멀티 페르소나"
-            },
-            {
-                question: "새로운 밈/드립을 빠르게 캐치하고 사용한다",
-                context: "🎯 트렌드 민감도"
-            },
-            {
-                question: "중고거래는 당근마켓이 기본이다",
-                context: "🥕 MZ플랫폼 활용도"
-            }
-        ];
+    <button class="w-full p-5 rounded-xl border-2 border-transparent hover:border-blue-400 transition-all duration-300 bg-gradient-to-r from-blue-400 to-purple-500 text-white font-bold shadow-md hover:shadow-xl transform hover:-translate-y-1 answer-btn">
+        <div class="flex items-center space-x-3">
+            <span class="text-xl">💫</span>
+            <span class="flex-1 text-left leading-relaxed break-keep">그렇다</span>
+        </div>
+    </button>
 
-        let currentQuestion = 0;
-        let scores = [];
+    <button class="w-full p-5 rounded-xl border-2 border-transparent hover:border-indigo-400 transition-all duration-300 bg-gradient-to-r from-indigo-400 to-blue-400 text-white font-bold shadow-md hover:shadow-xl transform hover:-translate-y-1 answer-btn">
+        <div class="flex items-center space-x-3">
+            <span class="text-xl">⭐</span>
+            <span class="flex-1 text-left leading-relaxed break-keep">보통이다</span>
+        </div>
+    </button>
 
-        function updateQuestion() {
-            const questionData = questions[currentQuestion];
-            document.getElementById('questionNumber').textContent = `${currentQuestion + 1}/12`;
-            document.getElementById('questionText').innerHTML = 
-                `${questionData.question}<br><span class="text-sm text-gray-500">${questionData.context}</span>`;
-            document.getElementById('progress').style.width = `${(currentQuestion / 12) * 100}%`;
+    <button class="w-full p-5 rounded-xl border-2 border-transparent hover:border-teal-400 transition-all duration-300 bg-gradient-to-r from-teal-400 to-indigo-400 text-white font-bold shadow-md hover:shadow-xl transform hover:-translate-y-1 answer-btn">
+        <div class="flex items-center space-x-3">
+            <span class="text-xl">🌟</span>
+            <span class="flex-1 text-left leading-relaxed break-keep">아니다</span>
+        </div>
+    </button>
+
+    <button class="w-full p-5 rounded-xl border-2 border-transparent hover:border-green-400 transition-all duration-300 bg-gradient-to-r from-green-400 to-teal-400 text-white font-bold shadow-md hover:shadow-xl transform hover:-translate-y-1 answer-btn">
+        <div class="flex items-center space-x-3">
+            <span class="text-xl">☀️</span>
+            <span class="flex-1 text-left leading-relaxed break-keep">전혀 아니다</span>
+        </div>
+    </button>
+</div>
+
+<!-- 추가된 장식 요소들 -->
+<div class="fixed top-20 left-10 w-12 h-12 bg-purple-400 rounded-full opacity-50 animate-bounce-slow"></div>
+<div class="fixed bottom-20 right-10 w-8 h-8 bg-pink-400 rounded-full opacity-50 animate-wiggle"></div>
+
+<script>
+    const questions = [
+        {
+            question: "인스타/틱톡에서 본 '챌린지'에 참여한 적이 있다",
+            context: "✨ 댄스챌린지, 밈챌린지 등"
+        },
+        {
+            question: "'급만실'이나 '갠소하'같은 줄임말을 자주 쓴다",
+            context: "💬 MZ세대 줄임말 트렌드"
+        },
+        {
+            question: "숏폼 콘텐츠(릴스/쇼츠)를 하루 1시간 이상 본다",
+            context: "📱 숏폼 시청 습관"
+        },
+        {
+            question: "새로운 제품은 '오픈런'해서 구매한 경험이 있다",
+            context: "🏃‍♂️ 한정판 구매 경험"
+        },
+        {
+            question: "구독 경제 서비스를 3개 이상 이용중이다",
+            context: "💳 OTT, 음악, 식품 등"
+        },
+        {
+            question: "'MBTI'는 상대방과의 대화 필수 요소다",
+            context: "🤝 성격 유형 커뮤니케이션"
+        },
+        {
+            question: "일상을 기록하는 브이로그를 찍어본 적 있다",
+            context: "🎥 콘텐츠 제작 경험"
+        },
+        {
+            question: "'플렉스'는 자연스러운 문화라고 생각한다",
+            context: "💅 소비 문화 인식"
+        },
+        {
+            question: "'픽미/픽폴' 투표에 자주 참여한다",
+            context: "📊 SNS 참여도"
+        },
+        {
+            question: "다양한 페르소나로 SNS 계정을 운영해본 적 있다",
+            context: "🎭 멀티 페르소나"
+        },
+        {
+            question: "새로운 밈/드립을 빠르게 캐치하고 사용한다",
+            context: "🎯 트렌드 민감도"
+        },
+        {
+            question: "중고거래는 당근마켓이 기본이다",
+            context: "🥕 MZ플랫폼 활용도"
         }
+    ];
 
-        function handleAnswer(score) {
-            scores.push(score);
-            if (currentQuestion < 11) {
-                currentQuestion++;
-                updateQuestion();
-            } else {
-                const totalScore = scores.reduce((a, b) => a + b, 0);
-                window.location.href = `result.html?score=${totalScore}`;
-            }
+    let currentQuestion = 0;
+    let scores = [];
+
+    function updateQuestion() {
+        const questionData = questions[currentQuestion];
+        document.getElementById('questionNumber').textContent = `${currentQuestion + 1}/12`;
+        document.getElementById('questionText').textContent = questionData.question;
+        document.getElementById('questionContext').textContent = questionData.context;
+        document.getElementById('progress').style.width = `${(currentQuestion / 12) * 100}%`;
+    }
+
+    function handleAnswer(score) {
+        scores.push(score);
+        if (currentQuestion < 11) {
+            currentQuestion++;
+            updateQuestion();
+        } else {
+            const totalScore = scores.reduce((a, b) => a + b, 0);
+            window.location.href = `result.html?score=${totalScore}`;
         }
+    }
 
-        document.querySelectorAll('.answer-btn').forEach((button, index) => {
-            button.addEventListener('click', () => {
-                const scores = [10, 7, 5, 3, 0];
-                handleAnswer(scores[index]);
-            });
+    document.querySelectorAll('.answer-btn').forEach((button, index) => {
+        button.addEventListener('click', () => {
+            const scores = [10, 7, 5, 3, 0];
+            handleAnswer(scores[index]);
         });
+    });
 
-        // 초기 질문 로드
-        updateQuestion();
-    </script>
+    // 초기 질문 로드
+    updateQuestion();
+</script>
+
+<style>
+    /* 추가 스타일 */
+    .break-keep {
+        word-break: keep-all; /* 한글 단어 단위 줄바꿈 */
+        overflow-wrap: break-word; /* 긴 영문도 자연스럽게 줄바꿈 */
+    }
+
+    /* 모바일에서의 텍스트 크기 조정 */
+    @media (max-width: 640px) {
+        #questionText {
+            font-size: 1.25rem;
+            line-height: 1.75rem;
+        }
+        #questionContext {
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+        }
+    }
+
+    /* 질문 컨테이너 애니메이션 */
+    .question-transition {
+        transition: all 0.3s ease-in-out;
+    }
+
+    /* 질문 컨테이너 여백 최적화 */
+    .question-container {
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 1rem;
+    }
+
+    /* 긴 텍스트를 위한 스크롤 방지 */
+    .no-scroll-container {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* 최대 3줄까지 표시 */
+        -webkit-box-orient: vertical;
+    }
+
+    /* 버튼 호버 효과 개선 */
+    .answer-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    /* 버튼 클릭 효과 */
+    .answer-btn:active {
+        transform: translateY(0);
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    }
+</style>
 </body>
 </html>
