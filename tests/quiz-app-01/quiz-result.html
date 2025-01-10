@@ -1,1 +1,135 @@
+  <script>
+        const results = [
+            {
+                title: "MZ 세대 프로페서 (90-100점)",
+                subtitle: "트렌드 특허 보유자! 밈의 원작자 🏆",
+                successRate: "99%",
+                chartImage: "https://blog.kakaocdn.net/dn/bAymPL/btsLFhWZnAq/jFQgneAkWRhVYvrEGKDYmk/img.jpg",
+                keywords: ["트렌드세터", "밈 제조기", "인플루언서급"],
+                description: "당신은 진정한 MZ세대의 아이콘! 트렌드를 따라가는 것이 아니라 만들어내는 사람입니다. 숏폼 콘텐츠부터 최신 밈까지, 당신의 손끝에서 새로운 문화가 탄생합니다.",
+                advice: "✨ 당신은 이미 트렌드 그 자체! 다만 진정성 있는 콘텐츠 제작도 잊지 마세요."
+            },
+            {
+                title: "MZ 세대 마스터 (70-89점)",
+                subtitle: "트렌드 서핑의 고수! 🏄‍♂️",
+                successRate: "85%",
+                chartImage: "https://blog.kakaocdn.net/dn/meEa1/btsLFExCUzR/QBJXO6n2HuIWf3ppdKEA60/img.webp",
+                keywords: ["얼리어답터", "트렌드 홀릭", "콘텐츠 마스터"],
+                description: "최신 트렌드를 완벽하게 캐치하고 즐기는 당신! 릴스부터 쇼츠까지, 숏폼 콘텐츠의 바다를 자유자재로 서핑하고 있네요.",
+                advice: "🌊 트렌드를 잘 타고 있어요! 이제 나만의 독특한 스타일을 더해보는 건 어떨까요?"
+            },
+            {
+                title: "MZ 세대 루키 (50-69점)",
+                subtitle: "트렌드 수습 중! 열심히 배우는 중 📚",
+                successRate: "65%",
+                chartImage: "https://blog.kakaocdn.net/dn/cLZls9/btsLFZ9jsjs/zK0nbtJ5LlaxfChjVOIZo0/img.jpg",
+                keywords: ["트렌드 러너", "밈 팔로워", "성장형"],
+                description: "MZ 문화에 적극적으로 적응하려 노력하는 당신! 아직은 어색하지만, 빠르게 성장하고 있는 중입니다.",
+                advice: "💫 조금만 더 SNS 활동을 늘려보세요. 곧 진정한 MZ가 될 거예요!"
+            },
+            {
+                title: "MZ 세대 뉴비 (30-49점)",
+                subtitle: "트렌드 입문자! 아직은 낯선 MZ월드 🌱",
+                successRate: "45%",
+                chartImage: "https://blog.kakaocdn.net/dn/bbyl6h/btsLGdMPbmt/W9fsg5DKqfbNDG8k3ESYVK/img.jpg",
+                keywords: ["관찰자", "신입생", "도전중"],
+                description: "MZ 문화가 아직은 낯설지만, 관심을 가지고 배우려는 자세가 멋져요! 챌린지나 밈을 이해하려 노력하는 당신, 이미 절반은 성공했습니다.",
+                advice: "🌟 틱톡이나 릴스부터 시작해보세요. 재미있는 MZ 세계가 기다리고 있어요!"
+            },
+            {
+                title: "아재 감성 (0-29점)",
+                subtitle: "레트로는 트렌드가 될 수 있어요! 🎸",
+                successRate: "25%",
+                chartImage: "https://blog.kakaocdn.net/dn/dgzo1m/btsLHmoUquy/LKYBjnYvqyyXNuSAGbukck/img.png",
+                keywords: ["클래식", "아재력MAX", "레트로"],
+                description: "요즘 것들이 하는 게 영 낯설고 어색하신가요? 괜찮아요! 아재 감성도 새로운 트렌드가 될 수 있답니다. Y2K가 다시 유행하는 것처럼요!",
+                advice: "💝 MZ들이 오히려 당신의 감성을 찾고 있을지도 몰라요. 레트로는 영원한 트렌드니까요!"
+            }
+        ];
 
+        function getResultIndex(score) {
+            if (score >= 90) return 0;
+            if (score >= 70) return 1;
+            if (score >= 50) return 2;
+            if (score >= 30) return 3;
+            return 4;
+        }
+
+         function displayResult() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const score = parseInt(urlParams.get('score'));
+            const resultIndex = getResultIndex(score);
+            const result = results[resultIndex];
+
+            document.querySelector('.result-title').textContent = result.title;
+            document.querySelector('.result-subtitle').textContent = result.subtitle;
+            document.querySelector('.success-rate').textContent = result.successRate;
+            document.querySelector('.chart-image').src = result.chartImage;
+            
+            const keywordHtml = result.keywords.map(keyword => 
+                `<span class="px-4 py-2 bg-gradient-to-r from-purple-100 to-pink-100 text-purple-800 rounded-full text-sm font-medium">${keyword}</span>`
+            ).join('');
+            document.querySelector('.keywords').innerHTML = keywordHtml;
+
+            document.querySelector('.description').textContent = result.description;
+            document.querySelector('.advice').textContent = result.advice;
+
+              showRank(score);
+        }
+        
+        function showRank(score) {
+            let scoresData = JSON.parse(localStorage.getItem('quizScores') || '[]');
+            scoresData.sort((a, b) => b.score - a.score);
+            const userIndex = scoresData.findIndex(item => item.score === score);
+            const rank = userIndex + 1;
+            const totalUsers = scoresData.length;
+            const percentage = totalUsers > 0 ? Math.round((rank / totalUsers) * 100) : 0;
+    
+           const rankTextElement = document.createElement('p');
+           rankTextElement.className = "text-lg mb-4 text-center";
+            let message = "";
+
+              if (percentage <= 10) {
+                message = "와우! 당신은 상위 10% 안에 드는 천재군요! 이대로만 쭉 가세요!";
+            } else if (percentage <= 30) {
+               message = "당신은 상위 30% 안에 들었어요! 정말 대단하네요! 다음 레벨도 도전해 보세요!";
+            } else if (percentage <= 50) {
+                message = "당신은 상위 50% 안에 들었어요! 훌륭해요! 조금만 더 노력하면 더 높은 등수를 얻을 수 있을 거예요!";
+            } else if (percentage <= 70) {
+                 message = "당신은 상위 70% 안에 들었어요! 멋져요! 계속해서 노력하면 더 좋은 결과를 얻을 수 있을 거예요.";
+            }
+            else if (percentage <= 90) {
+              message = "아쉽지만 당신은 상위 90% 안에 들었어요! 다음 테스트에서 만회해 보세요!";
+            }
+            else  {
+                 message = "괜찮아요! 다음 테스트에서 만회해 보세요!";
+            }
+              
+              rankTextElement.textContent = `당신은 전체 ${totalUsers}명 중 ${rank}등 입니다! (${percentage}%), ${message}`;
+              document.querySelector(".success-rate").textContent = "";
+             document.querySelector('.result-card').insertBefore(rankTextElement,document.querySelector('.chart-image'));
+        }
+
+         function showFullAnalysis() {
+            document.querySelectorAll('.blur-sm').forEach(el => {
+                el.classList.remove('blur-sm');
+                
+                const parentText = el.parentElement.textContent.trim();
+                if (parentText.startsWith('🎯')) {
+                    el.textContent = '트렌드 선도자급';
+                } else if (parentText.startsWith('💫')) {
+                    el.textContent = '밈 제조기';
+                } else if (parentText.startsWith('✨')) {
+                    el.textContent = '인플루언서급';
+                }
+            });
+
+            const button = document.querySelector('button[onclick="showFullAnalysis()"]');
+            button.textContent = '분석 완료! 🎉';
+            button.classList.remove('animate-pulse');
+            button.classList.add('bg-gradient-to-r', 'from-green-500', 'to-emerald-500');
+            button.onclick = null;
+        }
+
+        window.onload = displayResult;
+    </script>
