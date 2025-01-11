@@ -8,6 +8,7 @@
     <meta name="keywords" content="상식,퀴즈,테스트">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
     <style>
         body {
             font-family: 'Noto Sans KR', sans-serif;
@@ -109,6 +110,7 @@
             </button>
         </div>
     </div>
+
     <script>
         const results = [
             {
@@ -158,16 +160,15 @@
             }
          ];
 
-
-       function getResultIndex(score) {
+        function getResultIndex(score) {
             if (score >= 90) return 0;
             if (score >= 70) return 1;
             if (score >= 50) return 2;
             if (score >= 30) return 3;
             return 4;
         }
-      
-      function displayResult() {
+
+        function displayResult() {
             const urlParams = new URLSearchParams(window.location.search);
             const score = parseInt(urlParams.get('score'));
             const resultIndex = getResultIndex(score);
@@ -186,10 +187,10 @@
             document.querySelector('.description').textContent = result.description;
             document.querySelector('.advice').textContent = result.advice;
 
-            showRank(score);
+              showRank(score);
         }
         
-         function showRank(score) {
+        function showRank(score) {
             let scoresData = JSON.parse(localStorage.getItem('quizScores') || '[]');
             scoresData.sort((a, b) => b.score - a.score);
             const userIndex = scoresData.findIndex(item => item.score === score);
@@ -218,12 +219,11 @@
             }
               
               rankTextElement.textContent = `당신은 전체 ${totalUsers}명 중 ${rank}등 입니다! (${percentage}%), ${message}`;
-               document.querySelector(".success-rate").textContent = "";
-              document.querySelector('.result-card').insertBefore(rankTextElement,document.querySelector('.chart-image'));
+              document.querySelector(".success-rate").textContent = "";
+             document.querySelector('.result-card').insertBefore(rankTextElement,document.querySelector('.chart-image'));
         }
 
-
-        function showFullAnalysis() {
+         function showFullAnalysis() {
             document.querySelectorAll('.blur-sm').forEach(el => {
                 el.classList.remove('blur-sm');
                 
