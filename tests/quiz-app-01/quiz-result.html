@@ -9,36 +9,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <style>
-        body {
-            font-family: 'Noto Sans KR', sans-serif;
-        }
-        .gradient-text {
-            background: linear-gradient(45deg, #9333EA, #EC4899);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .result-card {
-            animation: fadeIn 1s ease-out;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .button-hover {
-            transition: all 0.3s ease;
-        }
-        .button-hover:hover {
-            transform: translateY(-2px);
-        }
-        .planner-button {
-            animation: float 3s ease-in-out infinite;
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-    </style>
 </head>
 <body class="bg-gradient-to-br from-purple-50 to-pink-50 min-h-screen pb-32">
     <div class="max-w-lg mx-auto px-4 py-8">
@@ -84,34 +54,7 @@
                     상세 분석 결과 보기 (무료)
                 </button>
             </div>
-
-            <!-- 버킷리스트 플래너 추천 -->
-            <div class="bg-gradient-to-r from-purple-100 to-pink-100 rounded-xl p-6 mb-6">
-                <h3 class="font-bold text-purple-800 mb-2">🎯 추천 도구</h3>
-                <p class="text-purple-700 mb-4">상식 능력을 키우기 위한 무료 플래너를 받아보세요!</p>
-                <a href="https://coffeemania68.github.io/share/" 
-                   target="_blank" 
-                   rel="noopener noreferrer"
-                   class="planner-button block w-full py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl font-bold text-center shadow-lg hover:shadow-xl transition-all duration-300">
-                    2025 버킷리스트 플래너 받기 ✨
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <!-- 고정된 하단 버튼 -->
-    <div class="fixed bottom-0 left-0 right-0 bg-white shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]">
-        <div class="max-w-lg mx-auto p-4 grid grid-cols-2 gap-3">
-            <button onclick="location.href='./'" class="button-hover w-full py-3 px-6 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full font-medium shadow-md hover:opacity-90">
-                다시 테스트하기
-            </button>
-            <button onclick="location.href='https://coffeemania68.github.io/fortune-2025/'" class="button-hover w-full py-3 px-6 bg-gray-100 text-gray-700 rounded-full font-medium hover:bg-gray-200">
-                다른 테스트 하기
-            </button>
-        </div>
-    </div>
-
-    <script>
+      <script>
         const results = [
             {
                 title: "상식 천재 (90-100점)",
@@ -135,30 +78,30 @@
                 title: "상식 루키 (50-69점)",
                 subtitle: "지식 성장의 가능성! 🌱",
                 successRate: "65%",
-                 chartImage: "https://blog.kakaocdn.net/dn/cLZls9/btsLFZ9jsjs/zK0nbtJ5LlaxfChjVOIZo0/img.jpg",
-                keywords: ["지식 러너", "상식 팔로워", "성장형"],
-                description: "당신은 지식 성장의 가능성을 가진 루키입니다. 아직은 부족하지만, 꾸준히 노력하면 뛰어난 지식인이 될 수 있습니다.",
-                advice: "💫 꾸준히 학습하고, 다양한 분야에 관심을 가져보세요! 곧 상식 마스터가 될 수 있습니다."
+                chartImage: "https://blog.kakaocdn.net/dn/cLZls9/btsLFZ9jsjs/zK0nbtJ5LlaxfChjVOIZo0/img.jpg",
+                keywords: ["트렌드 러너", "밈 팔로워", "성장형"],
+                description: "MZ 문화에 적극적으로 적응하려 노력하는 당신! 아직은 어색하지만, 빠르게 성장하고 있는 중입니다.",
+                advice: "💫 조금만 더 SNS 활동을 늘려보세요. 곧 진정한 MZ가 될 거예요!"
             },
             {
                 title: "상식 뉴비 (30-49점)",
                 subtitle: "상식의 세계에 입문! 🌟",
                 successRate: "45%",
                  chartImage: "https://blog.kakaocdn.net/dn/bbyl6h/btsLGdMPbmt/W9fsg5DKqfbNDG8k3ESYVK/img.jpg",
-                keywords: ["관찰자", "신입생", "도전자"],
-               description: "당신은 상식의 세계에 첫발을 내딛은 뉴비입니다. 아직은 어렵지만, 포기하지 않고 계속 도전한다면 충분히 성장할 수 있습니다.",
-                advice: "🌟 다양한 책을 읽고, 새로운 정보를 찾아보세요! 상식의 세계는 넓고 재미있답니다."
+                keywords: ["관찰자", "신입생", "도전중"],
+                description: "MZ 문화가 아직은 낯설지만, 관심을 가지고 배우려는 자세가 멋져요! 챌린지나 밈을 이해하려 노력하는 당신, 이미 절반은 성공했습니다.",
+                advice: "🌟 틱톡이나 릴스부터 시작해보세요. 재미있는 MZ 세계가 기다리고 있어요!"
             },
-           {
-                title: "상식 초보 (0-29점)",
-                subtitle: "상식도 성장할 수 있어요! 🍀",
+            {
+                title: "아재 감성 (0-29점)",
+                subtitle: "레트로는 트렌드가 될 수 있어요! 🎸",
                 successRate: "25%",
                 chartImage: "https://blog.kakaocdn.net/dn/dgzo1m/btsLHmoUquy/LKYBjnYvqyyXNuSAGbukck/img.png",
-                keywords: ["클래식", "초보자", "가능성"],
-                description: "상식 점수가 낮다고 실망하지 마세요! 상식은 노력하면 충분히 성장할 수 있습니다. 다양한 지식을 배우고, 흥미로운 주제를 찾아보세요.",
-                advice: "💝 꾸준히 노력하면 누구든 상식 천재가 될 수 있습니다! 포기하지 말고 계속 도전하세요."
+                keywords: ["클래식", "아재력MAX", "레트로"],
+                description: "요즘 것들이 하는 게 영 낯설고 어색하신가요? 괜찮아요! 아재 감성도 새로운 트렌드가 될 수 있답니다. Y2K가 다시 유행하는 것처럼요!",
+                advice: "💝 MZ들이 오히려 당신의 감성을 찾고 있을지도 몰라요. 레트로는 영원한 트렌드니까요!"
             }
-         ];
+        ];
 
         function getResultIndex(score) {
             if (score >= 90) return 0;
@@ -188,9 +131,34 @@
             document.querySelector('.advice').textContent = result.advice;
 
               showRank(score);
+                
+             const nextLevelButton = document.createElement('button');
+             nextLevelButton.className = "inline-block py-2 px-4 text-white bg-blue-500 rounded-md font-bold hover:bg-blue-600 transition duration-300 mt-4";
+            if (score >= 70) {
+              const urlParams = new URLSearchParams(window.location.search);
+              const currentLevel = parseInt(urlParams.get('set')) || 1;
+              const nextLevel = currentLevel + 1;
+               if (nextLevel <= 6) {
+                    nextLevelButton.textContent = "다음 레벨 도전하기";
+                    nextLevelButton.onclick = function() {
+                      window.location.href = `../quiz-app-0${nextLevel}/quiz-question.html?set=${nextLevel}`
+                    }
+                  } else {
+                   nextLevelButton.textContent = "모든 레벨 클리어!";
+                    nextLevelButton.onclick = function() {
+                       alert('축하합니다! 모든 레벨을 클리어 하셨습니다!')
+                     }
+                  }
+            } else {
+              nextLevelButton.textContent = "다시 도전하기";
+              nextLevelButton.onclick = function() {
+                  window.location.href = './'
+              }
+          }
+             document.querySelector('.result-card').appendChild(nextLevelButton);
         }
-        
-        function showRank(score) {
+
+         function showRank(score) {
             let scoresData = JSON.parse(localStorage.getItem('quizScores') || '[]');
             scoresData.sort((a, b) => b.score - a.score);
             const userIndex = scoresData.findIndex(item => item.score === score);
@@ -219,11 +187,11 @@
             }
               
               rankTextElement.textContent = `당신은 전체 ${totalUsers}명 중 ${rank}등 입니다! (${percentage}%), ${message}`;
-              document.querySelector(".success-rate").textContent = "";
-             document.querySelector('.result-card').insertBefore(rankTextElement,document.querySelector('.chart-image'));
+               document.querySelector(".success-rate").textContent = "";
+              document.querySelector('.result-card').insertBefore(rankTextElement,document.querySelector('.chart-image'));
         }
 
-         function showFullAnalysis() {
+        function showFullAnalysis() {
             document.querySelectorAll('.blur-sm').forEach(el => {
                 el.classList.remove('blur-sm');
                 
@@ -246,5 +214,30 @@
 
         window.onload = displayResult;
     </script>
+            <!-- 버킷리스트 플래너 추천 -->
+            <div class="bg-gradient-to-r from-purple-100 to-pink-100 rounded-xl p-6 mb-6">
+                <h3 class="font-bold text-purple-800 mb-2">🎯 추천 도구</h3>
+                <p class="text-purple-700 mb-4">상식 능력을 키우기 위한 무료 플래너를 받아보세요!</p>
+                <a href="https://coffeemania68.github.io/share/" 
+                   target="_blank" 
+                   rel="noopener noreferrer"
+                   class="planner-button block w-full py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl font-bold text-center shadow-lg hover:shadow-xl transition-all duration-300">
+                    2025 버킷리스트 플래너 받기 ✨
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 고정된 하단 버튼 -->
+    <div class="fixed bottom-0 left-0 right-0 bg-white shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]">
+        <div class="max-w-lg mx-auto p-4 grid grid-cols-2 gap-3">
+            <button onclick="location.href='./'" class="button-hover w-full py-3 px-6 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full font-medium shadow-md hover:opacity-90">
+                다시 테스트하기
+            </button>
+            <button onclick="location.href='https://coffeemania68.github.io/fortune-2025/'" class="button-hover w-full py-3 px-6 bg-gray-100 text-gray-700 rounded-full font-medium hover:bg-gray-200">
+                다른 테스트 하기
+            </button>
+        </div>
+    </div>
 </body>
 </html>
