@@ -119,11 +119,11 @@
         const questionContext = document.getElementById('questionContext');
         const progress = document.getElementById('progress');
 
-        function updateQuestion() {
-            const questionData = quizData[currentQuestion];
+         function updateQuestion() {
             questionNumber.textContent = `${currentQuestion + 1}/20`;
-            questionText.textContent = questionData.question;
-            questionContext.textContent = questionData.context || '';
+            const current = quizData[currentQuestion];
+            questionText.textContent = current.question;
+            questionContext.textContent = current.context || '';
             progress.style.width = `${(currentQuestion / 20) * 100}%`;
         }
         
