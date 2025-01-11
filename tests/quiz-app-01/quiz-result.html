@@ -192,25 +192,60 @@
         }
 
         function showFullAnalysis() {
-            document.querySelectorAll('.blur-sm').forEach(el => {
-                el.classList.remove('blur-sm');
-                
-                const parentText = el.parentElement.textContent.trim();
-                if (parentText.startsWith('🎯')) {
-                    el.textContent = '상식 선도자급';
-                } else if (parentText.startsWith('💫')) {
-                    el.textContent = '이해력 만렙';
-                } else if (parentText.startsWith('✨')) {
-                    el.textContent = '응용력 천재';
-                }
-            });
-
-            const button = document.querySelector('button[onclick="showFullAnalysis()"]');
-            button.textContent = '분석 완료! 🎉';
-            button.classList.remove('animate-pulse');
-            button.classList.add('bg-gradient-to-r', 'from-green-500', 'to-emerald-500');
-            button.onclick = null;
-        }
+      document.querySelectorAll('.blur-sm').forEach(el => {
+          el.classList.remove('blur-sm');
+          const parentText = el.parentElement.textContent.trim();
+          
+        const score = parseInt(new URLSearchParams(window.location.search).get('score'));
+      if (score >= 90) {
+          if (parentText.startsWith('🎯')) {
+             el.textContent = '지식 선도자급';
+          } else if (parentText.startsWith('💫')) {
+               el.textContent = '이해력 만렙';
+          } else if (parentText.startsWith('✨')) {
+              el.textContent = '응용력 천재';
+          }
+      } else if (score >= 70) {
+         if (parentText.startsWith('🎯')) {
+              el.textContent = '상식 전문가';
+          } else if (parentText.startsWith('💫')) {
+               el.textContent = '지식 활용력 만렙';
+          } else if (parentText.startsWith('✨')) {
+              el.textContent = '상식 응용력 프로';
+          }
+      }else if (score >= 50) {
+         if (parentText.startsWith('🎯')) {
+              el.textContent = '지식 습득 중';
+          } else if (parentText.startsWith('💫')) {
+              el.textContent = '이해력 수련 중';
+          } else if (parentText.startsWith('✨')) {
+              el.textContent = '응용력 배우는 중';
+          }
+      } else if (score >= 30) {
+         if (parentText.startsWith('🎯')) {
+              el.textContent = '지식 관찰자';
+          } else if (parentText.startsWith('💫')) {
+              el.textContent = '이해력 배우는 중';
+          } else if (parentText.startsWith('✨')) {
+              el.textContent = '응용력 입문';
+          }
+      }
+      else {
+         if (parentText.startsWith('🎯')) {
+              el.textContent = '아직은 초보자';
+          } else if (parentText.startsWith('💫')) {
+             el.textContent = '이해력 노력 중';
+          } else if (parentText.startsWith('✨')) {
+              el.textContent = '응용력 배워가는 중';
+         }
+      }
+ });
+      const button = document.querySelector('button[onclick="showFullAnalysis()"]');
+      button.textContent = '분석 완료! 🎉';
+      button.classList.remove('animate-pulse');
+      button.classList.add('bg-gradient-to-r', 'from-green-500', 'to-emerald-500');
+      button.onclick = null;
+  }
 
         window.onload = displayResult;
     </script>
@@ -234,8 +269,7 @@
             <button onclick="location.href='./'" class="button-hover w-full py-3 px-6 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full font-medium shadow-md hover:opacity-90">
                 다시 테스트하기
             </button>
-            <button onclick="location.href='https://coffeemania68.github.io/fortune-2025/'" class="button-hover w-full py-3 px-6 bg-gray-100 text-gray-700 rounded-full font-medium hover:bg-gray-200">
-                다른 테스트 하기
+            <button onclick="location.href='./'" class="button-hover w-full py-3 px-6 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full font-medium shadow-md hover:opacity-90"> 다시 도전! 🔄 
             </button>
         </div>
     </div>
