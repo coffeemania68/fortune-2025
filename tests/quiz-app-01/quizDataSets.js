@@ -9,8 +9,7 @@
                 options: ["목성", "토성", "천왕성", "해왕성"],
                 correct: "목성",
                 category: "상식",
-                difficulty: "easy"
-                context: "" // 부가설명이 없다면 빈 문자열 추가
+                difficulty: "easy"        
             },
             {
                 id: 2,
@@ -20,8 +19,7 @@
                 correct: "O",
                 category: "상식",
                 difficulty: "easy"
-              context: "무궁화는 대한민국의 국화입니다."
-            },
+              },
             {
                 id: 3,
                 type: "multiple",
@@ -29,8 +27,7 @@
                 options: ["206개", "186개", "226개", "246개"],
                 correct: "206개",
                 category: "상식",
-                difficulty: "medium"
-              context: "" // 부가설명이 없다면 빈 문자열 추가
+                difficulty: "medium"             
             },
             {
                 id: 4,
