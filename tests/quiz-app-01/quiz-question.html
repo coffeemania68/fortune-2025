@@ -45,7 +45,7 @@
     </div>
 
     <div class="container mx-auto px-4 py-8 max-w-2xl">
-       <!-- 질문 컨테이너 부분 수정 -->
+       <!-- 질문 컨테이너 부분 -->
 <div id="questionContainer" class="mt-8 animate-fade-in">
     <div class="text-center mb-8">
         <span class="inline-block px-4 py-2 rounded-full bg-white shadow-lg text-purple-600 font-bold animate-bounce-slow" id="questionNumber">1/20</span>
@@ -60,102 +60,103 @@
         </p>
     </div>
 
-            <!-- 답변 버튼들의 텍스트 정렬도 수정 -->
-<div class="space-y-4">
-    <button class="w-full p-5 rounded-xl border-2 border-transparent hover:border-purple-400 transition-all duration-300 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold shadow-md hover:shadow-xl transform hover:-translate-y-1 answer-btn">
-        <div class="flex items-center space-x-3">
-            <span class="text-xl">✨</span>
-            <span class="flex-1 text-left leading-relaxed break-keep">매우 그렇다</span>
-        </div>
-    </button>
-
-    <button class="w-full p-5 rounded-xl border-2 border-transparent hover:border-blue-400 transition-all duration-300 bg-gradient-to-r from-blue-400 to-purple-500 text-white font-bold shadow-md hover:shadow-xl transform hover:-translate-y-1 answer-btn">
-        <div class="flex items-center space-x-3">
-            <span class="text-xl">💫</span>
-            <span class="flex-1 text-left leading-relaxed break-keep">그렇다</span>
-        </div>
-    </button>
-
-    <button class="w-full p-5 rounded-xl border-2 border-transparent hover:border-indigo-400 transition-all duration-300 bg-gradient-to-r from-indigo-400 to-blue-400 text-white font-bold shadow-md hover:shadow-xl transform hover:-translate-y-1 answer-btn">
-        <div class="flex items-center space-x-3">
-            <span class="text-xl">⭐</span>
-            <span class="flex-1 text-left leading-relaxed break-keep">보통이다</span>
-        </div>
-    </button>
-
-    <button class="w-full p-5 rounded-xl border-2 border-transparent hover:border-teal-400 transition-all duration-300 bg-gradient-to-r from-teal-400 to-indigo-400 text-white font-bold shadow-md hover:shadow-xl transform hover:-translate-y-1 answer-btn">
-        <div class="flex items-center space-x-3">
-            <span class="text-xl">🌟</span>
-            <span class="flex-1 text-left leading-relaxed break-keep">아니다</span>
-        </div>
-    </button>
-
-    <button class="w-full p-5 rounded-xl border-2 border-transparent hover:border-green-400 transition-all duration-300 bg-gradient-to-r from-green-400 to-teal-400 text-white font-bold shadow-md hover:shadow-xl transform hover:-translate-y-1 answer-btn">
-        <div class="flex items-center space-x-3">
-            <span class="text-xl">☀️</span>
-            <span class="flex-1 text-left leading-relaxed break-keep">전혀 아니다</span>
-        </div>
-    </button>
+    <!-- 답변 버튼 컨테이너 -->
+    <div class="space-y-4" id="answersContainer">
+        <!-- 답변 버튼들이 여기에 동적으로 생성됨 -->
+    </div>
 </div>
 
-<!-- 추가된 장식 요소들 -->
+<!-- 장식 요소들 -->
 <div class="fixed top-20 left-10 w-12 h-12 bg-purple-400 rounded-full opacity-50 animate-bounce-slow"></div>
 <div class="fixed bottom-20 right-10 w-8 h-8 bg-pink-400 rounded-full opacity-50 animate-wiggle"></div>
+
+<script type="module">
+    import quizDataSets from './quizDataSets.js';
     
-   
-    </div>
-    <script type="module">
-        import quizDataSets from './quizDataSets.js';
+    // 전역 변수 선언
+    let quizData;
+    let currentQuestion = 0;
+    let scores = [];
+    let userScore = 0;
+
+    // DOM 요소 참조
+    const questionNumber = document.getElementById('questionNumber');
+    const questionText = document.getElementById('questionText');
+    const questionContext = document.getElementById('questionContext');
+    const progress = document.getElementById('progress');
+    const answersContainer = document.getElementById('answersContainer');
+
+    function updateQuestion() {
+        const current = quizData[currentQuestion];
+        questionNumber.textContent = `${currentQuestion + 1}/${quizData.length}`;
+        questionText.textContent = current.question;
+        questionContext.textContent = current.context || '';
+        progress.style.width = `${(currentQuestion / quizData.length) * 100}%`;
         
+        updateAnswerButtons(current.options);
+    }
+
+    function updateAnswerButtons(options) {
+        answersContainer.innerHTML = ''; // 기존 버튼들 제거
+        
+        options.forEach((option, index) => {
+            const button = document.createElement('button');
+            button.className = `w-full p-5 rounded-xl border-2 border-transparent hover:border-purple-400 transition-all duration-300 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold shadow-md hover:shadow-xl transform hover:-translate-y-1 answer-btn`;
+            
+            button.innerHTML = `
+                <div class="flex items-center space-x-3">
+                    <span class="text-xl">${getEmoji(index)}</span>
+                    <span class="flex-1 text-left leading-relaxed break-keep">${option}</span>
+                </div>
+            `;
+            
+            button.addEventListener('click', () => {
+                const current = quizData[currentQuestion];
+                handleAnswer(option === current.correct ? 10 : 0);
+            });
+            
+            answersContainer.appendChild(button);
+        });
+    }
+
+    function getEmoji(index) {
+        const emojis = ['✨', '💫', '⭐', '🌟'];
+        return emojis[index] || '☀️';
+    }
+
+    function handleAnswer(score) {
+        scores.push(score);
+        userScore += score;
+        
+        if (currentQuestion < quizData.length - 1) {
+            currentQuestion++;
+            updateQuestion();
+        } else {
+            saveScoreToLocalStorage();
+            window.location.href = `quiz-result.html?score=${userScore}`;
+        }
+    }
+
+    function saveScoreToLocalStorage() {
+        let scoresData = JSON.parse(localStorage.getItem('quizScores') || '[]');
+        scoresData.push({ score: userScore, time: new Date().getTime() });
+        localStorage.setItem('quizScores', JSON.stringify(scoresData));
+    }
+
+    // 페이지 로드 시 초기화
+    document.addEventListener('DOMContentLoaded', () => {
         const urlParams = new URLSearchParams(window.location.search);
         const setNumber = urlParams.get('set');
-        const quizData = quizDataSets[`set${setNumber}`].questions;
-        let currentQuestion = 0;
-        let scores = [];
-        let userScore = 0;
-
-        const questionNumber = document.getElementById('questionNumber');
-        const questionText = document.getElementById('questionText');
-        const questionContext = document.getElementById('questionContext');
-        const progress = document.getElementById('progress');
-
-         function updateQuestion() {
-            questionNumber.textContent = `${currentQuestion + 1}/20`;
-            const current = quizData[currentQuestion];
-            questionText.textContent = current.question;
-            questionContext.textContent = current.context || '';
-            progress.style.width = `${(currentQuestion / 20) * 100}%`;
+        
+        if (!quizDataSets[`set${setNumber}`]) {
+            console.error('Invalid quiz set:', setNumber);
+            return;
         }
         
-       function handleAnswer(score) {
-          scores.push(score);
-          userScore += score;
-            if (currentQuestion < quizData.length - 1) {
-              currentQuestion++;
-               updateQuestion();
-            } else {
-              saveScoreToLocalStorage();
-              window.location.href = `quiz-result.html?score=${userScore}`;
-            }
-        }
-
-        function saveScoreToLocalStorage() {
-            let scoresData = JSON.parse(localStorage.getItem('quizScores') || '[]');
-            scoresData.push({ score: userScore, time: new Date().getTime() });
-            localStorage.setItem('quizScores', JSON.stringify(scoresData));
-        }
-
-
-        document.querySelectorAll('.answer-btn').forEach((button, index) => {
-          button.addEventListener('click', () => {
-            const scores = [10, 7, 5, 3, 0];
-            handleAnswer(scores[index]);
-          });
-        });
-
+        quizData = quizDataSets[`set${setNumber}`].questions;
         updateQuestion();
-    </script>
-    
+    });
+</script>  
 <style>
     /* 추가 스타일 */
     .break-keep {
