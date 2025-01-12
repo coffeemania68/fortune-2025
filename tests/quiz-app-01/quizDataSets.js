@@ -1,4 +1,4 @@
- const quizDataSets = {
+const quizDataSets = {
     set1: {
         name: "상식 입문",
         questions: [
@@ -9,7 +9,7 @@
                 options: ["목성", "토성", "천왕성", "해왕성"],
                 correct: "목성",
                 category: "상식",
-                difficulty: "easy"        
+                difficulty: "easy"
             },
             {
                 id: 2,
@@ -19,7 +19,7 @@
                 correct: "O",
                 category: "상식",
                 difficulty: "easy"
-              },
+            },
             {
                 id: 3,
                 type: "multiple",
@@ -27,7 +27,7 @@
                 options: ["206개", "186개", "226개", "246개"],
                 correct: "206개",
                 category: "상식",
-                difficulty: "medium"             
+                difficulty: "medium"
             },
             {
                 id: 4,
@@ -91,7 +91,12 @@
                 correct: "에베레스트",
                 category: "상식",
                 difficulty: "easy"
-            },
+            }
+        ]
+    },
+    set2: {
+        name: "상식 입문",
+        questions: [
             {
                 id: 11,
                 type: "truefalse",
@@ -184,7 +189,7 @@
             }
         ]
     },
-    set2: {
+    set3: {
         name: "뇌력 테스트",
         questions: [
             {
@@ -276,7 +281,12 @@
                 correct: "31,536,000초",
                 category: "상식",
                 difficulty: "hard"
-            },
+            }
+        ]
+    },
+    set4: {
+        name: "뇌력 테스트",
+        questions: [
             {
                 id: 31,
                 type: "truefalse",
@@ -369,7 +379,7 @@
             }
         ]
     },
-    set3: {
+    set5: {
         name: "지식 탐험",
         questions: [
             {
@@ -461,7 +471,12 @@
                 correct: "조셉 프리스틀리",
                 category: "상식",
                 difficulty: "hard"
-            },
+            }
+        ]
+    },
+    set6: {
+        name: "지식 탐험",
+        questions: [
             {
                 id: 51,
                 type: "truefalse",
@@ -554,7 +569,7 @@
             }
         ]
     },
-    set4: {
+    set7: {
         name: "상식 마스터",
         questions: [
             {
@@ -646,7 +661,12 @@
                 correct: "2.5톤",
                 category: "상식",
                 difficulty: "hard"
-            },
+            }
+        ]
+    },
+    set8: {
+        name: "상식 마스터",
+        questions: [
             {
                 id: 71,
                 type: "truefalse",
@@ -739,7 +759,7 @@
             }
         ]
     },
-    set5: {
+    set9: {
         name: "두뇌 풀파워",
         questions: [
             {
@@ -831,7 +851,12 @@
                 correct: "주황색",
                 category: "상식",
                 difficulty: "medium"
-            },
+            }
+        ]
+    },
+    set10: {
+        name: "두뇌 풀파워",
+        questions: [
             {
                 id: 91,
                 type: "truefalse",
@@ -862,7 +887,7 @@
             {
                 id: 94,
                 type: "truefalse",
-                question: "모든 대나무는 60년마다 꽃을 핀다.",
+                                question: "모든 대나무는 60년마다 꽃을 핀다.",
                 options: ["O", "X"],
                 correct: "X",
                 category: "상식",
@@ -924,7 +949,7 @@
             }
         ]
     },
-    set6: {
+    set11: {
         name: "지식 끝판왕",
         questions: [
             {
@@ -1016,7 +1041,12 @@
                 correct: "고래 장액",
                 category: "상식",
                 difficulty: "hard"
-            },
+            }
+        ]
+    },
+    set12: {
+        name: "지식 끝판왕",
+        questions: [
             {
                 id: 111,
                 type: "truefalse",
