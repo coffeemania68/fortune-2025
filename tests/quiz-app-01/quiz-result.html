@@ -84,18 +84,6 @@
                     상세 분석 결과 보기 (무료)
                 </button>
             </div>
-
-            <!-- 버킷리스트 플래너 추천 -->
-            <div class="bg-gradient-to-r from-purple-100 to-pink-100 rounded-xl p-6 mb-6">
-                <h3 class="font-bold text-purple-800 mb-2">🎯 추천 도구</h3>
-                <p class="text-purple-700 mb-4">상식 능력을 키우기 위한 무료 플래너를 받아보세요!</p>
-                <a href="https://coffeemania68.github.io/share/" 
-                   target="_blank" 
-                   rel="noopener noreferrer"
-                   class="planner-button block w-full py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl font-bold text-center shadow-lg hover:shadow-xl transition-all duration-300">
-                    2025 버킷리스트 플래너 받기 ✨
-                </a>
-            </div>
         </div>
     </div>
 
@@ -253,67 +241,67 @@
         }
 
 
-             function showFullAnalysis() {
-       document.querySelectorAll('.blur-sm').forEach(el => {
-           el.classList.remove('blur-sm');
-           
-            const parentText = el.parentElement.textContent.trim();
-           const score = parseInt(new URLSearchParams(window.location.search).get('score'));
-           let imageUrl = "";
+                 function showFullAnalysis() {
+     document.querySelectorAll('.blur-sm').forEach(el => {
+         el.classList.remove('blur-sm');
+         
+          const parentText = el.parentElement.textContent.trim();
+         const score = parseInt(new URLSearchParams(window.location.search).get('score'));
+         let imageUrl = "";
           if (score >= 90) {
             imageUrl = imageUrls.badgeImages["상식 천재"];
-             if (parentText.startsWith('🎯')) {
-               el.textContent = '지식 선도자급';
-            } else if (parentText.startsWith('💫')) {
-                  el.textContent = '이해력 만렙';
-            } else if (parentText.startsWith('✨')) {
-               el.textContent = '응용력 천재';
-            }
-        } else if (score >= 70) {
-               imageUrl = imageUrls.badgeImages["상식 마스터"];
-              if (parentText.startsWith('🎯')) {
-                   el.textContent = '상식 전문가';
-                } else if (parentText.startsWith('💫')) {
-                   el.textContent = '지식 활용력 만렙';
-               } else if (parentText.startsWith('✨')) {
-                    el.textContent = '상식 응용력 프로';
-               }
-           }else if (score >= 50) {
-                imageUrl = imageUrls.badgeImages["상식 루키"];
-               if (parentText.startsWith('🎯')) {
-                    el.textContent = '지식 습득 중';
-                } else if (parentText.startsWith('💫')) {
-                   el.textContent = '이해력 수련 중';
-              } else if (parentText.startsWith('✨')) {
-                    el.textContent = '응용력 배우는 중';
-              }
-        } else if (score >= 30) {
-           imageUrl = imageUrls.badgeImages["상식 뉴비"];
            if (parentText.startsWith('🎯')) {
-                el.textContent = '지식 관찰자';
+              el.textContent = '지식 선도자급';
            } else if (parentText.startsWith('💫')) {
-               el.textContent = '이해력 배우는 중';
-           } else if (parentText.startsWith('✨')) {
-              el.textContent = '응용력 입문';
-           }
-        }
-        else  {
-            imageUrl = imageUrls.badgeImages["아재 감성"];
-            if (parentText.startsWith('🎯')) {
-                  el.textContent = '아직은 초보자';
-            } else if (parentText.startsWith('💫')) {
-                 el.textContent = '이해력 노력 중';
+                el.textContent = '이해력 만렙';
             } else if (parentText.startsWith('✨')) {
-                 el.textContent = '응용력 배워가는 중';
+              el.textContent = '응용력 천재';
             }
-          }
-   const button = document.querySelector('button[onclick="showFullAnalysis()"]');
-       button.textContent = '분석 완료! 🎉';
-       button.classList.remove('animate-pulse');
-       button.classList.add('bg-gradient-to-r', 'from-green-500', 'to-emerald-500');
-     button.onclick = null;
-});
-
+         } else if (score >= 70) {
+              imageUrl = imageUrls.badgeImages["상식 마스터"];
+             if (parentText.startsWith('🎯')) {
+                 el.textContent = '상식 전문가';
+              } else if (parentText.startsWith('💫')) {
+                 el.textContent = '지식 활용력 만렙';
+             } else if (parentText.startsWith('✨')) {
+                  el.textContent = '상식 응용력 프로';
+             }
+          }else if (score >= 50) {
+               imageUrl = imageUrls.badgeImages["상식 루키"];
+             if (parentText.startsWith('🎯')) {
+                  el.textContent = '지식 습득 중';
+             } else if (parentText.startsWith('💫')) {
+                el.textContent = '이해력 수련 중';
+            } else if (parentText.startsWith('✨')) {
+                  el.textContent = '응용력 배우는 중';
+             }
+           } else if (score >= 30) {
+              imageUrl = imageUrls.badgeImages["상식 뉴비"];
+            if (parentText.startsWith('🎯')) {
+                  el.textContent = '지식 관찰자';
+             } else if (parentText.startsWith('💫')) {
+                 el.textContent = '이해력 배우는 중';
+            } else if (parentText.startsWith('✨')) {
+               el.textContent = '응용력 입문';
+            }
+         }
+          else  {
+              imageUrl = imageUrls.badgeImages["아재 감성"];
+               if (parentText.startsWith('🎯')) {
+                    el.textContent = '아직은 초보자';
+              } else if (parentText.startsWith('💫')) {
+                   el.textContent = '이해력 노력 중';
+             } else if (parentText.startsWith('✨')) {
+                 el.textContent = '응용력 배워가는 중';
+              }
+           }
+        });
+  const button = document.querySelector('button[onclick="showFullAnalysis()"]');
+     button.textContent = '분석 완료! 🎉';
+    button.classList.remove('animate-pulse');
+    button.classList.add('bg-gradient-to-r', 'from-green-500', 'to-emerald-500');
+   button.onclick = null;
+                     
         function saveResult(score, level) {
             const result = {
                 score,
