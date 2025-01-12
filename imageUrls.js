@@ -9,11 +9,11 @@ const imageUrls = {
       set6: "https://raw.githubusercontent.com/coffeemania68/fortune-2025/main/quiz-icon-06.png"
   },
     badgeImages: {
-        "상식 천재": "https://blog.kakaocdn.net/dn/bAymPL/btsLFhWZnAq/jFQgneAkWRhVYvrEGKDYmk/img.jpg",
-        "상식 마스터": "https://blog.kakaocdn.net/dn/meEa1/btsLFExCUzR/QBJXO6n2HuIWf3ppdKEA60/img.webp",
-       "상식 루키": "https://blog.kakaocdn.net/dn/cLZls9/btsLFZ9jsjs/zK0nbtJ5LlaxfChjVOIZo0/img.jpg",
-        "상식 뉴비": "https://blog.kakaocdn.net/dn/bbyl6h/btsLGdMPbmt/W9fsg5DKqfbNDG8k3ESYVK/img.jpg",
-        "아재 감성": "https://blog.kakaocdn.net/dn/dgzo1m/btsLHmoUquy/LKYBjnYvqyyXNuSAGbukck/img.png"
-   }
+        "상식 천재": "https://raw.githubusercontent.com/coffeemania68/fortune-2025/main/badge-1.png",
+        "상식 마스터": "https://raw.githubusercontent.com/coffeemania68/fortune-2025/main/badge-2.png",
+       "상식 루키": "https://raw.githubusercontent.com/coffeemania68/fortune-2025/main/badge-3.png",
+        "상식 뉴비": "https://raw.githubusercontent.com/coffeemania68/fortune-2025/main/badge-4.png",
+        "아재 감성": "https://raw.githubusercontent.com/coffeemania68/fortune-2025/main/badge-5.png"
+        }
 };
 export default imageUrls;
