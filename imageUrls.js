@@ -1,19 +1,27 @@
 const imageUrls = {
-  mainBg: "https://raw.githubusercontent.com/coffeemania68/fortune-2025/main/quiz-bg.jpg",
-  setThumbnails: {
-      set1: "https://raw.githubusercontent.com/coffeemania68/fortune-2025/main/quiz-icon-01.png",
-      set2: "https://raw.githubusercontent.com/coffeemania68/fortune-2025/main/quiz-icon-02.png",
-      set3: "https://raw.githubusercontent.com/coffeemania68/fortune-2025/main/quiz-icon-03.png",
-      set4: "https://raw.githubusercontent.com/coffeemania68/fortune-2025/main/quiz-icon-04.png",
-      set5: "https://raw.githubusercontent.com/coffeemania68/fortune-2025/main/quiz-icon-05.png",
-      set6: "https://raw.githubusercontent.com/coffeemania68/fortune-2025/main/quiz-icon-06.png"
-  },
-    badgeImages: {
-        "상식 천재": "https://raw.githubusercontent.com/coffeemania68/fortune-2025/main/badge-1.png",
-        "상식 마스터": "https://raw.githubusercontent.com/coffeemania68/fortune-2025/main/badge-2.png",
-       "상식 루키": "https://raw.githubusercontent.com/coffeemania68/fortune-2025/main/badge-3.png",
-        "상식 뉴비": "https://raw.githubusercontent.com/coffeemania68/fortune-2025/main/badge-4.png",
-        "아재 감성": "https://raw.githubusercontent.com/coffeemania68/fortune-2025/main/badge-5.png"
-        }
+    mainBg: "https://blog.kakaocdn.net/dn/dMRG8t/btsLGEz7k7y/9vXm5W99uE0V95oFf30tpK/img.png",
+    setThumbnails: {
+        // 기존 퀴즈 이미지 URL (변경 없음)
+        set1: "https://blog.kakaocdn.net/dn/bcQ3cD/btsLFyjqUn7/NImkKgdBQALZ1NRmbfOBGk/img.png",
+        set2: "https://blog.kakaocdn.net/dn/diXxRw/btsLGl4Ical/X89m8F42QgKwa2U51r5I6k/img.png",
+        set3: "https://blog.kakaocdn.net/dn/luADx/btsLGjTlf1V/VjEXmZBAkF7dmYNOYVLmSK/img.png",
+        set4: "https://blog.kakaocdn.net/dn/O9apO/btsLGjGhDF8/QTgwAX4G6pApg8k9Ou1QK1/img.png",
+        set5: "https://blog.kakaocdn.net/dn/Y6F70/btsLF4P8VQq/SweYOQpafxWNI8H4Jnh4Ek/img.jpg",
+        set6: "https://blog.kakaocdn.net/dn/cQhAID/btsLFfkAIpc/aKI1x5lVCq5IaC7yR5KOV1/img.webp",
+        // 새로운 퀴즈 이미지 URL (추가)
+        set7: "./tests/images/quiz07-main.jpg",
+        set8: "./tests/images/quiz08-main.png",
+        set9: "./tests/images/quiz09-main.png",
+        set10: "./tests/images/quiz10-main.png",
+        set11: "./tests/images/quiz11-main.png",
+        set12: "./tests/images/quiz12-main.png",
+        set13: "./tests/images/quiz13-main.png",
+        set14: "./tests/images/quiz14-main.png",
+        set15: "./tests/images/quiz15-main.png",
+        set16: "./tests/images/quiz16-main.png",
+        set17: "./tests/images/quiz17-main.png",
+        set18: "./tests/images/quiz18-main.png"
+    }
 };
+
 export default imageUrls;
