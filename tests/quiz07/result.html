@@ -4,51 +4,173 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>퀴즈 결과</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="./css/result.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 </head>
-<body>
-    <div class="result-container">
-        <h1>퀴즈 결과</h1>
-        <p>당신의 점수는 <span id="user-score">0</span> / <span id="total-questions">0</span> 입니다.</p>
-        <div id="result-message"></div>
-        <button onclick="restartQuiz()">다시 시작</button>
-    </div>
+<body class="bg-gradient-to-br from-slate-100 to-blue-50 min-h-screen">
+    <div class="min-h-screen flex items-center justify-center px-4 py-12">
+        <div class="result-container animate-fadeIn">
+            <!-- 점수 표시 -->
+            <div class="score-section mb-8">
+                <h1 class="text-4xl font-bold bg-gradient-to-r from-violet-500 to-fuchsia-500 bg-clip-text text-transparent mb-4">
+                    🎉 퀴즈 완료!
+                </h1>
+                <div id="score-display" class="text-2xl mb-4">
+                    <span class="font-bold text-indigo-600">당신의 점수는</span>
+                    <span id="score" class="text-3xl font-bold text-purple-600"></span>
+                </div>
+                <div id="badge-container" class="mt-4">
+                    <!-- 뱃지 이미지가 여기에 표시됩니다 -->
+                </div>
+            </div>
 
-    <script type="module">
-        import quizDataSets from '../quiz07/quizDataSets.js';
+            <!-- 통계 섹션 -->
+            <div class="stats-section bg-white/80 backdrop-blur-sm rounded-xl p-6 mb-8">
+                <p class="text-lg mb-2">
+                    🎮 현재까지 <span id="total-players" class="font-bold text-indigo-600"></span>명이 도전!
+                </p>
+                <p class="text-lg">
+                    🏆 당신의 순위: 상위 <span id="rank-percentage" class="font-bold text-purple-600"></span>%
+                </p>
+            </div>
 
-        const totalQuestions = quizDataSets.set7.questions.length;
-        const userScore = localStorage.getItem('userScore') || 0;
-
-        document.getElementById('user-score').innerText = userScore;
-        document.getElementById('total-questions').innerText = totalQuestions;
-
-        if (parseInt(userScore) === totalQuestions) {
-            document.getElementById('result-message').innerText = "완벽합니다! 모든 문제를 맞혔습니다.";
-        } else if (parseInt(userScore) > 0) {
-            document.getElementById('result-message').innerText = "잘하셨습니다! 몇 가지 문제가 틀렸습니다.";
-        } else {
-            document.getElementById('result-message').innerText = "아쉽네요. 모든 문제가 틀렸습니다.";
-        }
-    </script>
-    <script>
-        function restartQuiz() {
-            localStorage.removeItem('userScore');
-            window.location.href = './index.html';
-        }
-    </script>
-       <!-- 고정된 하단 버튼 -->
-       <div class="fixed bottom-0 left-0 right-0 bg-white shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]">
-        <div class="max-w-lg mx-auto p-4 grid grid-cols-2 gap-3">
-            <button onclick="location.href='./question.html'" 
-                    class="button-hover w-full py-3 px-6 bg-green-500 text-white rounded-full font-medium shadow-md hover:bg-green-600">
-                다시 테스트하기
+            <!-- 상세 분석 토글 버튼 -->
+            <button id="analysis-toggle" class="w-full p-4 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-xl mb-6 hover:shadow-lg transition-all">
+                📊 상세 분석 보기
             </button>
-            <button onclick="location.href='../../'" 
-                    class="button-hover w-full py-3 px-6 bg-gray-100 text-gray-700 rounded-full font-medium hover:bg-gray-200">
-                다른 테스트 하기
-            </button>
+
+            <!-- 상세 분석 (처음에는 숨김) -->
+            <div id="detailed-analysis" class="hidden bg-white/90 backdrop-blur-sm rounded-xl p-6 mb-8">
+                <div class="analysis-content">
+                    <!-- 분석 내용은 JavaScript로 동적 생성됩니다 -->
+                </div>
+            </div>
+
+            <!-- 추천 퀴즈 섹션 -->
+            <div class="recommendations-section bg-white/90 backdrop-blur-sm rounded-xl p-6 mb-8">
+                <h3 class="text-xl font-bold mb-4 text-indigo-600">📚 다음 단계 추천</h3>
+                <div id="quiz-recommendations" class="grid grid-cols-2 gap-4">
+                    <!-- 추천 퀴즈 버튼들이 여기에 표시됩니다 -->
+                </div>
+            </div>
+
+            <!-- 액션 버튼 -->
+            <div class="action-buttons grid grid-cols-2 gap-4">
+                <a href="index.html" class="btn-secondary">
+                    🏠 홈으로
+                </a>
+                <a id="retry-button" href="#" class="btn-primary">
+                    🔄 다시 도전
+                </a>
+            </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 결과 데이터 가져오기
+            const score = parseInt(localStorage.getItem('userScore') || 0);
+            const totalQuestions = parseInt(localStorage.getItem('totalQuestions') || 0);
+            const quizNumber = localStorage.getItem('quizNumber') || '7';
+            const totalPlayers = parseInt(localStorage.getItem('totalPlayers') || 23456);
+
+            // 점수 표시
+            document.getElementById('score').textContent = ` ${score}/${totalQuestions}`;
+
+            // 방문자 수 표시
+            document.getElementById('total-players').textContent = totalPlayers.toLocaleString();
+
+            // 랭킹 계산 (예시 - 실제로는 더 복잡한 로직이 필요할 수 있습니다)
+            const percentage = Math.round((score / totalQuestions) * 100);
+            const rankPercentage = 100 - percentage + Math.floor(Math.random() * 20);
+            document.getElementById('rank-percentage').textContent = rankPercentage;
+
+            // 뱃지 및 메시지 설정
+            let badge, title, message;
+            if (percentage >= 90) {
+                badge = "🌟";
+                title = "상식 초월자";
+                message = "놀라운 실력이에요! 당신은 진정한 퀴즈 마스터입니다!";
+                confetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.6 }
+                });
+            } else if (percentage >= 70) {
+                badge = "🎓";
+                title = "지식 현자";
+                message = "훌륭해요! 당신의 지식이 빛나고 있어요!";
+            } else if (percentage >= 50) {
+                badge = "🚀";
+                title = "진리 탐험가";
+                message = "좋은 시도였어요! 계속 도전하면 더 좋은 결과가 있을 거예요!";
+            } else if (percentage >= 30) {
+                badge = "💎";
+                title = "지혜 수집가";
+                message = "괜찮아요! 실패는 성공의 어머니랍니다!";
+            } else {
+                badge = "🌱";
+                title = "호기심 새싹";
+                message = "도전하신 것만으로도 멋져요! 다음엔 더 잘할 수 있을 거예요!";
+            }
+
+            // 뱃지 표시
+            document.getElementById('badge-container').innerHTML = `
+                <div class="text-4xl mb-2">${badge}</div>
+                <div class="text-xl font-bold text-indigo-600">${title}</div>
+                <div class="text-gray-600 mt-2">${message}</div>
+            `;
+
+            // 상세 분석 토글
+            const analysisToggle = document.getElementById('analysis-toggle');
+            const detailedAnalysis = document.getElementById('detailed-analysis');
+            const analysisContent = document.querySelector('.analysis-content');
+
+            analysisToggle.addEventListener('click', () => {
+                detailedAnalysis.classList.toggle('hidden');
+                if (!detailedAnalysis.classList.contains('hidden')) {
+                    analysisContent.innerHTML = `
+                        <div class="mb-4">
+                            <h4 class="font-bold text-lg mb-2">💫 강점</h4>
+                            <p class="text-gray-600">빠른 판단력과 직관적인 문제 해결 능력이 돋보입니다.</p>
+                        </div>
+                        <div class="mb-4">
+                            <h4 class="font-bold text-lg mb-2">📈 성장 포인트</h4>
+                            <p class="text-gray-600">문제를 좀 더 천천히 읽고 신중하게 접근해보세요.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-lg mb-2">🎯 다음 목표</h4>
+                            <p class="text-gray-600">현재 점수보다 10% 향상을 목표로 해보세요!</p>
+                        </div>
+                    `;
+                }
+            });
+
+            // 다음 퀴즈 추천
+            const recommendationsContainer = document.getElementById('quiz-recommendations');
+            const nextQuizNumber = parseInt(quizNumber) + 1;
+            const prevQuizNumber = parseInt(quizNumber) - 1;
+
+            if (prevQuizNumber >= 7) {
+                recommendationsContainer.innerHTML += `
+                    <a href="question.html?quiz=${prevQuizNumber}" target="_blank" class="recommendation-btn">
+                        ⬅️ 퀴즈 ${prevQuizNumber}
+                    </a>
+                `;
+            }
+            
+            if (nextQuizNumber <= 18) {
+                recommendationsContainer.innerHTML += `
+                    <a href="question.html?quiz=${nextQuizNumber}" target="_blank" class="recommendation-btn">
+                        퀴즈 ${nextQuizNumber} ➡️
+                    </a>
+                `;
+            }
+
+            // 재도전 버튼 설정
+            document.getElementById('retry-button').href = `question.html?quiz=${quizNumber}`;
+        });
+    </script>
 </body>
 </html>
