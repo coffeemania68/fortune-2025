@@ -58,16 +58,17 @@
                 </button>
             </div>
    
-            <button id="analysis-toggle" class="w-full p-4 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-xl mb-6 hover:shadow-lg transition-all whitespace-nowrap">
-                📊 상세 분석 보기
-            </button>
+            <!-- 상세 분석 토글 버튼 -->
+<button id="analysis-toggle" class="w-full p-4 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-xl mb-6 hover:shadow-lg transition-all whitespace-nowrap">
+    📊 상세 분석 보기
+</button>
 
-            <!-- 상세 분석 (처음에는 숨김) -->
-            <div id="detailed-analysis" class="hidden bg-white/90 backdrop-blur-sm rounded-xl p-6 mb-8">
-                <div class="analysis-content">
-                    <!-- JavaScript로 동적 생성됨 -->
-                </div>
-            </div>
+<!-- 상세 분석 (처음에는 숨김) -->
+<div id="detailed-analysis" class="hidden bg-white/90 backdrop-blur-sm rounded-xl p-6 mb-8">
+    <div class="analysis-content">
+        <!-- JavaScript로 동적 생성됨 -->
+    </div>
+</div>
 
             <!-- 다음 퀴즈 프리뷰 섹션 -->
             <div class="next-quiz-preview mb-8">
@@ -170,38 +171,49 @@ if (typeof Kakao !== 'undefined' && !Kakao.isInitialized()) {
             rankDisplay.textContent = `상위 ${rankPercentage}%`;
         }
 
-        // 상세 분석 토글 설정
-        document.getElementById('analysis-toggle').addEventListener('click', function() {
-            playSound('analysisSound');
-            const analysis = document.getElementById('detailed-analysis');
-            analysis.classList.toggle('hidden');
-            if (!analysis.classList.contains('hidden')) {
-                analysis.innerHTML = `
-                    <div class="space-y-4">
-                        <div class="flex items-center gap-2 text-lg font-bold text-purple-600">
-                            <span>✨</span>
-                            <span>상세 분석 결과</span>
+                // 상세 분석 토글 설정
+        const analysisButton = document.getElementById('analysis-toggle');
+        if (analysisButton) {
+            analysisButton.addEventListener('click', function() {
+                console.log('상세 분석 버튼 클릭됨');
+                playSound('analysisSound');
+                const analysis = document.getElementById('detailed-analysis');
+                if (!analysis) {
+                    console.log('detailed-analysis 요소를 찾을 수 없음');
+                    return;
+                }
+                analysis.classList.toggle('hidden');
+                if (!analysis.classList.contains('hidden')) {
+                    analysis.innerHTML = `
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-2 text-lg font-bold text-purple-600">
+                                <span>✨</span>
+                                <span>상세 분석 결과</span>
+                            </div>
+                            <div class="text-left space-y-3">
+                                <p class="text-gray-700">
+                                    💡 이 문제의 정답률: ${Math.round(percentage)}%
+                                </p>
+                                <p class="text-gray-700">
+                                    📚 당신의 강점:
+                                    <br>- 빠른 판단력
+                                    <br>- 직관적인 문제 해결 능력
+                                    <br>- 논리적 사고력
+                                </p>
+                                <p class="text-gray-700">
+                                    🎯 다음 목표:
+                                    <br>- 현재 점수보다 10% 향상
+                                    <br>- 새로운 분야 도전하기
+                                </p>
+                            </div>
                         </div>
-                        <div class="text-left space-y-3">
-                            <p class="text-gray-700">
-                                💡 이 문제의 정답률: ${Math.round(percentage)}%
-                            </p>
-                            <p class="text-gray-700">
-                                📚 당신의 강점:
-                                <br>- 빠른 판단력
-                                <br>- 직관적인 문제 해결 능력
-                                <br>- 논리적 사고력
-                            </p>
-                            <p class="text-gray-700">
-                                🎯 다음 목표:
-                                <br>- 현재 점수보다 10% 향상
-                                <br>- 새로운 분야 도전하기
-                            </p>
-                        </div>
-                    </div>
-                `;
-            }
-        });
+                    `;
+                    console.log('상세 분석 내용이 추가됨');
+                }
+            });
+        } else {
+            console.log('analysis-toggle 버튼을 찾을 수 없음');
+        }
 
         // 다음 퀴즈 미리보기 설정
         const teaserMessages = [
@@ -210,8 +222,13 @@ if (typeof Kakao !== 'undefined' && !Kakao.isInitialized()) {
             "새로운 도전이 여러분을 기다립니다! ✨"
         ];
         const randomTeaser = teaserMessages[Math.floor(Math.random() * teaserMessages.length)];
-        document.getElementById('next-quiz-teaser').textContent = randomTeaser;
-
+        const nextQuizTeaser = document.getElementById('next-quiz-teaser');
+        if (nextQuizTeaser) {
+            nextQuizTeaser.textContent = randomTeaser;
+            console.log('다음 퀴즈 티저 메시지가 설정됨:', randomTeaser);
+        } else {
+            console.log('next-quiz-teaser 요소를 찾을 수 없음');
+        }
         // 추천 퀴즈 설정
         const nextQuizNumber = parseInt(quizNumber) + 1;
         const prevQuizNumber = parseInt(quizNumber) - 1;
@@ -239,10 +256,28 @@ if (typeof Kakao !== 'undefined' && !Kakao.isInitialized()) {
         document.getElementById('retry-button').href = `question.html?quiz=${quizNumber}`;
 
         // 미리보기 카드 클릭 이벤트
-        document.querySelector('.preview-card').addEventListener('click', function() {
-            playSound('previewSound');
-        });
-    });
+document.querySelector('.preview-card').addEventListener('click', function() {
+    playSound('previewSound');  // 소리는 유지
+    const previewContent = document.querySelector('.preview-content');
+    previewContent.classList.toggle('hidden');
+    
+    // 다음 퀴즈 정보 표시
+    if (!previewContent.classList.contains('hidden')) {
+        const nextQuizNumber = parseInt(quizNumber) + 1;
+        if (nextQuizNumber <= 18) {
+            previewContent.innerHTML = `
+                <div class="mt-4">
+                    <p class="text-lg font-bold text-purple-600">다음 퀴즈 준비완료! 🎯</p>
+                    <p class="text-gray-700 mt-2">${randomTeaser}</p>
+                    <a href="question.html?quiz=${nextQuizNumber}" 
+                       class="mt-4 inline-block px-6 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg hover:opacity-90">
+                        바로 도전하기 →
+                    </a>
+                </div>
+            `;
+        }
+    }
+});
 
     // 카카오톡 공유하기
 function shareKakao() {
