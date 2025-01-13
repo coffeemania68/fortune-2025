@@ -240,7 +240,8 @@ if (!Kakao.isInitialized()) {
     });
 
     // 카카오톡 공유하기
-    function shareKakao() {
+function shareKakao() {
+    try {
         playSound('shareSound');
         const score = localStorage.getItem('userScore');
         const total = localStorage.getItem('totalQuestions');
@@ -250,6 +251,11 @@ if (!Kakao.isInitialized()) {
         if (percentage >= 90) message = shareMessages.top10;
         else if (percentage >= 60) message = shareMessages.top60;
         else message = shareMessages.others;
+
+        // Kakao SDK 초기화 확인
+        if (!Kakao.isInitialized()) {
+            Kakao.init('110d468a677132abc8ddfe71b00c3939');
+        }
 
         Kakao.Share.sendDefault({
             objectType: 'feed',
@@ -272,9 +278,12 @@ if (!Kakao.isInitialized()) {
                 },
             ],
         });
+    } catch (error) {
+        console.error('카카오톡 공유 중 오류 발생:', error);
+        alert('카카오톡 공유 기능에 문제가 발생했습니다.');
     }
-
-    // URL 복사하기
+}
+// URL 복사하기
     async function copyUrl() {
         playSound('shareSound');
         try {
@@ -284,7 +293,7 @@ if (!Kakao.isInitialized()) {
             alert("링크 복사에 실패했습니다.");
         }
     }
-
+        
 // 공유하기 버튼에 소리 추가
 function shareKakao() {
     playSound('shareSound');
