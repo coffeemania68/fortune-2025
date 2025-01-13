@@ -1,1 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상식 입문 - 질문</title>
+    <link rel="stylesheet" href="../../css/question.css">
+    <style>
+       body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
 
+        #quiz-container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .option {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="quiz-container">
+        <div id="question-number"></div>
+        <div id="question-text"></div>
+        <div id="options" class="options"></div>
+        <button id="next-button" onclick="nextQuestion()">다음</button>
+    </div>
+
+    <script type="module">
+        import quizDataSets from '../../quizDataSets.js';
+
+        const currentQuiz = quizDataSets.set7;
+        
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        const questionNumberElement = document.getElementById('question-number');
+        const questionTextElement = document.getElementById('question-text');
+        const optionsElement = document.getElementById('options');
+        const nextButton = document.getElementById('next-button');
+
+        function loadQuestion() {
+            const currentQuestion = currentQuiz.questions[currentQuestionIndex];
+
+            questionNumberElement.innerText = `질문 ${currentQuestionIndex + 1}`;
+            questionTextElement.innerText = currentQuestion.question;
+            optionsElement.innerHTML = '';
+
+            currentQuestion.options.forEach(option => {
+                const button = document.createElement('button');
+                button.innerText = option;
+                button.classList.add('option');
+                button.addEventListener('click', () => checkAnswer(option));
+                optionsElement.appendChild(button);
+            });
+        }
+
+        function checkAnswer(selectedOption) {
+            const currentQuestion = currentQuiz.questions[currentQuestionIndex];
+
+            if (selectedOption === currentQuestion.correct) {
+                score++;
+            }
+
+            currentQuestionIndex++;
+
+            if (currentQuestionIndex < currentQuiz.questions.length) {
+                loadQuestion();
+            } else {
+                alert(`퀴즈 종료! 점수: ${score}/${currentQuiz.questions.length}`);
+                window.location.href = './result.html';
+            }
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < currentQuiz.questions.length - 1) {
+                currentQuestionIndex++;
+                loadQuestion();
+            } else {
+                alert('퀴즈가 끝났습니다!');
+                // 여기에서 결과 페이지로 이동하거나, 다른 동작을 수행할 수 있습니다.
+            }
+        }
+
+        // 초기 로드
+        loadQuestion();
+    </script>
+</body>
+</html>
