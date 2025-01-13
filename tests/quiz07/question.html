@@ -26,42 +26,7 @@
             </div>
 
             <!-- 답변 버튼들 -->
-                    <div class="space-y-3">
-            <button class="answer-btn w-full p-5 rounded-xl border-2 border-transparent hover:border-purple-500 transition-all duration-300 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 text-white font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                <div class="flex items-center space-x-3">
-                    <span class="text-xl">✨</span>
-                    <span class="flex-1 text-left">매우 그렇다</span>
-                </div>
-            </button>
-
-            <button class="answer-btn w-full p-5 rounded-xl border-2 border-transparent hover:border-purple-500 transition-all duration-300 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                <div class="flex items-center space-x-3">
-                    <span class="text-xl">💫</span>
-                    <span class="flex-1 text-left">그렇다</span>
-                </div>
-            </button>
-
-            <button class="answer-btn w-full p-5 rounded-xl border-2 border-transparent hover:border-purple-500 transition-all duration-300 bg-gradient-to-r from-purple-500 via-pink-500 to-rose-500 text-white font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                <div class="flex items-center space-x-3">
-                    <span class="text-xl">⭐</span>
-                    <span class="flex-1 text-left">보통이다</span>
-                </div>
-            </button>
-
-            <button class="answer-btn w-full p-5 rounded-xl border-2 border-transparent hover:border-purple-500 transition-all duration-300 bg-gradient-to-r from-pink-500 via-rose-500 to-orange-500 text-white font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                <div class="flex items-center space-x-3">
-                    <span class="text-xl">🌟</span>
-                    <span class="flex-1 text-left">아니다</span>
-                </div>
-            </button>
-
-            <button class="answer-btn w-full p-5 rounded-xl border-2 border-transparent hover:border-purple-500 transition-all duration-300 bg-gradient-to-r from-rose-500 via-orange-500 to-amber-500 text-white font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                <div class="flex items-center space-x-3">
-                    <span class="text-xl">☀️</span>
-                    <span class="flex-1 text-left">전혀 아니다</span>
-                </div>
-            </button>
-        </div>
+            <div id="options" class="options"></div>
 
             <!-- 정답 및 점수 표시 -->
             <div id="answer-feedback" class="hidden mt-4">
@@ -85,11 +50,12 @@
         const questionText = document.getElementById('questionText');
         const questionContext = document.getElementById('questionContext');
         const progress = document.getElementById('progress');
-        const answerButtons = document.querySelectorAll('.answer-btn');
+        const answerButtons = document.querySelectorAll('.answer-btn'); // answerButtons 변수 선언
         const answerFeedback = document.getElementById('answer-feedback');
         const correctAnswerElement = document.getElementById('correct-answer');
         const currentScoreElement = document.getElementById('current-score');
         const nextButton = document.getElementById('next-button');
+        const optionsElement = document.getElementById('options');
 
         function loadQuestion() {
             const currentQuestion = currentQuiz.questions[currentQuestionIndex];
@@ -119,9 +85,25 @@
 
             // Apply slide-in animation
             questionContainer.style.animation = 'slideIn 0.5s ease-out';
+
+            // Clear existing options
+            optionsElement.innerHTML = '';
+
+            // Create new option buttons
+            currentQuestion.options.forEach(option => {
+                const button = document.createElement('button');
+                button.innerText = option;
+                button.classList.add('option'); // 기존 option class 추가
+                button.addEventListener('click', () => checkAnswer(option));
+                optionsElement.appendChild(button);
+            });
         }
 
-        function handleAnswer(isCorrect) {
+        function checkAnswer(selectedOption) {
+            const currentQuestion = currentQuiz.questions[currentQuestionIndex];
+
+            const isCorrect = selectedOption === currentQuestion.correct; // 정답 여부 확인
+
             // Disable answer buttons
             answerButtons.forEach(button => {
                 button.disabled = true;
@@ -134,7 +116,6 @@
             }
 
             // Show correct answer and current score
-            const currentQuestion = currentQuiz.questions[currentQuestionIndex];
             correctAnswerElement.textContent = `정답: ${currentQuestion.correct}`;
             currentScoreElement.textContent = `현재 점수: ${score} / ${currentQuiz.questions.length}`;
             answerFeedback.classList.remove('hidden');
@@ -154,15 +135,6 @@
                 window.location.href = './result.html';
             }
         }
-
-        // Attach event listeners to answer buttons
-        answerButtons.forEach((button, index) => {
-            button.addEventListener('click', () => {
-                const currentQuestion = currentQuiz.questions[currentQuestionIndex];
-                const isCorrect = (button.querySelector('span.flex-1').textContent === currentQuestion.correct);
-                handleAnswer(isCorrect);
-            });
-        });
 
         // Load the first question
         loadQuestion();
