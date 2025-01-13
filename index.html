@@ -18,7 +18,7 @@
        <meta name="theme-color" content="#87CEEB">
 
        <link rel="manifest" href="manifest.json">
-     <style>
+   <style>
     body {
         font-family: 'Noto Sans KR', sans-serif;
         background: linear-gradient(135deg, #FF69B4, #4158D0);
@@ -32,11 +32,10 @@
         box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
     }
 
-    /* 텍스트 줄바꿈 스타일 추가 */
     .card h2, .card p {
-        word-break: keep-all !important;  /* 단어 단위 줄바꿈 */
-        word-wrap: break-word !important;  /* 긴 단어 줄바꿈 */
-        white-space: pre-line !important;  /* 줄바꿈 보존 */
+        word-break: keep-all !important;
+        word-wrap: break-word !important;
+        white-space: pre-line !important;
     }
 
     @media (max-width: 640px) {
@@ -45,13 +44,13 @@
         }
         
         .card img {
-            height: 40% !important;
+            height: 65% !important;  /* 이미지 크기 증가 */
             object-fit: cover;
         }
 
         .card .p-6 {
             padding: 0.5rem !important;
-            height: 60% !important;
+            height: 35% !important;
             display: flex !important;
             flex-direction: column !important;
             justify-content: space-between !important;
@@ -59,14 +58,13 @@
 
         .card h2 {
             font-size: 0.75rem !important;
-            margin: 0.25rem 0 !important;
+            margin: 0 !important;
             line-height: 1.2 !important;
+            text-align: center !important;
         }
 
         .card p {
-            font-size: 0.7rem !important;
-            margin-bottom: 0.25rem !important;
-            line-height: 1.2 !important;
+            display: none !important;  /* p태그 숨기기 */
         }
 
         .card a {
@@ -82,7 +80,7 @@
             font-size: 0.875rem !important;
         }
     }
-</style>       
+</style>
    </head>
    <body class="min-h-screen py-12 px-4">
        <!-- 헤더 -->
