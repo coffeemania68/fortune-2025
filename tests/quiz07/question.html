@@ -14,15 +14,15 @@
     </div>
 
     <!-- 질문 컨테이너 -->
-   <div class="min-h-screen flex items-center justify-center px-4 py-20">
-    <div id="questionContainer" class="question-container w-full max-w-2xl">            
-        <div class="bg-white/90 backdrop-blur-sm rounded-3xl p-8 shadow-xl mb-8 neon-border">
-            <h2 id="questionText" class="text-xl md:text-2xl font-bold text-center mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                질문이 여기에 표시됩니다
-            </h2>
-            <p id="questionContext" class="text-center text-gray-600 text-sm md:text-base">
-                부가설명이 여기에 표시됩니다
-            </p>
+    <div class="min-h-screen flex items-center justify-center px-4 py-20">
+        <div id="questionContainer" class="question-container w-full max-w-2xl">            
+            <div class="bg-white/90 backdrop-blur-sm rounded-3xl p-8 shadow-xl mb-8 neon-border">
+                <h2 id="questionText" class="text-xl md:text-2xl font-bold text-center mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    질문이 여기에 표시됩니다
+                </h2>
+                <p id="questionContext" class="text-center text-gray-600 text-sm md:text-base">
+                    부가설명이 여기에 표시됩니다
+                </p>
             </div>
 
             <!-- 답변 버튼들 -->
@@ -33,8 +33,8 @@
                 <p id="correct-answer" class="correct-answer"></p>
                 <p id="current-score" class="current-score"></p>
             </div>
-      </div>
- </div>
+        </div>
+    </div>
 
     <script type="module">
         import quizDataSets from './quizDataSets.js';
@@ -50,7 +50,6 @@
         const answerFeedback = document.getElementById('answer-feedback');
         const correctAnswerElement = document.getElementById('correct-answer');
         const currentScoreElement = document.getElementById('current-score');
-        const nextButton = document.getElementById('next-button');
         const optionsElement = document.getElementById('options');
 
         function loadQuestion() {
@@ -63,15 +62,14 @@
 
             // Update question text and context
             questionText.textContent = currentQuestion.question;
-            questionContext.textContent = currentQuestion.context || ''; // Update if you have context
+            questionContext.textContent = currentQuestion.context || '';
 
             // Update progress bar
             const progressPercentage = (currentQuestionIndex / currentQuiz.questions.length) * 100;
             progress.style.width = `${progressPercentage}%`;
 
-            // Hide answer feedback and next button
+            // Hide answer feedback
             answerFeedback.classList.add('hidden');
-            nextButton.classList.add('hidden');
 
             // Apply slide-in animation
             questionContainer.style.animation = 'slideIn 0.5s ease-out';
@@ -90,31 +88,31 @@
         }
 
         function checkAnswer(selectedOption) {
-    const currentQuestion = currentQuiz.questions[currentQuestionIndex];
-    const isCorrect = selectedOption === currentQuestion.correct;
+            const currentQuestion = currentQuiz.questions[currentQuestionIndex];
+            const isCorrect = selectedOption === currentQuestion.correct;
 
-    // Update score if the answer is correct
-    if (isCorrect) {
-        score++;
-    }
+            // Update score if the answer is correct
+            if (isCorrect) {
+                score++;
+            }
 
-    // Show correct answer and current score
-    correctAnswerElement.textContent = `정답: ${currentQuestion.correct}`;
-    currentScoreElement.textContent = `현재 점수: ${score} / ${currentQuiz.questions.length}`;
-    answerFeedback.classList.remove('hidden');
+            // Show correct answer and current score
+            correctAnswerElement.textContent = `정답: ${currentQuestion.correct}`;
+            currentScoreElement.textContent = `현재 점수: ${score} / ${currentQuiz.questions.length}`;
+            answerFeedback.classList.remove('hidden');
 
-    // 잠시 대기 후 다음 문제로 자동 이동
-    setTimeout(() => {
-        currentQuestionIndex++;
-        if (currentQuestionIndex < currentQuiz.questions.length) {
-            loadQuestion();
-        } else {
-            // 퀴즈 종료, 점수 저장 및 결과 페이지로 이동
-            localStorage.setItem('userScore', score);
-            window.location.href = './result.html';
+            // 잠시 대기 후 다음 문제로 자동 이동
+            setTimeout(() => {
+                currentQuestionIndex++;
+                if (currentQuestionIndex < currentQuiz.questions.length) {
+                    loadQuestion();
+                } else {
+                    // 퀴즈 종료, 점수 저장 및 결과 페이지로 이동
+                    localStorage.setItem('userScore', score);
+                    window.location.href = './result.html';
+                }
+            }, 1500); // 1.5초 후 다음 문제로 이동
         }
-    }, 1500); // 1.5초 후 다음 문제로 이동
-}
 
         // Load the first question
         loadQuestion();
