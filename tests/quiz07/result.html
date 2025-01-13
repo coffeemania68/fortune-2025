@@ -32,10 +32,23 @@
         }
     </script>
     <script>
-      function restartQuiz() {
-          localStorage.removeItem('userScore');
-          window.location.href = './index.html';
-      }
+        function restartQuiz() {
+            localStorage.removeItem('userScore');
+            window.location.href = './index.html';
+        }
     </script>
+       <!-- 고정된 하단 버튼 -->
+       <div class="fixed bottom-0 left-0 right-0 bg-white shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]">
+        <div class="max-w-lg mx-auto p-4 grid grid-cols-2 gap-3">
+            <button onclick="location.href='./question.html'" 
+                    class="button-hover w-full py-3 px-6 bg-green-500 text-white rounded-full font-medium shadow-md hover:bg-green-600">
+                다시 테스트하기
+            </button>
+            <button onclick="location.href='../../'" 
+                    class="button-hover w-full py-3 px-6 bg-gray-100 text-gray-700 rounded-full font-medium hover:bg-gray-200">
+                다른 테스트 하기
+            </button>
+        </div>
+    </div>
 </body>
 </html>
