@@ -241,16 +241,19 @@
         }
 
         function nextQuestion() {
-            currentQuestionIndex++;
+    if (currentQuestionIndex < currentQuiz.questions.length - 1) {
+        currentQuestionIndex++;
+        loadQuestion();
+    } else {
+        // 퀴즈가 끝났을 때의 동작
+        
+        // 사용자의 점수를 로컬 스토리지에 저장
+        localStorage.setItem('userScore', score);
 
-            if (currentQuestionIndex < currentQuiz.questions.length) {
-                loadQuestion();
-            } else {
-                // 퀴즈 종료, 점수 저장 및 결과 페이지로 이동
-                localStorage.setItem('userScore', score);
-                window.location.href = './result.html';
-            }
-        }
+        // 결과 페이지로 이동
+        window.location.href = './result.html';
+    }
+}
 
         // Attach event listeners to answer buttons
         answerButtons.forEach((button, index) => {
