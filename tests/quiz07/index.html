@@ -4,46 +4,78 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>상식 입문</title>
+    <link rel="stylesheet" href="../../css/index.css">
     <style>
         body, html {
             margin: 0;
             padding: 0;
             height: 100%;
             overflow: hidden;
-        }
-        
-        .clickable-container {
-            width: 100vw;
-            height: 100vh;
-            cursor: pointer;
             display: flex;
             justify-content: center;
             align-items: center;
+            background-color: #f4f4f4;
         }
-        
+
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
         .main-image {
-            width: 100%;
-            height: 100vh;
-            object-fit: contain;
-            max-width: 100%;
+            width: 80%;
+            max-width: 400px;
+            margin: 0 auto;
             display: block;
         }
 
-        @media screen and (max-width: 768px) {
-            .main-image {
-                object-fit: contain;
-                width: 100%;
-                height: auto;
-                position: absolute;
-                top: 50%;
-                transform: translateY(-50%);
-            }
+        .btn {
+            padding: 15px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+            text-decoration: none;
+            text-align: center;
+            color: #fff;
+        }
+
+        .btn-start {
+            background-color: #007bff;
+        }
+
+        .btn-bucket {
+            background-color: #28a745;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
         }
     </style>
 </head>
 <body>
-    <div class="clickable-container" onclick="location.href='./question.html'">
+    <div class="container">
         <img src="../images/quiz07-main.jpg" alt="상식 입문" class="main-image">
+        <div class="button-container">
+            <button onclick="location.href='./question.html'" class="btn btn-start">시작하기</button>
+            <a href="https://coffeemania68.github.io/BucketTimer" target="_blank" class="btn btn-bucket">2025 버킷타이머 받기</a>
+        </div>
     </div>
 </body>
 </html>
