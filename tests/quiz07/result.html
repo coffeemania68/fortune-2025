@@ -22,22 +22,23 @@
         <div class="result-container animate-fadeIn max-w-3xl w-full">
             <!-- 점수 섹션 -->
             <div class="score-section mb-8 text-center">
-    <h1 class="text-4xl font-bold bg-gradient-to-r from-violet-500 to-fuchsia-500 bg-clip-text text-transparent mb-4 whitespace-nowrap">
-        🎉 퀴즈 완료!
-    </h1>
-    <div id="score-display" class="text-2xl mb-4">
-        <span class="font-bold text-indigo-600 whitespace-nowrap">당신의 점수는</span>
-        <span id="score" class="text-3xl font-bold text-purple-600"></span>
-    </div>
-    <div id="rank-display" class="mt-4 text-xl text-indigo-600 whitespace-nowrap"></div>
-</div>
+                <h1 class="text-4xl font-bold bg-gradient-to-r from-violet-500 to-fuchsia-500 bg-clip-text text-transparent mb-4 whitespace-nowrap">
+                    🎉 퀴즈 완료!
+                </h1>
+                <div id="score-display" class="text-2xl mb-4">
+                    <span class="font-bold text-indigo-600 whitespace-nowrap">당신의 점수는</span>
+                    <span id="score" class="text-3xl font-bold text-purple-600"></span>
+                </div>
+                <div id="rank-display" class="mt-4 text-xl text-indigo-600 whitespace-nowrap"></div>
+            </div>
+
             <!-- 공유 버튼 -->
             <div class="share-buttons flex gap-4 justify-center px-4 sm:px-6 mb-8">
                 <button onclick="shareKakao()" 
                         class="flex-1 whitespace-nowrap px-4 py-3 text-center rounded-lg bg-[#FEE500] text-black font-bold hover:bg-[#FDD000] transition-all">
                     카카오톡 공유
                 </button>
-                          <button onclick="copyUrl()" 
+                <button onclick="copyUrl()" 
                         class="flex-1 whitespace-nowrap px-4 py-3 text-center rounded-lg bg-gray-100 text-gray-800 font-bold hover:bg-gray-200 transition-all">
                     링크 복사
                 </button>
