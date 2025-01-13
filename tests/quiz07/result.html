@@ -220,6 +220,38 @@
                 alert("링크 복사에 실패했습니다.");
             }
         }
+        // 소리 재생 함수
+function playSound(soundId) {
+    const sound = document.getElementById(soundId);
+    sound.volume = 0.5;
+    sound.play().catch(function(error) {
+        console.log("소리 재생 실패: 사용자 상호작용 필요");
+    });
+}
+
+// 공유하기 버튼에 소리 추가
+function shareKakao() {
+    playSound('shareSound');
+    // 기존 카카오톡 공유 코드...
+}
+
+// URL 복사 버튼에도 같은 소리 추가
+async function copyUrl() {
+    playSound('shareSound');
+    // 기존 URL 복사 코드...
+}
+
+// 상세 분석 토글에 소리 추가
+document.getElementById('analysis-toggle').addEventListener('click', function() {
+    playSound('analysisSound');
+    const analysis = document.getElementById('detailed-analysis');
+    analysis.classList.toggle('hidden');
+});
+
+// 다음 퀴즈 미리보기 카드에 소리 추가
+document.querySelector('.preview-card').addEventListener('click', function() {
+    playSound('previewSound');
+});
     </script>
 </body>
 </html>
