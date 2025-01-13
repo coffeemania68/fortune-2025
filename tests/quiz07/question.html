@@ -90,7 +90,7 @@
                 button.addEventListener('click', () => checkAnswer(option));
                 optionsElement.appendChild(button);
             });
-        }
+}
 
         function checkAnswer(selectedOption) {
             const currentQuestion = currentQuiz.questions[currentQuestionIndex];
@@ -113,7 +113,7 @@
 
         function nextQuestion() {
             currentQuestionIndex++;
-
+        
             if (currentQuestionIndex < currentQuiz.questions.length) {
                 loadQuestion();
             } else {
