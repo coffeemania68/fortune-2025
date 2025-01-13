@@ -370,14 +370,25 @@
 </div>
 
 <!-- 새로운 퀴즈 18 -->
-<div class="card bg-white rounded-2xl overflow-hidden">
-    <img src="tests/images/quiz18-main.png"
-         alt="지식 끝판왕 레벨 2"
-         class="w-full h-48 object-cover">
+<!-- PC에서는 버튼이 보이고, 모바일에서는 전체 카드가 클릭되는 버전 -->
+<a href="tests/quiz07/question.html?quiz=18" class="block md:hidden">
+    <!-- 모바일용 카드 (버튼 없음) -->
+    <div class="card bg-white rounded-2xl overflow-hidden hover:shadow-lg transition-shadow">
+        <img src="tests/images/quiz18-main.png" alt="지식 끝판왕 레벨 2" class="w-full h-48 object-cover">
+        <div class="p-6">
+            <h2 class="text-xl font-bold mt-4 mb-2">지식 끝판왕 레벨 2</h2>
+            <p class="text-gray-600 mb-4">상식의 끝을 보여주세요! 두번째 도전</p>
+        </div>
+    </div>
+</a>
+
+<!-- PC용 카드 (버튼 있음) -->
+<div class="card bg-white rounded-2xl overflow-hidden hidden md:block">
+    <img src="tests/images/quiz18-main.png" alt="지식 끝판왕 레벨 2" class="w-full h-48 object-cover">
     <div class="p-6">
         <h2 class="text-xl font-bold mt-4 mb-2">지식 끝판왕 레벨 2</h2>
         <p class="text-gray-600 mb-4">상식의 끝을 보여주세요! 두번째 도전</p>
-        <a href="tests/quiz07/question.html?quiz=18"
+        <a href="tests/quiz07/question.html?quiz=18" 
            class="block w-full py-3 text-center bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-xl font-bold hover:opacity-90 transition-opacity">
             테스트 하기
         </a>
