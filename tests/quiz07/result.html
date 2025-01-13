@@ -1,1 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>퀴즈 결과</title>
+    <link rel="stylesheet" href="../../css/result.css">
+</head>
+<body>
+    <div class="result-container">
+        <h1>퀴즈 결과</h1>
+        <p>당신의 점수는 <span id="user-score">0</span> / <span id="total-questions">0</span> 입니다.</p>
+        <div id="result-message"></div>
+        <button onclick="restartQuiz()">다시 시작</button>
+    </div>
 
+    <script type="module">
+        import quizDataSets from '../quiz07/quizDataSets.js';
+
+        const totalQuestions = quizDataSets.set7.questions.length;
+        const userScore = localStorage.getItem('userScore') || 0;
+
+        document.getElementById('user-score').innerText = userScore;
+        document.getElementById('total-questions').innerText = totalQuestions;
+
+        if (parseInt(userScore) === totalQuestions) {
+            document.getElementById('result-message').innerText = "완벽합니다! 모든 문제를 맞혔습니다.";
+        } else if (parseInt(userScore) > 0) {
+            document.getElementById('result-message').innerText = "잘하셨습니다! 몇 가지 문제가 틀렸습니다.";
+        } else {
+            document.getElementById('result-message').innerText = "아쉽네요. 모든 문제가 틀렸습니다.";
+        }
+    </script>
+    <script>
+      function restartQuiz() {
+          localStorage.removeItem('userScore');
+          window.location.href = './index.html';
+      }
+    </script>
+</body>
+</html>
