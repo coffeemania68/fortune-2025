@@ -58,46 +58,46 @@
         const optionsElement = document.getElementById('options');
 
         function loadQuestion() {
-            const currentQuestion = currentQuiz.questions[currentQuestionIndex];
+    const currentQuestion = currentQuiz.questions[currentQuestionIndex];
 
-            // Reset animation
-            questionContainer.style.animation = 'none';
-            questionContainer.offsetHeight; // Trigger reflow
-            questionContainer.style.animation = null;
+    // Reset animation
+    questionContainer.style.animation = 'none';
+    questionContainer.offsetHeight; // Trigger reflow
+    questionContainer.style.animation = null;
 
-            // Update question text and context
-            questionText.textContent = currentQuestion.question;
-            questionContext.textContent = currentQuestion.context || ''; // Update if you have context
+    // Update question text and context
+    questionText.textContent = currentQuestion.question;
+    questionContext.textContent = currentQuestion.context || ''; // Update if you have context
 
-            // Update progress bar
-            const progressPercentage = (currentQuestionIndex / currentQuiz.questions.length) * 100;
-            progress.style.width = `${progressPercentage}%`;
+    // Update progress bar
+    const progressPercentage = (currentQuestionIndex / currentQuiz.questions.length) * 100;
+    progress.style.width = `${progressPercentage}%`;
 
-            // Hide answer feedback and next button
-            answerFeedback.classList.add('hidden');
-            nextButton.classList.add('hidden');
+    // Hide answer feedback and next button
+    answerFeedback.classList.add('hidden');
+    nextButton.classList.add('hidden');
 
-            // Enable answer buttons
-            answerButtons.forEach(button => {
-                button.disabled = false;
-                button.classList.remove('selected');
-            });
+    // Enable answer buttons
+    answerButtons.forEach(button => {
+        button.disabled = false;
+        button.classList.remove('selected');
+    });
 
-            // Apply slide-in animation
-            questionContainer.style.animation = 'slideIn 0.5s ease-out';
+    // Apply slide-in animation
+    questionContainer.style.animation = 'slideIn 0.5s ease-out';
 
-            // Clear existing options
-            optionsElement.innerHTML = '';
+    // Clear existing options
+    optionsElement.innerHTML = '';
 
-            // Create new option buttons
-            currentQuestion.options.forEach(option => {
-                const button = document.createElement('button');
-                button.innerText = option;
-                button.classList.add('option'); // 기존 option class 추가
-                button.addEventListener('click', () => checkAnswer(option));
-                optionsElement.appendChild(button);
-            });
-        }
+    // Create new option buttons
+    currentQuestion.options.forEach(option => {
+        const button = document.createElement('button');
+        button.innerText = option;
+        button.classList.add('option');
+        button.addEventListener('click', () => checkAnswer(option));
+        optionsElement.appendChild(button);
+    });
+}
 
         function checkAnswer(selectedOption) {
             const currentQuestion = currentQuiz.questions[currentQuestionIndex];
