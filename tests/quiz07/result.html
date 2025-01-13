@@ -10,10 +10,11 @@
     <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     <!-- 컨페티 효과 -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-    <!-- Open Graph 태그 -->
+      
+    <!-- 여기에 Open Graph 태그 추가/수정 -->
     <meta property="og:title" content="나의 퀴즈 결과">
     <meta property="og:description" content="당신의 놀라운 결과를 확인해보세요!">
-    <meta property="og:image" content="퀴즈 결과 이미지 URL">
+    <meta property="og:image" content="https://blog.kakaocdn.net/dn/G8BzH/btsAeR6J8ml/wQttKbYDGqmL9kkkQJ0AyK/img.png">
     <meta property="og:url" content="현재 페이지 URL">
 </head>
 <body class="bg-gradient-to-br from-slate-100 to-blue-50 min-h-screen">
@@ -167,38 +168,38 @@
         });
 
         // 카카오톡 공유하기
-        function shareKakao() {
-            const score = localStorage.getItem('userScore');
-            const total = localStorage.getItem('totalQuestions');
-            const percentage = Math.round((score / total) * 100);
-            
-            let message;
-            if (percentage >= 90) message = shareMessages.top10;
-            else if (percentage >= 60) message = shareMessages.top60;
-            else message = shareMessages.others;
+         function shareKakao() {
+        const score = localStorage.getItem('userScore');
+        const total = localStorage.getItem('totalQuestions');
+        const percentage = Math.round((score / total) * 100);
+        
+        let message;
+        if (percentage >= 90) message = shareMessages.top10;
+        else if (percentage >= 60) message = shareMessages.top60;
+        else message = shareMessages.others;
 
-            Kakao.Share.sendDefault({
-                objectType: 'feed',
-                content: {
-                    title: '퀴즈 결과',
-                    description: message,
-                    imageUrl: '퀴즈 결과 이미지 URL',
+        Kakao.Share.sendDefault({
+            objectType: 'feed',
+            content: {
+                title: '퀴즈 결과',
+                description: message,
+                imageUrl: 'https://blog.kakaocdn.net/dn/G8BzH/btsAeR6J8ml/wQttKbYDGqmL9kkkQJ0AyK/img.png',
+                link: {
+                    mobileWebUrl: window.location.href,
+                    webUrl: window.location.href,
+                },
+            },
+            buttons: [
+                {
+                    title: '도전하기',
                     link: {
                         mobileWebUrl: window.location.href,
                         webUrl: window.location.href,
                     },
                 },
-                buttons: [
-                    {
-                        title: '도전하기',
-                        link: {
-                            mobileWebUrl: window.location.href,
-                            webUrl: window.location.href,
-                        },
-                    },
-                ],
-            });
-        }
+            ],
+        });
+    }
 
         // URL 복사하기
         async function copyUrl() {
