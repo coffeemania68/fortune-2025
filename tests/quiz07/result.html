@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>퀴즈 결과</title>
-    <!-- Kakao SDK -->
-    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="./css/result.css">
-    <!-- 컨페티 효과 -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-    
     <!-- Open Graph 태그 -->
     <meta property="og:title" content="나의 퀴즈 결과">
     <meta property="og:description" content="당신의 놀라운 결과를 확인해보세요!">
     <meta property="og:image" content="https://blog.kakaocdn.net/dn/G8BzH/btsAeR6J8ml/wQttKbYDGqmL9kkkQJ0AyK/img.png">
     <meta property="og:url" content="현재 페이지 URL">
 
-    <!-- 효과음 -->
+    <title>퀴즈 결과</title>
+    <!-- Kakao SDK -->
+    <script src="https://developers.kakao.com/sdk/js/kakao.js" defer></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./css/result.css">
+    <!-- 컨페티 효과 -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    
+        <!-- 효과음 -->
     <audio id="shareSound" preload="auto">
         <source src="https://assets.mixkit.co/active_storage/sfx/2568/2568.wav" type="audio/wav">
     </audio>
@@ -104,7 +104,11 @@
     </div>
     <script>
     // 수정된 코드
-if (!Kakao.isInitialized()) {
+// Kakao SDK 초기화 - window.Kakao 사용
+window.Kakao.init('110d468a677132abc8ddfe71b00c3939');
+
+// 또는 초기화 체크 추가
+if (typeof Kakao !== 'undefined' && !Kakao.isInitialized()) {
     Kakao.init('110d468a677132abc8ddfe71b00c3939');
 }
 
