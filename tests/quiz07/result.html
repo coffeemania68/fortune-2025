@@ -32,15 +32,16 @@
         <div class="result-container animate-fadeIn max-w-3xl w-full">
             <!-- 점수 섹션 -->
             <div class="score-section mb-8 text-center">
-                <h1 class="text-4xl font-bold bg-gradient-to-r from-violet-500 to-fuchsia-500 bg-clip-text text-transparent mb-4 whitespace-nowrap">
-                    🎉 퀴즈 완료!
-                </h1>
-                <div id="score-display" class="text-2xl mb-4">
-                    <span class="font-bold text-indigo-600 whitespace-nowrap">당신의 점수는</span>
-                    <span id="score" class="text-3xl font-bold text-purple-600"></span>
-                </div>
-                <div id="rank-display" class="mt-4 text-xl text-indigo-600 whitespace-nowrap"></div>
-            </div>
+    <h1 class="text-4xl font-bold bg-gradient-to-r from-violet-500 to-fuchsia-500 bg-clip-text text-transparent mb-4 whitespace-nowrap">
+        🎉 퀴즈 완료!
+    </h1>
+    <div id="score-display" class="text-2xl mb-4">
+        <span class="font-bold text-indigo-600 whitespace-nowrap">당신의 점수는</span>
+        <span id="score" class="text-3xl font-bold text-purple-600"></span>
+    </div>
+    <div id="result-message" class="text-lg text-indigo-600 mt-4 font-bold"></div>
+    <div id="rank-display" class="mt-4 text-xl text-indigo-600 whitespace-nowrap"></div>
+</div>
 
             <!-- 공유 버튼 -->
             <div class="share-buttons flex gap-4 justify-center px-4 sm:px-6 mb-8">
@@ -120,6 +121,17 @@
             // 점수 표시
             document.getElementById('score').textContent = ` ${score}/${totalQuestions}`;
 
+            // 점수에 따른 메시지 표시
+    const percentage = Math.round((score / totalQuestions) * 100);
+    const resultMessage = document.getElementById('result-message');
+    if (percentage >= 90) {
+        resultMessage.textContent = shareMessages.top10;
+    } else if (percentage >= 60) {
+        resultMessage.textContent = shareMessages.top60;
+    } else {
+        resultMessage.textContent = shareMessages.others;
+    }
+            
             // 백분율 계산
             const percentage = Math.round((score / totalQuestions) * 100);
             
