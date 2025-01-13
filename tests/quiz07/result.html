@@ -6,68 +6,99 @@
     <title>퀴즈 결과</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="./css/result.css">
+    <!-- Kakao SDK -->
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+    <!-- 컨페티 효과 -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <!-- Open Graph 태그 -->
+    <meta property="og:title" content="나의 퀴즈 결과">
+    <meta property="og:description" content="당신의 놀라운 결과를 확인해보세요!">
+    <meta property="og:image" content="퀴즈 결과 이미지 URL">
+    <meta property="og:url" content="현재 페이지 URL">
 </head>
 <body class="bg-gradient-to-br from-slate-100 to-blue-50 min-h-screen">
     <div class="min-h-screen flex items-center justify-center px-4 py-12">
-        <div class="result-container animate-fadeIn">
-            <!-- 점수 표시 -->
-            <div class="score-section mb-8">
-                <h1 class="text-4xl font-bold bg-gradient-to-r from-violet-500 to-fuchsia-500 bg-clip-text text-transparent mb-4">
+        <div class="result-container animate-fadeIn max-w-3xl w-full">
+            <!-- 점수 섹션 -->
+            <div class="score-section mb-8 text-center">
+                <h1 class="text-4xl font-bold bg-gradient-to-r from-violet-500 to-fuchsia-500 bg-clip-text text-transparent mb-4 whitespace-nowrap">
                     🎉 퀴즈 완료!
                 </h1>
                 <div id="score-display" class="text-2xl mb-4">
-                    <span class="font-bold text-indigo-600">당신의 점수는</span>
+                    <span class="font-bold text-indigo-600 whitespace-nowrap">당신의 점수는</span>
                     <span id="score" class="text-3xl font-bold text-purple-600"></span>
                 </div>
-                <div id="badge-container" class="mt-4">
-                    <!-- 뱃지 이미지가 여기에 표시됩니다 -->
-                </div>
+                <div id="rank-display" class="mt-4 text-xl text-indigo-600 whitespace-nowrap"></div>
             </div>
 
-            <!-- 통계 섹션 -->
-            <div class="stats-section bg-white/80 backdrop-blur-sm rounded-xl p-6 mb-8">
-                <p class="text-lg mb-2">
-                    🎮 현재까지 <span id="total-players" class="font-bold text-indigo-600"></span>명이 도전!
-                </p>
-                <p class="text-lg">
-                    🏆 당신의 순위: 상위 <span id="rank-percentage" class="font-bold text-purple-600"></span>%
-                </p>
+            <!-- 공유 버튼 -->
+            <div class="share-buttons flex gap-4 justify-center px-4 sm:px-6 mb-8">
+                <button onclick="shareKakao()" 
+                        class="flex-1 whitespace-nowrap px-4 py-3 text-center rounded-lg bg-[#FEE500] text-black font-bold hover:bg-[#FDD000] transition-all">
+                    카카오톡 공유
+                </button>
+                <button onclick="copyUrl()" 
+                        class="flex-1 whitespace-nowrap px-4 py-3 text-center rounded-lg bg-gray-100 text-gray-800 font-bold hover:bg-gray-200 transition-all">
+                    링크 복사
+                </button>
             </div>
-
-            <!-- 상세 분석 토글 버튼 -->
-            <button id="analysis-toggle" class="w-full p-4 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-xl mb-6 hover:shadow-lg transition-all">
+   
+            <button id="analysis-toggle" class="w-full p-4 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-xl mb-6 hover:shadow-lg transition-all whitespace-nowrap">
                 📊 상세 분석 보기
             </button>
 
             <!-- 상세 분석 (처음에는 숨김) -->
             <div id="detailed-analysis" class="hidden bg-white/90 backdrop-blur-sm rounded-xl p-6 mb-8">
                 <div class="analysis-content">
-                    <!-- 분석 내용은 JavaScript로 동적 생성됩니다 -->
+                    <!-- JavaScript로 동적 생성됨 -->
+                </div>
+            </div>
+
+            <!-- 다음 퀴즈 프리뷰 섹션 -->
+            <div class="next-quiz-preview mb-8">
+                <div class="preview-card bg-white/90 backdrop-blur-sm rounded-xl p-6 transform transition-all hover:scale-105">
+                    <h3 class="text-xl font-bold text-indigo-600 mb-4 whitespace-nowrap">🚀 다음 퀴즈 미리보기</h3>
+                    <div class="preview-content relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-500 opacity-20 rounded-full animate-pulse"></div>
+                        <p class="text-gray-700 mb-4" id="next-quiz-teaser">
+                            <!-- JavaScript로 동적 생성됨 -->
+                        </p>
+                    </div>
                 </div>
             </div>
 
             <!-- 추천 퀴즈 섹션 -->
             <div class="recommendations-section bg-white/90 backdrop-blur-sm rounded-xl p-6 mb-8">
-                <h3 class="text-xl font-bold mb-4 text-indigo-600">📚 다음 단계 추천</h3>
+                <h3 class="text-xl font-bold mb-4 text-indigo-600 whitespace-nowrap">📚 추천 퀴즈</h3>
                 <div id="quiz-recommendations" class="grid grid-cols-2 gap-4">
-                    <!-- 추천 퀴즈 버튼들이 여기에 표시됩니다 -->
+                    <!-- JavaScript로 동적 생성됨 -->
                 </div>
             </div>
 
             <!-- 액션 버튼 -->
             <div class="action-buttons grid grid-cols-2 gap-4">
-                <a href="index.html" class="btn-secondary">
+                <a href="https://coffeemania68.github.io/fortune-2025/" 
+                   class="btn-secondary whitespace-nowrap">
                     🏠 홈으로
                 </a>
-                <a id="retry-button" href="#" class="btn-primary">
+                <a id="retry-button" href="#" 
+                   class="btn-primary whitespace-nowrap">
                     🔄 다시 도전
                 </a>
             </div>
         </div>
     </div>
-
     <script>
+        // Kakao SDK 초기화
+        Kakao.init('110d468a677132abc8ddfe71b00c3939');
+
+        // 점수 구간별 공유 문구
+        const shareMessages = {
+            top10: "어라? 내가 천재였나요?! 상위 10%를 기록했어요! 🏆",
+            top60: "이런 문제를 틀리는 친구가 있다고요? 어서 공유해서 확인해보세요! 😎",
+            others: "앗! 나보다 못 하는 친구를 찾아보자! 어디 없나요~? 👀"
+        };
+
         document.addEventListener('DOMContentLoaded', function() {
             // 결과 데이터 가져오기
             const score = parseInt(localStorage.getItem('userScore') || 0);
@@ -78,99 +109,106 @@
             // 점수 표시
             document.getElementById('score').textContent = ` ${score}/${totalQuestions}`;
 
-            // 방문자 수 표시
-            document.getElementById('total-players').textContent = totalPlayers.toLocaleString();
-
-            // 랭킹 계산 (예시 - 실제로는 더 복잡한 로직이 필요할 수 있습니다)
+            // 백분율 계산
             const percentage = Math.round((score / totalQuestions) * 100);
+            
+            // 랭킹 계산 및 표시
             const rankPercentage = 100 - percentage + Math.floor(Math.random() * 20);
-            document.getElementById('rank-percentage').textContent = rankPercentage;
-
-            // 뱃지 및 메시지 설정
-            let badge, title, message;
-            if (percentage >= 90) {
-                badge = "🌟";
-                title = "상식 초월자";
-                message = "놀라운 실력이에요! 당신은 진정한 퀴즈 마스터입니다!";
+            const rankDisplay = document.getElementById('rank-display');
+            
+            // 상위 10% 등수 표시
+            if (rankPercentage <= 10) {
+                const actualRank = Math.ceil((totalPlayers * rankPercentage) / 100);
+                rankDisplay.innerHTML = `🏆 상위 ${rankPercentage}% (${actualRank.toLocaleString()}등)`;
+                // 폭죽 효과
                 confetti({
                     particleCount: 100,
                     spread: 70,
                     origin: { y: 0.6 }
                 });
-            } else if (percentage >= 70) {
-                badge = "🎓";
-                title = "지식 현자";
-                message = "훌륭해요! 당신의 지식이 빛나고 있어요!";
-            } else if (percentage >= 50) {
-                badge = "🚀";
-                title = "진리 탐험가";
-                message = "좋은 시도였어요! 계속 도전하면 더 좋은 결과가 있을 거예요!";
-            } else if (percentage >= 30) {
-                badge = "💎";
-                title = "지혜 수집가";
-                message = "괜찮아요! 실패는 성공의 어머니랍니다!";
             } else {
-                badge = "🌱";
-                title = "호기심 새싹";
-                message = "도전하신 것만으로도 멋져요! 다음엔 더 잘할 수 있을 거예요!";
+                rankDisplay.textContent = `상위 ${rankPercentage}%`;
             }
 
-            // 뱃지 표시
-            document.getElementById('badge-container').innerHTML = `
-                <div class="text-4xl mb-2">${badge}</div>
-                <div class="text-xl font-bold text-indigo-600">${title}</div>
-                <div class="text-gray-600 mt-2">${message}</div>
-            `;
-
-            // 상세 분석 토글
-            const analysisToggle = document.getElementById('analysis-toggle');
-            const detailedAnalysis = document.getElementById('detailed-analysis');
-            const analysisContent = document.querySelector('.analysis-content');
-
-            analysisToggle.addEventListener('click', () => {
-                detailedAnalysis.classList.toggle('hidden');
-                if (!detailedAnalysis.classList.contains('hidden')) {
-                    analysisContent.innerHTML = `
-                        <div class="mb-4">
-                            <h4 class="font-bold text-lg mb-2">💫 강점</h4>
-                            <p class="text-gray-600">빠른 판단력과 직관적인 문제 해결 능력이 돋보입니다.</p>
-                        </div>
-                        <div class="mb-4">
-                            <h4 class="font-bold text-lg mb-2">📈 성장 포인트</h4>
-                            <p class="text-gray-600">문제를 좀 더 천천히 읽고 신중하게 접근해보세요.</p>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-lg mb-2">🎯 다음 목표</h4>
-                            <p class="text-gray-600">현재 점수보다 10% 향상을 목표로 해보세요!</p>
-                        </div>
-                    `;
-                }
-            });
-
             // 다음 퀴즈 추천
-            const recommendationsContainer = document.getElementById('quiz-recommendations');
             const nextQuizNumber = parseInt(quizNumber) + 1;
             const prevQuizNumber = parseInt(quizNumber) - 1;
-
+            const recommendationsContainer = document.getElementById('quiz-recommendations');
+            
+            // 이전 퀴즈 버튼 (파란색)
             if (prevQuizNumber >= 7) {
                 recommendationsContainer.innerHTML += `
-                    <a href="question.html?quiz=${prevQuizNumber}" target="_blank" class="recommendation-btn">
+                    <a href="question.html?quiz=${prevQuizNumber}" class="recommendation-btn bg-blue-500 hover:bg-blue-600">
                         ⬅️ 퀴즈 ${prevQuizNumber}
                     </a>
                 `;
             }
             
+            // 다음 퀴즈 버튼 (빨간색)
             if (nextQuizNumber <= 18) {
                 recommendationsContainer.innerHTML += `
-                    <a href="question.html?quiz=${nextQuizNumber}" target="_blank" class="recommendation-btn">
+                    <a href="question.html?quiz=${nextQuizNumber}" class="recommendation-btn bg-red-500 hover:bg-red-600">
                         퀴즈 ${nextQuizNumber} ➡️
                     </a>
                 `;
             }
 
+            // 다음 퀴즈 티저 메시지
+            const teaserMessages = [
+                "더 신기한 문제들이 기다리고 있어요! 🎯",
+                "다음 퀴즈는 더 재미있을걸요? 🌟",
+                "새로운 도전이 여러분을 기다립니다! ✨"
+            ];
+            const randomTeaser = teaserMessages[Math.floor(Math.random() * teaserMessages.length)];
+            document.getElementById('next-quiz-teaser').textContent = randomTeaser;
+
             // 재도전 버튼 설정
             document.getElementById('retry-button').href = `question.html?quiz=${quizNumber}`;
         });
+
+        // 카카오톡 공유하기
+        function shareKakao() {
+            const score = localStorage.getItem('userScore');
+            const total = localStorage.getItem('totalQuestions');
+            const percentage = Math.round((score / total) * 100);
+            
+            let message;
+            if (percentage >= 90) message = shareMessages.top10;
+            else if (percentage >= 60) message = shareMessages.top60;
+            else message = shareMessages.others;
+
+            Kakao.Share.sendDefault({
+                objectType: 'feed',
+                content: {
+                    title: '퀴즈 결과',
+                    description: message,
+                    imageUrl: '퀴즈 결과 이미지 URL',
+                    link: {
+                        mobileWebUrl: window.location.href,
+                        webUrl: window.location.href,
+                    },
+                },
+                buttons: [
+                    {
+                        title: '도전하기',
+                        link: {
+                            mobileWebUrl: window.location.href,
+                            webUrl: window.location.href,
+                        },
+                    },
+                ],
+            });
+        }
+
+        // URL 복사하기
+        async function copyUrl() {
+            try {
+                await navigator.clipboard.writeText(window.location.href);
+                alert("링크가 복사되었습니다!");
+            } catch (err) {
+                alert("링크 복사에 실패했습니다.");
+            }
+        }
     </script>
 </body>
 </html>
