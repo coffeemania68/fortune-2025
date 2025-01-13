@@ -115,95 +115,171 @@
        <!-- 테스트 카드 그리드 -->
        <div class="max-w-6xl mx-auto grid grid-cols-3 gap-4 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 px-2">
           <!-- 성공운 테스트 -->
-           <div class="card bg-white rounded-2xl overflow-hidden">
-               <img src="https://blog.kakaocdn.net/dn/bcQ3cD/btsLFyjqUn7/NImkKgdBQALZ1NRmbfOBGk/img.png" 
-                    alt="성공운 테스트" 
-                    class="w-full h-48 object-cover">
-               <div class="p-6">
-                   <h2 class="text-xl font-bold mt-4 mb-2">성공운 테스트</h2>
-                   <p class="text-gray-600 mb-4">2025년 나의 성공 확률은?</p>
-                   <a href="tests/001" 
-                      class="block w-full py-3 text-center bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl font-bold hover:opacity-90 transition-opacity">
-                       테스트 하기
-                   </a>
-               </div>
-           </div>
+<!-- 모바일용 -->
+<a href="tests/001" class="block md:hidden">
+    <div class="card bg-white rounded-2xl overflow-hidden hover:shadow-lg transition-shadow">
+        <img src="https://blog.kakaocdn.net/dn/bcQ3cD/btsLFyjqUn7/NImkKgdBQALZ1NRmbfOBGk/img.png" 
+             alt="성공운 테스트" 
+             class="w-full h-48 object-cover">
+        <div class="p-6">
+            <h2 class="text-xl font-bold mt-4 mb-2">성공운 테스트</h2>
+            <p class="text-gray-600 mb-4">2025년 나의 성공 확률은?</p>
+        </div>
+    </div>
+</a>
+<!-- PC용 -->
+<div class="card bg-white rounded-2xl overflow-hidden hidden md:block">
+    <img src="https://blog.kakaocdn.net/dn/bcQ3cD/btsLFyjqUn7/NImkKgdBQALZ1NRmbfOBGk/img.png" 
+         alt="성공운 테스트" 
+         class="w-full h-48 object-cover">
+    <div class="p-6">
+        <h2 class="text-xl font-bold mt-4 mb-2">성공운 테스트</h2>
+        <p class="text-gray-600 mb-4">2025년 나의 성공 확률은?</p>
+        <a href="tests/001" 
+           class="block w-full py-3 text-center bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl font-bold hover:opacity-90 transition-opacity">
+            테스트 하기
+        </a>
+    </div>
+</div>
 
-           <!-- 2025년 성공지수 -->
-           <div class="card bg-white rounded-2xl overflow-hidden">
-               <img src="https://blog.kakaocdn.net/dn/diXxRw/btsLGl4Ical/X89m8F42QgKwa2U51r5I6k/img.png" 
-                    alt="2025 목표달성" 
-                    class="w-full h-48 object-cover">
-               <div class="p-6">
-                   <h2 class="text-xl font-bold mt-4 mb-2">2025 목표달성 가능성 테스트</h2>
-                   <p class="text-gray-600 mb-4">2025년 나의 목표달성 가능성은 얼마일까?</p>
-                   <a href="tests/002" 
-                      class="block w-full py-3 text-center bg-gradient-to-r from-pink-500 to-red-600 text-white rounded-xl font-bold hover:opacity-90 transition-opacity">
-                       테스트 하기
-                   </a>
-               </div>
-           </div>
+<!-- 2025년 성공지수 -->
+<!-- 모바일용 -->
+<a href="tests/002" class="block md:hidden">
+    <div class="card bg-white rounded-2xl overflow-hidden hover:shadow-lg transition-shadow">
+        <img src="https://blog.kakaocdn.net/dn/diXxRw/btsLGl4Ical/X89m8F42QgKwa2U51r5I6k/img.png" 
+             alt="2025 목표달성" 
+             class="w-full h-48 object-cover">
+        <div class="p-6">
+            <h2 class="text-xl font-bold mt-4 mb-2">2025 목표달성 가능성 테스트</h2>
+            <p class="text-gray-600 mb-4">2025년 나의 목표달성 가능성은 얼마일까?</p>
+        </div>
+    </div>
+</a>
+<!-- PC용 -->
+<div class="card bg-white rounded-2xl overflow-hidden hidden md:block">
+    <img src="https://blog.kakaocdn.net/dn/diXxRw/btsLGl4Ical/X89m8F42QgKwa2U51r5I6k/img.png" 
+         alt="2025 목표달성" 
+         class="w-full h-48 object-cover">
+    <div class="p-6">
+        <h2 class="text-xl font-bold mt-4 mb-2">2025 목표달성 가능성 테스트</h2>
+        <p class="text-gray-600 mb-4">2025년 나의 목표달성 가능성은 얼마일까?</p>
+        <a href="tests/002" 
+           class="block w-full py-3 text-center bg-gradient-to-r from-pink-500 to-red-600 text-white rounded-xl font-bold hover:opacity-90 transition-opacity">
+            테스트 하기
+        </a>
+    </div>
+</div>
 
-           <!-- 코인 투자 성공률 테스트 -->
-           <div class="card bg-white rounded-2xl overflow-hidden">
-               <img src="https://blog.kakaocdn.net/dn/luADx/btsLGjTlf1V/VjEXmZBAkF7dmYNOYVLmSK/img.png" 
-                    alt="코인 투자 성공률 테스트" 
-                    class="w-full h-48 object-cover">
-               <div class="p-6">
-                   <h2 class="text-xl font-bold mt-4 mb-2">코인 투자 성공률 테스트</h2>
-                   <p class="text-gray-600 mb-4">나의 코인 투자 성공 확률은?</p>
-                   <a href="tests/003" 
-                      class="block w-full py-3 text-center bg-gradient-to-r from-yellow-500 to-amber-600 text-white rounded-xl font-bold hover:opacity-90 transition-opacity">
-                       테스트 하기
-                   </a>
-               </div>
-           </div>
-
-           <!-- MZ세대 공감지수 테스트 -->
- <div class="card bg-white rounded-2xl overflow-hidden">
-     <img src="https://blog.kakaocdn.net/dn/O9apO/btsLGjGhDF8/QTgwAX4G6pApg8k9Ou1QK1/img.png" 
+<!-- 코인 투자 성공률 테스트 -->
+<!-- 모바일용 -->
+<a href="tests/003" class="block md:hidden">
+    <div class="card bg-white rounded-2xl overflow-hidden hover:shadow-lg transition-shadow">
+        <img src="https://blog.kakaocdn.net/dn/luADx/btsLGjTlf1V/VjEXmZBAkF7dmYNOYVLmSK/img.png" 
+             alt="코인 투자 성공률 테스트" 
+             class="w-full h-48 object-cover">
+        <div class="p-6">
+            <h2 class="text-xl font-bold mt-4 mb-2">코인 투자 성공률 테스트</h2>
+            <p class="text-gray-600 mb-4">나의 코인 투자 성공 확률은?</p>
+        </div>
+    </div>
+</a>
+<!-- PC용 -->
+<div class="card bg-white rounded-2xl overflow-hidden hidden md:block">
+    <img src="https://blog.kakaocdn.net/dn/luADx/btsLGjTlf1V/VjEXmZBAkF7dmYNOYVLmSK/img.png" 
+         alt="코인 투자 성공률 테스트" 
+         class="w-full h-48 object-cover">
+    <div class="p-6">
+        <h2 class="text-xl font-bold mt-4 mb-2">코인 투자 성공률 테스트</h2>
+        <p class="text-gray-600 mb-4">나의 코인 투자 성공 확률은?</p>
+        <a href="tests/003" 
+           class="block w-full py-3 text-center bg-gradient-to-r from-yellow-500 to-amber-600 text-white rounded-xl font-bold hover:opacity-90 transition-opacity">
+            테스트 하기
+        </a>
+    </div>
+</div>
+<!-- MZ세대 공감지수 테스트 -->
+<!-- 모바일용 -->
+<a href="https://coffeemania68.github.io/fortune-2025/tests/004" class="block md:hidden">
+    <div class="card bg-white rounded-2xl overflow-hidden hover:shadow-lg transition-shadow">
+        <img src="https://blog.kakaocdn.net/dn/O9apO/btsLGjGhDF8/QTgwAX4G6pApg8k9Ou1QK1/img.png" 
+             alt="MZ세대 공감지수 테스트" 
+             class="w-full h-48 object-cover">
+        <div class="p-6">
+            <h2 class="text-xl font-bold mt-4 mb-2">MZ세대 공감지수 테스트</h2>
+            <p class="text-gray-600 mb-4">2025년 트렌드 리더가 될 수 있을까?</p>
+        </div>
+    </div>
+</a>
+<!-- PC용 -->
+<div class="card bg-white rounded-2xl overflow-hidden hidden md:block">
+    <img src="https://blog.kakaocdn.net/dn/O9apO/btsLGjGhDF8/QTgwAX4G6pApg8k9Ou1QK1/img.png" 
          alt="MZ세대 공감지수 테스트" 
          class="w-full h-48 object-cover">
-     <div class="p-6">
-         <h2 class="text-xl font-bold mt-4 mb-2">MZ세대 공감지수 테스트</h2>
-         <p class="text-gray-600 mb-4">2025년 트렌드 리더가 될 수 있을까?</p>
-         <a href="https://coffeemania68.github.io/fortune-2025/tests/004" 
-             class="block w-full py-3 text-center bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-xl font-bold hover:opacity-90 transition-opacity">
-             테스트 하기
-         </a>
-     </div>
- </div>
+    <div class="p-6">
+        <h2 class="text-xl font-bold mt-4 mb-2">MZ세대 공감지수 테스트</h2>
+        <p class="text-gray-600 mb-4">2025년 트렌드 리더가 될 수 있을까?</p>
+        <a href="https://coffeemania68.github.io/fortune-2025/tests/004" 
+           class="block w-full py-3 text-center bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-xl font-bold hover:opacity-90 transition-opacity">
+            테스트 하기
+        </a>
+    </div>
+</div>
 
- <!-- ESG 가치관 테스트 -->
- <div class="card bg-white rounded-2xl overflow-hidden">
-     <img src="https://blog.kakaocdn.net/dn/Y6F70/btsLF4P8VQq/SweYOQpafxWNI8H4Jnh4Ek/img.jpg" 
-          alt="ESG 가치관 테스트" 
-          class="w-full h-48 object-cover">
-     <div class="p-6">
-         <h2 class="text-xl font-bold mt-4 mb-2">ESG 가치관 테스트</h2>
-         <p class="text-gray-600 mb-4">당신의 ESG 실천 레벨은?</p>
-         <a href="https://coffeemania68.github.io/fortune-2025/tests/005" 
-            class="block w-full py-3 text-center bg-gradient-to-r from-green-500 to-teal-600 text-white rounded-xl font-bold hover:opacity-90 transition-opacity">
-             테스트 하기
-         </a>
-     </div>
- </div>
+<!-- ESG 가치관 테스트 -->
+<!-- 모바일용 -->
+<a href="https://coffeemania68.github.io/fortune-2025/tests/005" class="block md:hidden">
+    <div class="card bg-white rounded-2xl overflow-hidden hover:shadow-lg transition-shadow">
+        <img src="https://blog.kakaocdn.net/dn/Y6F70/btsLF4P8VQq/SweYOQpafxWNI8H4Jnh4Ek/img.jpg" 
+             alt="ESG 가치관 테스트" 
+             class="w-full h-48 object-cover">
+        <div class="p-6">
+            <h2 class="text-xl font-bold mt-4 mb-2">ESG 가치관 테스트</h2>
+            <p class="text-gray-600 mb-4">당신의 ESG 실천 레벨은?</p>
+        </div>
+    </div>
+</a>
+<!-- PC용 -->
+<div class="card bg-white rounded-2xl overflow-hidden hidden md:block">
+    <img src="https://blog.kakaocdn.net/dn/Y6F70/btsLF4P8VQq/SweYOQpafxWNI8H4Jnh4Ek/img.jpg" 
+         alt="ESG 가치관 테스트" 
+         class="w-full h-48 object-cover">
+    <div class="p-6">
+        <h2 class="text-xl font-bold mt-4 mb-2">ESG 가치관 테스트</h2>
+        <p class="text-gray-600 mb-4">당신의 ESG 실천 레벨은?</p>
+        <a href="https://coffeemania68.github.io/fortune-2025/tests/005" 
+           class="block w-full py-3 text-center bg-gradient-to-r from-green-500 to-teal-600 text-white rounded-xl font-bold hover:opacity-90 transition-opacity">
+            테스트 하기
+        </a>
+    </div>
+</div>
 
- <!-- AI 시대 직업 적성 테스트 -->
- <div class="card bg-white rounded-2xl overflow-hidden">
-     <img src="https://blog.kakaocdn.net/dn/cQhAID/btsLFfkAIpc/aKI1x5lVCq5IaC7yR5KOV1/img.webp" 
-          alt="AI 시대 직업 적성 테스트" 
-          class="w-full h-48 object-cover">
-     <div class="p-6">
-         <h2 class="text-xl font-bold mt-4 mb-2">AI 시대 직업 적성 테스트</h2>
-         <p class="text-gray-600 mb-4">AI 시대에 빛날 당신의 재능은?</p>
-         <a href="https://coffeemania68.github.io/fortune-2025/tests/006" 
-            class="block w-full py-3 text-center bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl font-bold hover:opacity-90 transition-opacity">
-             테스트 하기
-         </a>
-     </div>
- </div>
-          
+<!-- AI 시대 직업 적성 테스트 -->
+<!-- 모바일용 -->
+<a href="https://coffeemania68.github.io/fortune-2025/tests/006" class="block md:hidden">
+    <div class="card bg-white rounded-2xl overflow-hidden hover:shadow-lg transition-shadow">
+        <img src="https://blog.kakaocdn.net/dn/cQhAID/btsLFfkAIpc/aKI1x5lVCq5IaC7yR5KOV1/img.webp" 
+             alt="AI 시대 직업 적성 테스트" 
+             class="w-full h-48 object-cover">
+        <div class="p-6">
+            <h2 class="text-xl font-bold mt-4 mb-2">AI 시대 직업 적성 테스트</h2>
+            <p class="text-gray-600 mb-4">AI 시대에 빛날 당신의 재능은?</p>
+        </div>
+    </div>
+</a>
+<!-- PC용 -->
+<div class="card bg-white rounded-2xl overflow-hidden hidden md:block">
+    <img src="https://blog.kakaocdn.net/dn/cQhAID/btsLFfkAIpc/aKI1x5lVCq5IaC7yR5KOV1/img.webp" 
+         alt="AI 시대 직업 적성 테스트" 
+         class="w-full h-48 object-cover">
+    <div class="p-6">
+        <h2 class="text-xl font-bold mt-4 mb-2">AI 시대 직업 적성 테스트</h2>
+        <p class="text-gray-600 mb-4">AI 시대에 빛날 당신의 재능은?</p>
+        <a href="https://coffeemania68.github.io/fortune-2025/tests/006" 
+           class="block w-full py-3 text-center bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl font-bold hover:opacity-90 transition-opacity">
+            테스트 하기
+        </a>
+    </div>
+</div>          
 <!-- 퀴즈 7 -->
 <div class="card bg-white rounded-2xl overflow-hidden">
     <img src="tests/images/quiz07-main.jpg"
