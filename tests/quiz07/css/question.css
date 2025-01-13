@@ -15,8 +15,8 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
     text-align: center;
-    max-width: 800px; /* 최대 너비 설정 */
-    width: 100%; /* 너비 100% 설정 */
+    max-width: 800px;
+    width: 100%;
 }
 
 .options {
@@ -29,34 +29,75 @@ body {
 .option {
     background-color: #4CAF50;
     color: white;
-    padding: 15px; /* 패딩 증가 */
+    padding: 15px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease; /* 부드러운 배경색 전환 효과 */
+    transition: background-color 0.3s ease;
 }
 
 .option:hover {
-    background-color: #45a049; /* 호버 시 배경색 변경 */
+    background-color: #45a049;
 }
 
 #next-button {
     background-color: #4CAF50;
     color: white;
-    padding: 15px 30px; /* 패딩 증가 */
+    padding: 15px 30px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 1.1em;
     margin-top: 20px;
-    transition: background-color 0.3s ease; /* 부드러운 배경색 전환 효과 */
+    transition: background-color 0.3s ease;
 }
 
 #next-button:hover {
-    background-color: #45a049; /* 호버 시 배경색 변경 */
+    background-color: #45a049;
 }
 
-/* 정답 및 점수 표시 스타일 */
+.answer-feedback {
+    margin-top: 20px;
+    font-size: 1.1em;
+}
+
+.correct-answer {
+    color: green;
+    font-weight: bold;
+}
+
+.current-score {
+    color: #3b82f6;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+/* 애니메이션 */
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.question-container {
+    animation: slideIn 0.5s ease-out;
+}
+
+.cyber-gradient {
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #d946ef 100%);
+}
+
+/* 진행바 */
+.progress-bar {
+    transition: width 0.3s ease-in-out;
+}
+
+/* 정답/점수 표시 스타일 */
 .answer-feedback {
   margin-top: 20px;
   font-size: 1.1em;
