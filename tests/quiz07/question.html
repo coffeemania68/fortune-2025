@@ -86,7 +86,7 @@
             currentQuestion.options.forEach(option => {
                 const button = document.createElement('button');
                 button.innerText = option;
-                button.classList.add('option');
+                button.classList.add('option'); // option 클래스 추가
                 button.addEventListener('click', () => checkAnswer(option));
                 optionsElement.appendChild(button);
             });
