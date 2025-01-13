@@ -19,6 +19,34 @@ body {
     width: 100%;
 }
 
+/* 답변 버튼들에 대한 공통 스타일 */
+#options .option {
+    width: calc(100% - 20px); /* 부모 너비에서 패딩을 뺀 값 */
+    margin: 0 auto; /* 중앙 정렬 */
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* 부드러운 전환 효과 */
+    background: linear-gradient(135deg, #6B73FF 0%, #000DFF 100%); /* 기본 그라데이션 */
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+}
+
+/* 호버 상태일 때 스타일 */
+#options .option:hover {
+    background: linear-gradient(135deg, #8b5cf6 0%, #d946ef 100%); /* 호버 시 그라데이션 변경 */
+    transform: translateY(-2px); /* 위로 살짝 이동 */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* 그림자 강화 */
+}
+
+/* 클릭(활성) 상태일 때 스타일 */
+#options .option:active {
+    transform: translateY(0); /* 클릭 시 원래 위치로 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 감소 */
+}
+
 .options {
     display: flex;
     flex-direction: column;
@@ -26,6 +54,7 @@ body {
     margin-top: 20px;
 }
 
+/*
 .option {
     background-color: #4CAF50;
     color: white;
@@ -39,6 +68,7 @@ body {
 .option:hover {
     background-color: #45a049;
 }
+*/
 
 #next-button {
     background-color: #4CAF50;
@@ -112,4 +142,34 @@ body {
   color: #3b82f6;
   font-weight: bold;
   margin-top: 5px;
+}
+
+/* 네온 효과 */
+.neon-border {
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    animation: neonBorder 2s ease-in-out infinite;
+}
+
+@keyframes neonBorder {
+    0%, 100% { border-color: rgba(139, 92, 246, 0.5); }
+    50% { border-color: rgba(217, 70, 239, 0.8); }
+}
+
+/* 호버 효과 */
+.option:hover {
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+}
+
+.option:active {
+    transform: translateY(0);
+}
+
+/* 그라데이션 텍스트 효과 */
+.gradient-text {
+    background: linear-gradient(to right, #3b82f6, #8b5cf6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
