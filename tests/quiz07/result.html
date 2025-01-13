@@ -32,6 +32,11 @@
                 <div id="rank-display" class="mt-4 text-xl text-indigo-600 whitespace-nowrap"></div>
             </div>
 
+            <!-- 여기에 결과 메시지 추가 -->
+    <div id="result-message" class="text-lg text-indigo-600 mt-4 font-bold">        
+    </div>
+</div>
+
             <!-- 공유 버튼 -->
             <div class="share-buttons flex gap-4 justify-center px-4 sm:px-6 mb-8">
                 <button onclick="shareKakao()" 
@@ -92,20 +97,33 @@
        // Kakao SDK 초기화
         Kakao.init('110d468a677132abc8ddfe71b00c3939');
 
-          document.addEventListener('DOMContentLoaded', function() {
-            // 결과 데이터 가져오기
-            const score = parseInt(localStorage.getItem('userScore') || 0);
-            const totalQuestions = parseInt(localStorage.getItem('totalQuestions') || 0);
-            const quizNumber = localStorage.getItem('quizNumber') || '7';
-            const totalPlayers = parseInt(localStorage.getItem('totalPlayers') || 29156);
+        // 결과 데이터 가져오기
+    const score = parseInt(localStorage.getItem('userScore') || 0);
+    const totalQuestions = parseInt(localStorage.getItem('totalQuestions') || 0);
+    const quizNumber = localStorage.getItem('quizNumber') || '7';
+    const totalPlayers = parseInt(localStorage.getItem('totalPlayers') || 29156);
 
-            // 점수 표시
-            document.getElementById('score').textContent = ` ${score}/${totalQuestions}`;
+    // 점수 표시
+    document.getElementById('score').textContent = ` ${score}/${totalQuestions}`;
 
-            // 여기에 상세 분석 코드 추가 👇
-        const analysisButton = document.getElementById('analysis-toggle');
-        if (analysisButton) {
-            analysisButton.addEventListener('click', function() {
+    // 점수별 다른 메시지 표시
+    const percentage = Math.round((score / totalQuestions) * 100);
+    let resultMessage;
+    if (percentage >= 90) {
+        resultMessage = "천재력 만렙! 당신은 진정한 퀴즈 마스터입니다! 🏆";
+    } else if (percentage >= 70) {
+        resultMessage = "훌륭해요! 당신의 지식이 빛나고 있어요! ✨";
+    } else if (percentage >= 50) {
+        resultMessage = "좋은 시도였어요! 다음엔 더 잘할 수 있을 거예요! 💪";
+    } else {
+        resultMessage = "도전 자체가 멋져요! 다음엔 더 좋은 결과가 있을 거예요! 🌱";
+    }
+    document.getElementById('result-message').textContent = resultMessage;
+
+    // 여기에 상세 분석 코드 추가 👇
+    const analysisButton = document.getElementById('analysis-toggle');
+    if (analysisButton) {
+        analysisButton.addEventListener('click', function() {
                 const analysis = document.getElementById('detailed-analysis');
                 analysis.classList.toggle('hidden');
                 if (!analysis.classList.contains('hidden')) {
