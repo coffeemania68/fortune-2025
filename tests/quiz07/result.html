@@ -10,13 +10,14 @@
     <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     <!-- 컨페티 효과 -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-      
-    <!-- 여기에 Open Graph 태그 추가/수정 -->
+    
+    <!-- Open Graph 태그 -->
     <meta property="og:title" content="나의 퀴즈 결과">
     <meta property="og:description" content="당신의 놀라운 결과를 확인해보세요!">
     <meta property="og:image" content="https://blog.kakaocdn.net/dn/G8BzH/btsAeR6J8ml/wQttKbYDGqmL9kkkQJ0AyK/img.png">
     <meta property="og:url" content="현재 페이지 URL">
 
+    <!-- 효과음 -->
     <audio id="shareSound" preload="auto">
         <source src="https://assets.mixkit.co/active_storage/sfx/2568/2568.wav" type="audio/wav">
     </audio>
@@ -25,8 +26,9 @@
     </audio>
     <audio id="analysisSound" preload="auto">
         <source src="https://assets.mixkit.co/active_storage/sfx/1435/1435.wav" type="audio/wav">
-    </audio>    
+    </audio>
 </head>
+    
 <body class="bg-gradient-to-br from-slate-100 to-blue-50 min-h-screen">
     <div class="min-h-screen flex items-center justify-center px-4 py-12">
         <div class="result-container animate-fadeIn max-w-3xl w-full">
@@ -101,96 +103,143 @@
         </div>
     </div>
     <script>
-        // Kakao SDK 초기화
-        Kakao.init('110d468a677132abc8ddfe71b00c3939');
+    // Kakao SDK 초기화
+    Kakao.init('110d468a677132abc8ddfe71b00c3939');
 
-        // 점수 구간별 공유 문구
-        const shareMessages = {
-            top10: "어라? 내가 천재였나요?! 상위 10%를 기록했어요! 🏆",
-            top60: "이런 문제를 틀리는 친구가 있다고요? 어서 공유해서 확인해보세요! 😎",
-            others: "앗! 나보다 못 하는 친구를 찾아보자! 어디 없나요~? 👀"
-        };
+    // 점수 구간별 공유 문구
+    const shareMessages = {
+        top10: "어라? 내가 천재였나요?! 상위 10%를 기록했어요! 🏆",
+        top60: "이런 문제를 틀리는 친구가 있다고요? 어서 공유해서 확인해보세요! 😎",
+        others: "앗! 나보다 못 하는 친구를 찾아보자! 어디 없나요~? 👀"
+    };
 
-        document.addEventListener('DOMContentLoaded', function() {
-            // 결과 데이터 가져오기
-            const score = parseInt(localStorage.getItem('userScore') || 0);
-            const totalQuestions = parseInt(localStorage.getItem('totalQuestions') || 0);
-            const quizNumber = localStorage.getItem('quizNumber') || '7';
-            const totalPlayers = parseInt(localStorage.getItem('totalPlayers') || 23456);
-
-            // 점수 표시
-            document.getElementById('score').textContent = ` ${score}/${totalQuestions}`;
-
-            // 점수에 따른 메시지 표시
-    const percentage = Math.round((score / totalQuestions) * 100);
-    const resultMessage = document.getElementById('result-message');
-    if (percentage >= 90) {
-        resultMessage.textContent = shareMessages.top10;
-    } else if (percentage >= 60) {
-        resultMessage.textContent = shareMessages.top60;
-    } else {
-        resultMessage.textContent = shareMessages.others;
+    // 소리 재생 함수
+    function playSound(soundId) {
+        const sound = document.getElementById(soundId);
+        sound.volume = 0.5;
+        sound.play().catch(function(error) {
+            console.log("소리 재생 실패: 사용자 상호작용 필요");
+        });
     }
-            
-            // 백분율 계산
-            const percentage = Math.round((score / totalQuestions) * 100);
-            
-            // 랭킹 계산 및 표시
-            const rankPercentage = 100 - percentage + Math.floor(Math.random() * 20);
-            const rankDisplay = document.getElementById('rank-display');
-            
-            // 상위 10% 등수 표시
-            if (rankPercentage <= 10) {
-                const actualRank = Math.ceil((totalPlayers * rankPercentage) / 100);
-                rankDisplay.innerHTML = `🏆 상위 ${rankPercentage}% (${actualRank.toLocaleString()}등)`;
-                // 폭죽 효과
-                confetti({
-                    particleCount: 100,
-                    spread: 70,
-                    origin: { y: 0.6 }
-                });
-            } else {
-                rankDisplay.textContent = `상위 ${rankPercentage}%`;
-            }
 
-            // 다음 퀴즈 추천
-            const nextQuizNumber = parseInt(quizNumber) + 1;
-            const prevQuizNumber = parseInt(quizNumber) - 1;
-            const recommendationsContainer = document.getElementById('quiz-recommendations');
-            
-            // 이전 퀴즈 버튼 (파란색)
-            if (prevQuizNumber >= 7) {
-                recommendationsContainer.innerHTML += `
-                    <a href="question.html?quiz=${prevQuizNumber}" class="recommendation-btn bg-blue-500 hover:bg-blue-600">
-                        ⬅️ 퀴즈 ${prevQuizNumber}
-                    </a>
+    document.addEventListener('DOMContentLoaded', function() {
+        // 결과 데이터 가져오기
+        const score = parseInt(localStorage.getItem('userScore') || 0);
+        const totalQuestions = parseInt(localStorage.getItem('totalQuestions') || 0);
+        const quizNumber = localStorage.getItem('quizNumber') || '7';
+        const totalPlayers = parseInt(localStorage.getItem('totalPlayers') || 23456);
+
+        // 점수 표시
+        document.getElementById('score').textContent = ` ${score}/${totalQuestions}`;
+
+        // 백분율 계산
+        const percentage = Math.round((score / totalQuestions) * 100);
+        
+        // 점수에 따른 메시지 표시
+        const resultMessage = document.getElementById('result-message');
+        if (percentage >= 90) {
+            resultMessage.textContent = shareMessages.top10;
+        } else if (percentage >= 60) {
+            resultMessage.textContent = shareMessages.top60;
+        } else {
+            resultMessage.textContent = shareMessages.others;
+        }
+        
+        // 랭킹 계산 및 표시
+        const rankPercentage = 100 - percentage + Math.floor(Math.random() * 20);
+        const rankDisplay = document.getElementById('rank-display');
+        
+        // 상위 10% 등수 표시
+        if (rankPercentage <= 10) {
+            const actualRank = Math.ceil((totalPlayers * rankPercentage) / 100);
+            rankDisplay.innerHTML = `🏆 상위 ${rankPercentage}% (${actualRank.toLocaleString()}등)`;
+            // 폭죽 효과
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        } else {
+            rankDisplay.textContent = `상위 ${rankPercentage}%`;
+        }
+
+        // 상세 분석 토글 설정
+        document.getElementById('analysis-toggle').addEventListener('click', function() {
+            playSound('analysisSound');
+            const analysis = document.getElementById('detailed-analysis');
+            analysis.classList.toggle('hidden');
+            if (!analysis.classList.contains('hidden')) {
+                analysis.innerHTML = `
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-2 text-lg font-bold text-purple-600">
+                            <span>✨</span>
+                            <span>상세 분석 결과</span>
+                        </div>
+                        <div class="text-left space-y-3">
+                            <p class="text-gray-700">
+                                💡 이 문제의 정답률: ${Math.round(percentage)}%
+                            </p>
+                            <p class="text-gray-700">
+                                📚 당신의 강점:
+                                <br>- 빠른 판단력
+                                <br>- 직관적인 문제 해결 능력
+                                <br>- 논리적 사고력
+                            </p>
+                            <p class="text-gray-700">
+                                🎯 다음 목표:
+                                <br>- 현재 점수보다 10% 향상
+                                <br>- 새로운 분야 도전하기
+                            </p>
+                        </div>
+                    </div>
                 `;
             }
-            
-            // 다음 퀴즈 버튼 (빨간색)
-            if (nextQuizNumber <= 18) {
-                recommendationsContainer.innerHTML += `
-                    <a href="question.html?quiz=${nextQuizNumber}" class="recommendation-btn bg-red-500 hover:bg-red-600">
-                        퀴즈 ${nextQuizNumber} ➡️
-                    </a>
-                `;
-            }
-
-            // 다음 퀴즈 티저 메시지
-            const teaserMessages = [
-                "더 신기한 문제들이 기다리고 있어요! 🎯",
-                "다음 퀴즈는 더 재미있을걸요? 🌟",
-                "새로운 도전이 여러분을 기다립니다! ✨"
-            ];
-            const randomTeaser = teaserMessages[Math.floor(Math.random() * teaserMessages.length)];
-            document.getElementById('next-quiz-teaser').textContent = randomTeaser;
-
-            // 재도전 버튼 설정
-            document.getElementById('retry-button').href = `question.html?quiz=${quizNumber}`;
         });
 
-        // 카카오톡 공유하기
-         function shareKakao() {
+        // 다음 퀴즈 미리보기 설정
+        const teaserMessages = [
+            "더 신기한 문제들이 기다리고 있어요! 🎯",
+            "다음 퀴즈는 더 재미있을걸요? 🌟",
+            "새로운 도전이 여러분을 기다립니다! ✨"
+        ];
+        const randomTeaser = teaserMessages[Math.floor(Math.random() * teaserMessages.length)];
+        document.getElementById('next-quiz-teaser').textContent = randomTeaser;
+
+        // 추천 퀴즈 설정
+        const nextQuizNumber = parseInt(quizNumber) + 1;
+        const prevQuizNumber = parseInt(quizNumber) - 1;
+        const recommendationsContainer = document.getElementById('quiz-recommendations');
+        
+        // 이전 퀴즈 버튼 (파란색)
+        if (prevQuizNumber >= 7) {
+            recommendationsContainer.innerHTML += `
+                <a href="question.html?quiz=${prevQuizNumber}" class="recommendation-btn bg-blue-500 hover:bg-blue-600">
+                    ⬅️ 퀴즈 ${prevQuizNumber}
+                </a>
+            `;
+        }
+        
+        // 다음 퀴즈 버튼 (빨간색)
+        if (nextQuizNumber <= 18) {
+            recommendationsContainer.innerHTML += `
+                <a href="question.html?quiz=${nextQuizNumber}" class="recommendation-btn bg-red-500 hover:bg-red-600">
+                    퀴즈 ${nextQuizNumber} ➡️
+                </a>
+            `;
+        }
+
+        // 재도전 버튼 설정
+        document.getElementById('retry-button').href = `question.html?quiz=${quizNumber}`;
+
+        // 미리보기 카드 클릭 이벤트
+        document.querySelector('.preview-card').addEventListener('click', function() {
+            playSound('previewSound');
+        });
+    });
+
+    // 카카오톡 공유하기
+    function shareKakao() {
+        playSound('shareSound');
         const score = localStorage.getItem('userScore');
         const total = localStorage.getItem('totalQuestions');
         const percentage = Math.round((score / total) * 100);
@@ -223,23 +272,16 @@
         });
     }
 
-        // URL 복사하기
-        async function copyUrl() {
-            try {
-                await navigator.clipboard.writeText(window.location.href);
-                alert("링크가 복사되었습니다!");
-            } catch (err) {
-                alert("링크 복사에 실패했습니다.");
-            }
+    // URL 복사하기
+    async function copyUrl() {
+        playSound('shareSound');
+        try {
+            await navigator.clipboard.writeText(window.location.href);
+            alert("링크가 복사되었습니다!");
+        } catch (err) {
+            alert("링크 복사에 실패했습니다.");
         }
-        // 소리 재생 함수
-function playSound(soundId) {
-    const sound = document.getElementById(soundId);
-    sound.volume = 0.5;
-    sound.play().catch(function(error) {
-        console.log("소리 재생 실패: 사용자 상호작용 필요");
-    });
-}
+    }
 
 // 공유하기 버튼에 소리 추가
 function shareKakao() {
