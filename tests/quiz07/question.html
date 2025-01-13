@@ -14,15 +14,15 @@
     </div>
 
     <!-- 질문 컨테이너 -->
-    <div class="min-h-screen flex items-center justify-center px-4 py-20">
-        <div id="questionContainer" class="question-container w-full max-w-2xl">
-            <div class="bg-white/90 backdrop-blur-sm rounded-3xl p-8 shadow-xl mb-8 neon-border">
-                <h2 id="questionText" class="text-xl md:text-2xl font-bold text-center mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                    질문이 여기에 표시됩니다
-                </h2>
-                <p id="questionContext" class="text-center text-gray-600 text-sm md:text-base">
-                    부가설명이 여기에 표시됩니다
-                </p>
+   <div class="min-h-screen flex items-center justify-center px-4 py-20">
+    <div id="questionContainer" class="question-container w-full max-w-2xl">            
+        <div class="bg-white/90 backdrop-blur-sm rounded-3xl p-8 shadow-xl mb-8 neon-border">
+            <h2 id="questionText" class="text-xl md:text-2xl font-bold text-center mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                질문이 여기에 표시됩니다
+            </h2>
+            <p id="questionContext" class="text-center text-gray-600 text-sm md:text-base">
+                부가설명이 여기에 표시됩니다
+            </p>
             </div>
 
             <!-- 답변 버튼들 -->
@@ -66,7 +66,7 @@
 
             // Update question text and context
             questionText.textContent = currentQuestion.question;
-            questionContext.textContent = currentQuestion.context || '';
+            questionContext.textContent = currentQuestion.context || ''; // Update if you have context
 
             // Update progress bar
             const progressPercentage = (currentQuestionIndex / currentQuiz.questions.length) * 100;
