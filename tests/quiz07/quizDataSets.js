@@ -1,5 +1,5 @@
              const quizDataSets = {
-    set1: {
+    set7: {
         name: "상식 입문",
         questions: [
             {
@@ -94,7 +94,7 @@
             }
         ]
     },
-    set2: {
+    set8: {
         name: "상식 입문",
         questions: [
             {
@@ -189,7 +189,7 @@
             }
         ]
     },
-    set3: {
+    set9: {
         name: "뇌력 테스트",
         questions: [
             {
@@ -284,7 +284,7 @@
             }
         ]
     },
-    set4: {
+    set10: {
         name: "뇌력 테스트",
         questions: [
             {
@@ -379,7 +379,7 @@
             }
         ]
     },
-    set5: {
+    set11: {
         name: "지식 탐험",
         questions: [
             {
@@ -474,7 +474,7 @@
             }
         ]
     },
-    set6: {
+    set12: {
         name: "지식 탐험",
         questions: [
             {
@@ -569,7 +569,7 @@
             }
         ]
     },
-    set7: {
+    set13: {
         name: "상식 마스터",
         questions: [
             {
@@ -664,7 +664,7 @@
             }
         ]
     },
-    set8: {
+    set14: {
         name: "상식 마스터",
         questions: [
             {
@@ -759,7 +759,7 @@
             }
         ]
     },
-    set9: {
+    set15: {
         name: "두뇌 풀파워",
         questions: [
             {
@@ -854,7 +854,7 @@
             }
         ]
     },
-    set10: {
+    set16: {
         name: "두뇌 풀파워",
         questions: [
             {
@@ -949,7 +949,7 @@
             }
         ]
     },
-    set11: {
+    set17: {
         name: "지식 끝판왕",
         questions: [
             {
@@ -1044,7 +1044,7 @@
             }
         ]
     },
-    set12: {
+    set18: {
         name: "지식 끝판왕",
         questions: [
             {
