@@ -1,108 +1,94 @@
+/* 기본 스타일 */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
+    font-family: 'Pretendard', 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+    min-height: 100vh;
 }
 
-#quiz-container {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    text-align: center;
+/* 텍스트 줄바꿈 처리 */
+.text-wrap {
+    word-break: keep-all;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+
+/* 퀴즈 컨테이너 스타일 */
+.question-container {
     max-width: 800px;
     width: 100%;
+    animation: slideIn 0.5s ease-out;
 }
 
-/* 답변 버튼들에 대한 공통 스타일 */
-#options .option {
-    width: calc(100% - 20px); /* 부모 너비에서 패딩을 뺀 값 */
-    margin: 0 auto; /* 중앙 정렬 */
-    padding: 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease; /* 부드러운 전환 효과 */
-    background: linear-gradient(135deg, #6B73FF 0%, #000DFF 100%); /* 기본 그라데이션 */
-    color: white;
-    font-weight: bold;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
-}
-
-/* 호버 상태일 때 스타일 */
-#options .option:hover {
-    background: linear-gradient(135deg, #8b5cf6 0%, #d946ef 100%); /* 호버 시 그라데이션 변경 */
-    transform: translateY(-2px); /* 위로 살짝 이동 */
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* 그림자 강화 */
-}
-
-/* 클릭(활성) 상태일 때 스타일 */
-#options .option:active {
-    transform: translateY(0); /* 클릭 시 원래 위치로 */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 감소 */
-}
-
+/* 답변 버튼 컨테이너 */
 .options {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
     margin-top: 20px;
 }
 
-/*
+/* 답변 버튼 스타일 */
 .option {
-    background-color: #4CAF50;
-    color: white;
-    padding: 15px;
+    width: 100%;
+    padding: 16px 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+    color: white;
+    font-weight: 600;
+    font-size: 1.1em;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transform: translateY(0);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+                0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 .option:hover {
-    background-color: #45a049;
-}
-*/
-
-#next-button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 15px 30px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1.1em;
-    margin-top: 20px;
-    transition: background-color 0.3s ease;
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+                0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
-#next-button:hover {
-    background-color: #45a049;
+.option:active {
+    transform: translateY(-1px);
 }
 
-.answer-feedback {
-    margin-top: 20px;
-    font-size: 1.1em;
-}
-
+/* 정답/오답 피드백 스타일 */
 .correct-answer {
-    color: green;
-    font-weight: bold;
+    background: linear-gradient(135deg, #10B981 0%, #34D399 100%);
+    color: white;
+    padding: 15px;
+    border-radius: 12px;
+    animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 .current-score {
-    color: #3b82f6;
+    color: #6366f1;
     font-weight: bold;
-    margin-top: 5px;
+    margin-top: 10px;
+    font-size: 1.1em;
 }
 
-/* 애니메이션 */
+/* 진행바 스타일 */
+.progress-bar {
+    height: 4px;
+    background: linear-gradient(90deg, #4f46e5 0%, #7c3aed 50%, #c026d3 100%);
+    transition: width 0.5s ease;
+    border-radius: 0 2px 2px 0;
+    box-shadow: 0 0 10px rgba(124, 58, 237, 0.5);
+}
+
+/* 네온 효과 */
+.neon-border {
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    animation: neonBorder 2s ease-in-out infinite;
+}
+
+/* 애니메이션 정의 */
 @keyframes slideIn {
     from {
         transform: translateX(100%);
@@ -114,62 +100,49 @@ body {
     }
 }
 
-.question-container {
-    animation: slideIn 0.5s ease-out;
+@keyframes popIn {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
+@keyframes neonBorder {
+    0%, 100% {
+        border-color: rgba(139, 92, 246, 0.5);
+    }
+    50% {
+        border-color: rgba(217, 70, 239, 0.8);
+    }
+}
+
+/* 사이버 그라데이션 */
 .cyber-gradient {
     background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #d946ef 100%);
 }
 
-/* 진행바 */
-.progress-bar {
-    transition: width 0.3s ease-in-out;
+/* 반응형 디자인 */
+@media (max-width: 640px) {
+    .option {
+        font-size: 1em;
+        padding: 14px 16px;
+    }
+    
+    .question-container {
+        padding: 0 16px;
+    }
 }
 
-/* 정답/점수 표시 스타일 */
-.answer-feedback {
-  margin-top: 20px;
-  font-size: 1.1em;
-}
-
-.correct-answer {
-  color: green;
-  font-weight: bold;
-}
-
-.current-score {
-  color: #3b82f6;
-  font-weight: bold;
-  margin-top: 5px;
-}
-
-/* 네온 효과 */
-.neon-border {
-    border: 2px solid transparent;
-    background-clip: padding-box;
-    animation: neonBorder 2s ease-in-out infinite;
-}
-
-@keyframes neonBorder {
-    0%, 100% { border-color: rgba(139, 92, 246, 0.5); }
-    50% { border-color: rgba(217, 70, 239, 0.8); }
-}
-
-/* 호버 효과 */
-.option:hover {
-    transform: translateY(-2px);
-    transition: all 0.3s ease;
-}
-
-.option:active {
-    transform: translateY(0);
-}
-
-/* 그라데이션 텍스트 효과 */
-.gradient-text {
-    background: linear-gradient(to right, #3b82f6, #8b5cf6);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+/* 접근성 */
+@media (prefers-reduced-motion: reduce) {
+    .option,
+    .progress-bar,
+    .question-container {
+        transition: none;
+        animation: none;
+    }
 }
