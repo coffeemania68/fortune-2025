@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>퀴즈 결과</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="./css/result.css">
     <!-- Kakao SDK -->
     <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./css/result.css">
     <!-- 컨페티 효과 -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     
@@ -103,8 +103,10 @@
         </div>
     </div>
     <script>
-    // Kakao SDK 초기화
+    // 수정된 코드
+if (!Kakao.isInitialized()) {
     Kakao.init('110d468a677132abc8ddfe71b00c3939');
+}
 
     // 점수 구간별 공유 문구
     const shareMessages = {
