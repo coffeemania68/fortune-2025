@@ -4,109 +4,264 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>상식 입문 - 질문</title>
-    <link rel="stylesheet" href="../../css/question.css">
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-       body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
         }
 
-        #quiz-container {
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            text-align: center;
+        @keyframes glowing {
+            0%, 100% {
+                box-shadow: 0 0 5px #3b82f6,
+                           0 0 10px #3b82f6,
+                           0 0 15px #3b82f6;
+            }
+            50% {
+                box-shadow: 0 0 10px #8b5cf6,
+                           0 0 20px #8b5cf6,
+                           0 0 30px #8b5cf6;
+            }
         }
 
-        .options {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 20px;
+        .cyber-gradient {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #d946ef 100%);
         }
 
-        .option {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+        .category-indicator {
+            animation: glowing 2s infinite;
+        }
+
+        .question-container {
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .progress-bar {
+            transition: width 0.3s ease-in-out;
+        }
+
+        .neon-border {
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            animation: neonBorder 2s ease-in-out infinite;
+        }
+
+        @keyframes neonBorder {
+            0%, 100% { border-color: rgba(139, 92, 246, 0.5); }
+            50% { border-color: rgba(217, 70, 239, 0.8); }
+        }
+
+        .answer-btn:hover {
+            transform: translateY(-2px);
+            transition: all 0.3s ease;
+        }
+
+        .answer-btn:active {
+            transform: translateY(0);
+        }
+
+        .answer-btn.selected {
+            transform: scale(0.98);
+            transition: transform 0.2s ease;
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* 정답/점수 표시 스타일 */
+        .correct-answer {
+            color: green;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .current-score {
+            color: #3b82f6;
+            font-weight: bold;
+            margin-top: 5px;
         }
     </style>
 </head>
-<body>
-    <div id="quiz-container">
-        <div id="question-number"></div>
-        <div id="question-text"></div>
-        <div id="options" class="options"></div>
-        <button id="next-button" onclick="nextQuestion()">다음</button>
+<body class="bg-gradient-to-br from-slate-100 to-blue-50 min-h-screen">
+    <!-- 진행바 -->
+    <div class="fixed top-0 left-0 w-full h-2 bg-gray-800 z-50">
+        <div id="progress" class="progress-bar h-full cyber-gradient" style="width: 0%"></div>
+    </div>
+
+    <!-- 카테고리 표시 -->
+    <div id="categoryBadge" class="category-indicator fixed top-6 right-6 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg">
+        <span id="categoryIcon" class="text-xl"></span>
+        <span id="categoryText" class="ml-2 font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"></span>
+    </div>
+
+    <!-- 질문 컨테이너 -->
+    <div class="min-h-screen flex items-center justify-center px-4 py-20">
+        <div id="questionContainer" class="question-container w-full max-w-2xl">
+            <div class="bg-white/90 backdrop-blur-sm rounded-3xl p-8 shadow-xl mb-8 neon-border">
+                <h2 id="questionText" class="text-xl md:text-2xl font-bold text-center mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    질문이 여기에 표시됩니다
+                </h2>
+                <p id="questionContext" class="text-center text-gray-600 text-sm md:text-base">
+                    부가설명이 여기에 표시됩니다
+                </p>
+            </div>
+
+            <!-- 답변 버튼들 -->
+            <div class="space-y-3">
+                <button class="answer-btn w-full p-5 rounded-xl border-2 border-transparent hover:border-purple-500 transition-all duration-300 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 text-white font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                    <div class="flex items-center space-x-3">
+                        <span class="text-xl">✨</span>
+                        <span class="flex-1 text-left">매우 그렇다</span>
+                    </div>
+                </button>
+
+                <button class="answer-btn w-full p-5 rounded-xl border-2 border-transparent hover:border-purple-500 transition-all duration-300 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                    <div class="flex items-center space-x-3">
+                        <span class="text-xl">💫</span>
+                        <span class="flex-1 text-left">그렇다</span>
+                    </div>
+                </button>
+
+                <button class="answer-btn w-full p-5 rounded-xl border-2 border-transparent hover:border-purple-500 transition-all duration-300 bg-gradient-to-r from-purple-500 via-pink-500 to-rose-500 text-white font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                    <div class="flex items-center space-x-3">
+                        <span class="text-xl">⭐</span>
+                        <span class="flex-1 text-left">보통이다</span>
+                    </div>
+                </button>
+
+                <button class="answer-btn w-full p-5 rounded-xl border-2 border-transparent hover:border-purple-500 transition-all duration-300 bg-gradient-to-r from-pink-500 via-rose-500 to-orange-500 text-white font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                    <div class="flex items-center space-x-3">
+                        <span class="text-xl">🌟</span>
+                        <span class="flex-1 text-left">아니다</span>
+                    </div>
+                </button>
+
+                <button class="answer-btn w-full p-5 rounded-xl border-2 border-transparent hover:border-purple-500 transition-all duration-300 bg-gradient-to-r from-rose-500 via-orange-500 to-amber-500 text-white font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                    <div class="flex items-center space-x-3">
+                        <span class="text-xl">☀️</span>
+                        <span class="flex-1 text-left">전혀 아니다</span>
+                    </div>
+                </button>
+            </div>
+
+            <!-- 정답 및 점수 표시 -->
+            <div id="answer-feedback" class="hidden mt-4">
+                <p id="correct-answer" class="correct-answer"></p>
+                <p id="current-score" class="current-score"></p>
+            </div>
+
+            <!-- 다음 버튼 -->
+            <button id="next-button" class="hidden mt-4 w-full p-5 rounded-xl border-2 border-transparent transition-all duration-300 bg-gradient-to-r from-green-500 to-blue-500 text-white font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1" onclick="nextQuestion()">다음</button>
+        </div>
     </div>
 
     <script type="module">
-        import quizDataSets from '../../quizDataSets.js';
+        import quizDataSets from './quizDataSets.js';
 
         const currentQuiz = quizDataSets.set7;
-        
         let currentQuestionIndex = 0;
         let score = 0;
 
-        const questionNumberElement = document.getElementById('question-number');
-        const questionTextElement = document.getElementById('question-text');
-        const optionsElement = document.getElementById('options');
+        const questionContainer = document.getElementById('questionContainer');
+        const questionText = document.getElementById('questionText');
+        const questionContext = document.getElementById('questionContext');
+        const categoryIcon = document.getElementById('categoryIcon');
+        const categoryText = document.getElementById('categoryText');
+        const progress = document.getElementById('progress');
+        const answerButtons = document.querySelectorAll('.answer-btn');
+        const answerFeedback = document.getElementById('answer-feedback');
+        const correctAnswerElement = document.getElementById('correct-answer');
+        const currentScoreElement = document.getElementById('current-score');
         const nextButton = document.getElementById('next-button');
 
         function loadQuestion() {
             const currentQuestion = currentQuiz.questions[currentQuestionIndex];
 
-            questionNumberElement.innerText = `질문 ${currentQuestionIndex + 1}`;
-            questionTextElement.innerText = currentQuestion.question;
-            optionsElement.innerHTML = '';
+            // Reset animation
+            questionContainer.style.animation = 'none';
+            questionContainer.offsetHeight; // Trigger reflow
+            questionContainer.style.animation = null;
 
-            currentQuestion.options.forEach(option => {
-                const button = document.createElement('button');
-                button.innerText = option;
-                button.classList.add('option');
-                button.addEventListener('click', () => checkAnswer(option));
-                optionsElement.appendChild(button);
+            // Update question text and context
+            questionText.textContent = currentQuestion.question;
+            questionContext.textContent = currentQuestion.context || ''; // Update if you have context
+
+            // Update category badge
+            categoryIcon.textContent = currentQuestion.icon || ''; // Update if you have icons
+            categoryText.textContent = currentQuestion.category;
+
+            // Update progress bar
+            const progressPercentage = (currentQuestionIndex / currentQuiz.questions.length) * 100;
+            progress.style.width = `${progressPercentage}%`;
+
+            // Hide answer feedback and next button
+            answerFeedback.classList.add('hidden');
+            nextButton.classList.add('hidden');
+
+            // Enable answer buttons
+            answerButtons.forEach(button => {
+                button.disabled = false;
+                button.classList.remove('selected');
             });
+
+            // Apply slide-in animation
+            questionContainer.style.animation = 'slideIn 0.5s ease-out';
         }
 
-        function checkAnswer(selectedOption) {
-            const currentQuestion = currentQuiz.questions[currentQuestionIndex];
+        function handleAnswer(isCorrect) {
+            // Disable answer buttons
+            answerButtons.forEach(button => {
+                button.disabled = true;
+                button.classList.add('selected');
+            });
 
-            if (selectedOption === currentQuestion.correct) {
+            // Update score if the answer is correct
+            if (isCorrect) {
                 score++;
             }
 
+            // Show correct answer and current score
+            const currentQuestion = currentQuiz.questions[currentQuestionIndex];
+            correctAnswerElement.textContent = `정답: ${currentQuestion.correct}`;
+            currentScoreElement.textContent = `현재 점수: ${score} / ${currentQuiz.questions.length}`;
+            answerFeedback.classList.remove('hidden');
+
+            // Show next button
+            nextButton.classList.remove('hidden');
+        }
+
+        function nextQuestion() {
             currentQuestionIndex++;
 
             if (currentQuestionIndex < currentQuiz.questions.length) {
                 loadQuestion();
             } else {
-                alert(`퀴즈 종료! 점수: ${score}/${currentQuiz.questions.length}`);
+                // 퀴즈 종료, 점수 저장 및 결과 페이지로 이동
+                localStorage.setItem('userScore', score);
                 window.location.href = './result.html';
             }
         }
 
-        function nextQuestion() {
-            if (currentQuestionIndex < currentQuiz.questions.length - 1) {
-                currentQuestionIndex++;
-                loadQuestion();
-            } else {
-                alert('퀴즈가 끝났습니다!');
-                // 여기에서 결과 페이지로 이동하거나, 다른 동작을 수행할 수 있습니다.
-            }
-        }
+        // Attach event listeners to answer buttons
+        answerButtons.forEach((button, index) => {
+            button.addEventListener('click', () => {
+                const currentQuestion = currentQuiz.questions[currentQuestionIndex];
+                const isCorrect = (button.querySelector('span.flex-1').textContent === currentQuestion.correct);
+                handleAnswer(isCorrect);
+            });
+        });
 
-        // 초기 로드
+        // Load the first question
         loadQuestion();
     </script>
 </body>
