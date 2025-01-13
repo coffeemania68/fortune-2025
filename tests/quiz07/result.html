@@ -104,10 +104,45 @@
             const score = parseInt(localStorage.getItem('userScore') || 0);
             const totalQuestions = parseInt(localStorage.getItem('totalQuestions') || 0);
             const quizNumber = localStorage.getItem('quizNumber') || '7';
-            const totalPlayers = parseInt(localStorage.getItem('totalPlayers') || 23456);
+            const totalPlayers = parseInt(localStorage.getItem('totalPlayers') || 29156);
 
             // 점수 표시
             document.getElementById('score').textContent = ` ${score}/${totalQuestions}`;
+
+            // 여기에 상세 분석 코드 추가 👇
+        const analysisButton = document.getElementById('analysis-toggle');
+        if (analysisButton) {
+            analysisButton.addEventListener('click', function() {
+                const analysis = document.getElementById('detailed-analysis');
+                analysis.classList.toggle('hidden');
+                if (!analysis.classList.contains('hidden')) {
+                    analysis.innerHTML = `
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-2 text-lg font-bold text-purple-600">
+                                <span>✨</span>
+                                <span>상세 분석 결과</span>
+                            </div>
+                            <div class="text-left space-y-3">
+                                <p class="text-gray-700">
+                                    💡 이 문제의 정답률: ${Math.round(percentage)}%
+                                </p>
+                                <p class="text-gray-700">
+                                    📚 당신의 강점:
+                                    <br>- 빠른 판단력
+                                    <br>- 직관적인 문제 해결 능력
+                                    <br>- 논리적 사고력
+                                </p>
+                                <p class="text-gray-700">
+                                    🎯 다음 목표:
+                                    <br>- 현재 점수보다 10% 향상
+                                    <br>- 새로운 분야 도전하기
+                                </p>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+        }
 
             // 백분율 계산
             const percentage = Math.round((score / totalQuestions) * 100);
