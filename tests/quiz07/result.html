@@ -201,6 +201,13 @@
             document.getElementById('retry-button').href = `question.html?quiz=${quizNumber}`;
         });
 
+        // 점수 구간별 공유 문구
+    const shareMessages = {
+        top10: "어라? 내가 천재였나요?! 상위 10%를 기록했어요! 🏆",
+        top60: "이런 문제를 틀리는 친구가 있다고요? 어서 공유해서 확인해보세요! 😎",
+        others: "앗! 나보다 못 하는 친구를 찾아보자! 어디 없나요~? 👀"
+    };
+        
         // 카카오톡 공유하기 함수 찾아서 수정
     function shareKakao() {
         const score = localStorage.getItem('userScore');
