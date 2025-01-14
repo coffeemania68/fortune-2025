@@ -38,7 +38,6 @@
                         class="flex-1 whitespace-nowrap px-4 py-3 text-center rounded-lg bg-[#FEE500] text-black font-bold hover:bg-[#FDD000] transition-all">
                     카카오톡 공유
                 </button>
-                <div>
                 <button onclick="copyUrl()" 
                         class="flex-1 whitespace-nowrap px-4 py-3 text-center rounded-lg bg-gray-100 text-gray-800 font-bold hover:bg-gray-200 transition-all">
                     링크 복사
@@ -93,33 +92,23 @@
        // Kakao SDK 초기화
         Kakao.init('110d468a677132abc8ddfe71b00c3939');
 
-        // 결과 데이터 가져오기
-    const score = parseInt(localStorage.getItem('userScore') || 0);
-    const totalQuestions = parseInt(localStorage.getItem('totalQuestions') || 0);
-    const quizNumber = localStorage.getItem('quizNumber') || '7';
-    const totalPlayers = parseInt(localStorage.getItem('totalPlayers') || 29156);
+          document.addEventListener('DOMContentLoaded', function() {
+            // 결과 데이터 가져오기
+            const score = parseInt(localStorage.getItem('userScore') || 0);
+            const totalQuestions = parseInt(localStorage.getItem('totalQuestions') || 0);
+            const quizNumber = localStorage.getItem('quizNumber') || '7';
+            const totalPlayers = parseInt(localStorage.getItem('totalPlayers') || 29156);
 
-    // 점수 표시
-    document.getElementById('score').textContent = ` ${score}/${totalQuestions}`;
+            // 점수 표시
+            document.getElementById('score').textContent = ` ${score}/${totalQuestions}`;
+            
+            // 백분율 계산
+            const percentage = Math.round((score / totalQuestions) * 100);
 
-    // 점수별 다른 메시지 표시
-    const percentage = Math.round((score / totalQuestions) * 100);
-    let resultMessage;
-    if (percentage >= 90) {
-        resultMessage = "천재력 만렙! 당신은 진정한 퀴즈 마스터입니다! 🏆";
-    } else if (percentage >= 70) {
-        resultMessage = "훌륭해요! 당신의 지식이 빛나고 있어요! ✨";
-    } else if (percentage >= 50) {
-        resultMessage = "좋은 시도였어요! 다음엔 더 잘할 수 있을 거예요! 💪";
-    } else {
-        resultMessage = "도전 자체가 멋져요! 다음엔 더 좋은 결과가 있을 거예요! 🌱";
-    }
-    document.getElementById('result-message').textContent = resultMessage;
-
-    // 여기에 상세 분석 코드 추가 👇
-    const analysisButton = document.getElementById('analysis-toggle');
-    if (analysisButton) {
-        analysisButton.addEventListener('click', function() {
+            // 여기에 상세 분석 코드 추가 👇
+        const analysisButton = document.getElementById('analysis-toggle');
+        if (analysisButton) {
+            analysisButton.addEventListener('click', function() {
                 const analysis = document.getElementById('detailed-analysis');
                 analysis.classList.toggle('hidden');
                 if (!analysis.classList.contains('hidden')) {
@@ -150,9 +139,6 @@
                 }
             });
         }
-
-            // 백분율 계산
-            const percentage = Math.round((score / totalQuestions) * 100);
             
             // 랭킹 계산 및 표시
             const rankPercentage = 100 - percentage + Math.floor(Math.random() * 20);
