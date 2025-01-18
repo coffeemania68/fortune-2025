@@ -12,7 +12,10 @@
     <meta property="og:url" content="https://coffeemania68.github.io/FORTUNE2025/result.html">
     
     <!-- Kakao SDK -->
-    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.6.0/kakao.min.js"
+        integrity="sha384-6MFdIr0zOira1DhwzLFMroel/Z+oZH4rZjWfWg5Y6wZ8E8IHfgsu7ZF3wqAR/hc+"
+        crossorigin="anonymous">
+    </script>
     <title>퀴즈 결과</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="./css/result.css">
@@ -93,8 +96,9 @@
         </div>
     </div>
 <script>
-    // Kakao SDK 초기화
-    Kakao.init('110d468a677132abc8ddfe71b00c3939');
+    
+         // Kakao SDK 초기화 부분 수정
+    window.Kakao.init('110d468a677132abc8ddfe71b00c3939');
 
     document.addEventListener('DOMContentLoaded', function() {
         // 결과 데이터 가져오기
@@ -207,33 +211,43 @@
         });
         
         // 카카오톡 공유하기 함수 찾아서 수정
- function shareKakao() {
-    const score = localStorage.getItem('userScore');
-    const total = localStorage.getItem('totalQuestions');
-    const percentage = Math.round((score / total) * 100);
-    
-    Kakao.Share.sendDefault({
-        objectType: 'feed',
-        content: {
-            title: '2025 심리테스트 결과',  // 제목 수정
-            description: `${message}\n\n나의 2025년은 어떨까? 지금 확인해보세요!`, // 설명 수정
-            imageUrl: 'https://blog.kakaocdn.net/dn/bEDDn7/btsLFzQORov/Nm9jS9siEMIaD7nLJdmLU1/img.jpg', // 이미지 URL 수정
-            link: {
-                mobileWebUrl: 'https://coffeemania68.github.io/FORTUNE2025/',
-                webUrl: 'https://coffeemania68.github.io/FORTUNE2025/',
-            },
-        },
-        buttons: [
-            {
-                title: '테스트 하러가기',  // 버튼 텍스트 수정
+    function shareKakao() {
+        const score = localStorage.getItem('userScore');
+        const total = localStorage.getItem('totalQuestions');
+        const percentage = Math.round((score / total) * 100);
+        
+        let message;
+        // 메시지를 직접 조건문 안에서 설정
+        if (percentage >= 90) {
+            message = "어라? 내가 천재였나요?! 상위 10%를 기록했어요! 🏆";
+        } else if (percentage >= 60) {
+            message = "이런 문제를 틀리는 친구가 있다고요? 어서 공유해서 확인해보세요! 😎";
+        } else {
+            message = "앗! 나보다 못 하는 친구를 찾아보자! 어디 없나요~? 👀";
+        }
+        
+        Kakao.Share.sendDefault({
+            objectType: 'feed',
+            content: {
+                title: '퀴즈 결과',
+                description: message,
+                imageUrl: 'https://blog.kakaocdn.net/dn/G8BzH/btsAeR6J8ml/wQttKbYDGqmL9kkkQJ0AyK/img.png',
                 link: {
-                    mobileWebUrl: 'https://coffeemania68.github.io/FORTUNE2025/',
-                    webUrl: 'https://coffeemania68.github.io/FORTUNE2025/',
+                    mobileWebUrl: window.location.href,
+                    webUrl: window.location.href,
                 },
             },
-        ],
-    });
-}
+            buttons: [
+                {
+                    title: '도전하기',
+                    link: {
+                        mobileWebUrl: window.location.href,
+                        webUrl: window.location.href,
+                    },
+                },
+            ],
+        });
+    }
 
         // URL 복사하기
         async function copyUrl() {
