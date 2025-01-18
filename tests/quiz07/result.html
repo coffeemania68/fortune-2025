@@ -11,66 +11,11 @@
     <meta property="og:image" content="https://blog.kakaocdn.net/dn/bEDDn7/btsLFzQORov/Nm9jS9siEMIaD7nLJdmLU1/img.jpg">
     <meta property="og:url" content="https://coffeemania68.github.io/FORTUNE2025/result.html">
     
-    
-    <!-- Kakao SDK 최신 버전으로 수정 -->
-    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.6.0/kakao.min.js"
-            integrity="sha384-6MFdIr0zOira1DhwzLFMroel/Z+oZH4rZjWfWg5Y6wZ8E8IHfgsu7ZF3wqAR/hc+"
-            crossorigin="anonymous">
-    </script>
-</head>
-
-<script>
-    // Kakao SDK 초기화 (window.Kakao로 수정)
-    window.Kakao.init('110d468a677132abc8ddfe71b00c3939');
-
-    // 카카오톡 공유하기 함수 수정
-    function shareKakao() {
-        const score = localStorage.getItem('userScore');
-        const total = localStorage.getItem('totalQuestions');
-        const percentage = Math.round((score / total) * 100);
-        
-        let message;
-        if (percentage >= 90) {
-            message = "어라? 내가 천재였나요?! 상위 10%를 기록했어요! 🏆";
-        } else if (percentage >= 60) {
-            message = "이런 문제를 틀리는 친구가 있다고요? 어서 공유해서 확인해보세요! 😎";
-        } else {
-            message = "앗! 나보다 못 하는 친구를 찾아보자! 어디 없나요~? 👀";
-        }
-
-        // 공유하기 전에 SDK 초기화 확인
-        if (!window.Kakao.isInitialized()) {
-            alert('카카오톡 초기화에 실패했습니다.');
-            return;
-        }
-
-        try {
-            window.Kakao.Share.sendDefault({
-                objectType: 'feed',
-                content: {
-                    title: '2025 심리테스트 결과',
-                    description: `${message}\n\n나의 2025년은 어떨까? 지금 확인해보세요!`,
-                    imageUrl: 'https://blog.kakaocdn.net/dn/bEDDn7/btsLFzQORov/Nm9jS9siEMIaD7nLJdmLU1/img.jpg',
-                    link: {
-                        mobileWebUrl: 'https://coffeemania68.github.io/FORTUNE2025/',
-                        webUrl: 'https://coffeemania68.github.io/FORTUNE2025/',
-                    },
-                },
-                buttons: [
-                    {
-                        title: '테스트 하러가기',
-                        link: {
-                            mobileWebUrl: 'https://coffeemania68.github.io/FORTUNE2025/',
-                            webUrl: 'https://coffeemania68.github.io/FORTUNE2025/',
-                        },
-                    },
-                ],
-            });
-        } catch (error) {
-            console.error('카카오톡 공유 에러:', error);
-            alert('카카오톡 공유에 실패했습니다.');
-        }
-    }
+    <!-- Kakao SDK -->
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+    <title>퀴즈 결과</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./css/result.css">
     
     <!-- 컨페티 효과 -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
@@ -302,3 +247,4 @@
     </script>
 </body>
 </html>
+
