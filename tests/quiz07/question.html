@@ -7,8 +7,80 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="./css/question.css">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7488656479974609"
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-xx"
      crossorigin="anonymous"></script>
+    <style>
+        /* 기본 스타일 */
+        body {
+            font-family: 'Pretendard', 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* 텍스트 줄바꿈 처리 */
+        .text-wrap {
+            word-break: keep-all;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+        }
+
+        /* 퀴즈 컨테이너 스타일 */
+        .question-container {
+            max-width: 800px;
+            width: 100%;
+            animation: slideIn 0.5s ease-out;
+            padding: 0 16px;
+            margin-top: 1rem;
+            flex: 1; /* 본문이 광고를 밀어내지 않도록 flex 속성 추가 */
+        }
+
+        /* 답변 버튼 컨테이너 */
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 16px;
+            padding: 0 16px;
+            margin-bottom: 60px; /* 광고 높이(50px) + 여유공간(10px) */
+        }
+
+        /* 답변 버튼 스타일 */
+        .option {
+            width: 100%;
+            padding: 12px 16px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+            font-weight: 600;
+            font-size: 0.95em;
+            cursor: pointer;
+            transform: translateY(0);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        /* 광고 컨테이너 스타일 */
+        .ad-fixed-container {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: white;
+            text-align: center;
+            padding: 10px 0;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .ad-inner-container {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
 </head>
 <body class="bg-gradient-to-br from-slate-100 to-blue-50">
     <!-- 진행바 -->
@@ -40,17 +112,17 @@
     </main>
 
     <!-- 하단 고정 광고 -->
-<div class="ad-fixed-container">
-    <div class="ad-inner-container">
-        <ins class="adsbygoogle"
-             style="display:inline-block; width:320px; height:50px"
-             data-ad-client="ca-pub-7488656479974609"
-             data-ad-slot="3483672797"></ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
+    <div class="ad-fixed-container">
+        <div class="ad-inner-container">
+            <ins class="adsbygoogle"
+                 style="display:inline-block; width:320px; height:50px"
+                 data-ad-client="ca-pub-xx"
+                 data-ad-slot="3483672797"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
     </div>
-</div>
 
     <script type="module">
         import quizDataSets from './quizDataSets.js';
