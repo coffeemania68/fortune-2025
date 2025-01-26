@@ -5,8 +5,8 @@ body {
     padding: 0;
     min-height: 100vh;
     background-attachment: fixed;
-    display: flex; /* 추가 */
-    flex-direction: column; /* 추가 */
+    display: flex;
+    flex-direction: column;
 }
 
 /* 텍스트 줄바꿈 처리 */
@@ -99,25 +99,26 @@ body {
 }
 
 
-/* 광고 컨테이너 스타일 수정 */
+/* 광고 컨테이너 스타일 */
 .ad-fixed-container {
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
+    width: 100%;
     background: white;
-    z-index: 999;
-    height: 60px; /* 여유 공간 포함 */
+    z-index: 1000;
+    min-height: 50px;
     box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 5px 0;
 }
 
 .ad-inner-container {
-    width: 320px;
-    height: 50px;
+    width: 100%;
+    max-width: 320px;
+    min-height: 50px;
     margin: 0 auto;
     display: flex;
     justify-content: center;
@@ -161,20 +162,20 @@ body {
     background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #d946ef 100%);
 }
 
-/* 모바일 최적화 수정 */
-@media (max-width: 640px) {
+/* 모바일 최적화 */
+@media screen and (max-width: 640px) {
     .question-container {
-        padding: 0 12px;
-        margin-top: 0.5rem;
-        padding-bottom: 65px; /* 모바일에서 광고 영역 고려 */
+        padding-bottom: 70px;
     }
     
     .options {
-        gap: 6px;
-        padding: 0 12px;
-        margin-bottom: 55px;
+        margin-bottom: 70px;
     }
     
+    .ad-fixed-container {
+        height: auto;
+        padding: 5px 0;
+       
       
     .correct-answer {
         padding: 10px;
