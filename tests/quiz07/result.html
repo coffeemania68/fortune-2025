@@ -115,18 +115,18 @@
                     <!-- JavaScript로 동적 생성됨 -->
                 </div>
             </div>
-
-            <!-- 액션 버튼 -->
-            <div class="action-buttons grid grid-cols-2 gap-4">
-                <a href="https://quiz.drivemoments.kr/" 
-                   class="btn-secondary whitespace-nowrap">
-                    🏠 홈으로
-                </a>
-                <a id="retry-button" href="#" 
-                   class="btn-primary whitespace-nowrap">
-                    🔄 다시 도전
-                </a>
-            </div>
+<!-- 액션 버튼 수정 -->
+<div class="action-buttons grid grid-cols-2 gap-4">
+    <a href="https://quiz.drivemoments.kr/" 
+       class="btn-secondary whitespace-nowrap">
+        🏠 홈으로
+    </a>
+    <a id="retry-button" href="#" 
+       class="btn-primary whitespace-nowrap"
+       onclick="retryQuiz(event)">
+        🔄 다시 도전
+    </a>
+</div>
         </div>
     </div>
 <script>
