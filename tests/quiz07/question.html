@@ -19,7 +19,7 @@
     </div>
 
     <!-- 질문 컨테이너 -->
-    <div class="min-h-screen flex items-center justify-center px-4 py-20">
+        <div class="min-h-screen flex flex-col items-center justify-center px-4 py-20">
         <div id="questionContainer" class="question-container w-full max-w-2xl">            
             <div class="bg-white/90 backdrop-blur-sm rounded-3xl p-8 shadow-xl mb-8 neon-border">
                 <h2 id="questionText" class="text-xl md:text-2xl font-bold text-center mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent text-wrap">
@@ -39,37 +39,8 @@
                 <p id="current-score" class="current-score"></p>
             </div>
         </div>
-    </div>
-
-    <body class="bg-gradient-to-br from-slate-100 to-blue-50 min-h-screen">
-    <!-- 진행바 -->
-    <div class="fixed top-0 left-0 w-full h-2 bg-gray-800 z-50">
-        <div id="progress" class="progress-bar h-full cyber-gradient" style="width: 0%"></div>
-    </div>
-
-    <!-- 질문 컨테이너 -->
-    <div class="min-h-screen flex flex-col items-center justify-center px-4 py-20">
-        <div id="questionContainer" class="question-container w-full max-w-2xl">            
-            <div class="bg-white/90 backdrop-blur-sm rounded-3xl p-8 shadow-xl mb-8 neon-border">
-                <h2 id="questionText" class="text-xl md:text-2xl font-bold text-center mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent text-wrap">
-                    질문이 여기에 표시됩니다
-                </h2>
-                <p id="questionContext" class="text-center text-gray-600 text-sm md:text-base text-wrap">
-                    부가설명이 여기에 표시됩니다
-                </p>
-            </div>
-
-            <!-- 답변 버튼들 -->
-            <div id="options" class="options"></div>
-
-            <!-- 정답 및 점수 표시 -->
-            <div id="answer-feedback" class="hidden mt-4 p-4 rounded-xl bg-white/80 backdrop-blur-sm">
-                <p id="correct-answer" class="correct-answer text-wrap"></p>
-                <p id="current-score" class="current-score"></p>
-            </div>
-        </div>
-
-        <!-- 광고 위치 조정 -->
+    
+       <!-- 광고 위치 조정 -->
         <div class="w-full max-w-2xl mt-8">
             <ins class="adsbygoogle"
                  style="display:block"
@@ -82,8 +53,8 @@
             </script>
         </div>
     </div>
-    
-    <script type="module">
+
+        <script type="module">
         import quizDataSets from './quizDataSets.js';
 
         // URL에서 퀴즈 번호 가져오기
