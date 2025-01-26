@@ -7,42 +7,41 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="./css/question.css">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-    <!-- 애드센스 코드 -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7488656479974609"
      crossorigin="anonymous"></script>
 </head>
-<body class="bg-gradient-to-br from-slate-100 to-blue-50 min-h-screen">
+<body class="bg-gradient-to-br from-slate-100 to-blue-50">
     <!-- 진행바 -->
     <div class="fixed top-0 left-0 w-full h-2 bg-gray-800 z-50">
         <div id="progress" class="progress-bar h-full cyber-gradient" style="width: 0%"></div>
     </div>
 
-    <!-- 질문 컨테이너 -->
-    <div class="min-h-screen flex flex-col items-center justify-center px-4 py-20 main-content">
-        <div id="questionContainer" class="question-container w-full max-w-2xl">            
-            <div class="bg-white/90 backdrop-blur-sm rounded-3xl p-8 shadow-xl mb-8 neon-border">
-                <h2 id="questionText" class="text-xl md:text-2xl font-bold text-center mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent text-wrap">
+    <!-- 질문 컨테이너 - 상단 배치 -->
+    <main class="pt-8 pb-28"> <!-- 상단 여백 줄이고 하단 여백 광고 크기만큼 확보 -->
+        <div id="questionContainer" class="question-container w-full max-w-2xl mx-auto px-4">            
+            <div class="bg-white/90 backdrop-blur-sm rounded-3xl p-6 shadow-xl mb-6 neon-border"> <!-- 패딩 줄임 -->
+                <h2 id="questionText" class="text-lg md:text-xl font-bold text-center mb-3 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent text-wrap">
                     질문이 여기에 표시됩니다
                 </h2>
-                <p id="questionContext" class="text-center text-gray-600 text-sm md:text-base text-wrap">
+                <p id="questionContext" class="text-center text-gray-600 text-sm text-wrap">
                     부가설명이 여기에 표시됩니다
                 </p>
             </div>
 
             <!-- 답변 버튼들 -->
-            <div id="options" class="options"></div>
+            <div id="options" class="options px-4"></div>
 
             <!-- 정답 및 점수 표시 -->
-            <div id="answer-feedback" class="hidden mt-4 p-4 rounded-xl bg-white/80 backdrop-blur-sm">
+            <div id="answer-feedback" class="hidden mt-4 p-4 rounded-xl bg-white/80 backdrop-blur-sm mx-4">
                 <p id="correct-answer" class="correct-answer text-wrap"></p>
                 <p id="current-score" class="current-score"></p>
             </div>
         </div>
-    </div>
+    </main>
 
     <!-- 하단 고정 광고 -->
-    <div class="ad-fixed-container">
-        <div class="ad-inner-container">
+    <div class="fixed bottom-0 left-0 right-0 w-full bg-white shadow-lg" style="z-index: 999; height: 90px;">
+        <div class="max-w-2xl mx-auto">
             <ins class="adsbygoogle"
                  style="display:block"
                  data-ad-client="ca-pub-7488656479974609"
@@ -55,7 +54,7 @@
         </div>
     </div>
 
-        <script type="module">
+    <script type="module">
         import quizDataSets from './quizDataSets.js';
 
         // URL에서 퀴즈 번호 가져오기
