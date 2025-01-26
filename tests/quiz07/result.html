@@ -239,50 +239,54 @@
             ];
             const randomTeaser = teaserMessages[Math.floor(Math.random() * teaserMessages.length)];
             document.getElementById('next-quiz-teaser').textContent = randomTeaser;
+    // 재도전 버튼 수정
+    document.getElementById('retry-button').addEventListener('click', function(e) {
+        e.preventDefault();
+        const quizNumber = localStorage.getItem('quizNumber') || '7';
+        window.location.href = `question.html?quiz=${quizNumber}`;
+    });
+});
 
-            // 재도전 버튼 설정
-            document.getElementById('retry-button').href = `question.html?quiz=${quizNumber}`;
-        });
-        
-        // 카카오톡 공유하기 함수 찾아서 수정
-    function shareKakao() {
-        const score = localStorage.getItem('userScore');
-        const total = localStorage.getItem('totalQuestions');
-        const percentage = Math.round((score / total) * 100);
-        
-        let message;
-        // 메시지를 직접 조건문 안에서 설정
-        if (percentage >= 90) {
-            message = "어라? 내가 천재였나요?! 상위 10%를 기록했어요! 🏆";
-        } else if (percentage >= 60) {
-            message = "이런 문제를 틀리는 친구가 있다고요? 어서 공유해서 확인해보세요! 😎";
-        } else {
-            message = "앗! 나보다 못 하는 친구를 찾아보자! 어디 없나요~? 👀";
-        }
-        
-        Kakao.Share.sendDefault({
-            objectType: 'feed',
-            content: {
-                title: '퀴즈 결과',
-                description: message,
-                imageUrl: 'https://blog.kakaocdn.net/dn/G8BzH/btsAeR6J8ml/wQttKbYDGqmL9kkkQJ0AyK/img.png',
+// 카카오톡 공유하기 함수
+function shareKakao() {
+    const score = localStorage.getItem('userScore');
+    const total = localStorage.getItem('totalQuestions');
+    const percentage = Math.round((score / total) * 100);
+    const quizNumber = localStorage.getItem('quizNumber') || '7';
+    const shareUrl = `https://quiz.drivemoments.kr/question.html?quiz=${quizNumber}`;
+    
+    let message;
+    if (percentage >= 90) {
+        message = "어라? 내가 천재였나요?! 상위 10%를 기록했어요! 🏆";
+    } else if (percentage >= 60) {
+        message = "이런 문제를 틀리는 친구가 있다고요? 어서 공유해서 확인해보세요! 😎";
+    } else {
+        message = "앗! 나보다 못 하는 친구를 찾아보자! 어디 없나요~? 👀";
+    }
+    
+    Kakao.Share.sendDefault({
+        objectType: 'feed',
+        content: {
+            title: '퀴즈 결과',
+            description: message,
+            imageUrl: 'https://blog.kakaocdn.net/dn/G8BzH/btsAeR6J8ml/wQttKbYDGqmL9kkkQJ0AyK/img.png',
+            link: {
+                mobileWebUrl: shareUrl,
+                webUrl: shareUrl,
+            },
+        },
+        buttons: [
+            {
+                title: '도전하기',
                 link: {
-                    mobileWebUrl: window.location.href,
-                    webUrl: window.location.href,
+                    mobileWebUrl: shareUrl,
+                    webUrl: shareUrl,
                 },
             },
-            buttons: [
-                {
-                    title: '도전하기',
-                    link: {
-                        mobileWebUrl: window.location.href,
-                        webUrl: window.location.href,
-                    },
-                },
-            ],
-        });
-    }
-
+        ],
+    });
+}
+      
         // URL 복사하기
         async function copyUrl() {
             try {
