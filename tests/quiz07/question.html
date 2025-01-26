@@ -10,24 +10,6 @@
     <!-- 애드센스 코드 -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7488656479974609"
      crossorigin="anonymous"></script>
-    <!-- 광고 영역을 위한 추가 스타일 -->
-    <style>
-        .ad-container {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: white;
-            z-index: 40;
-            padding: 10px;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
-        }
-        
-        /* 메인 컨텐츠가 광고와 겹치지 않도록 하단 패딩 추가 */
-        .main-content {
-            padding-bottom: 120px;
-        }
-    </style>
 </head>
 <body class="bg-gradient-to-br from-slate-100 to-blue-50 min-h-screen">
     <!-- 진행바 -->
@@ -59,8 +41,8 @@
     </div>
 
     <!-- 하단 고정 광고 -->
-    <div class="ad-container">
-        <div class="max-w-2xl mx-auto">
+    <div class="ad-fixed-container">
+        <div class="ad-inner-container">
             <ins class="adsbygoogle"
                  style="display:block"
                  data-ad-client="ca-pub-7488656479974609"
