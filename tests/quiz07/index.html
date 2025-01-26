@@ -3,115 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>상식 입문</title>
-    <link rel="stylesheet" href="../../css/index.css">
-<style>
-    body, html {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        overflow: hidden;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #f4f4f4;
-    }
+    <title>상식 입문 - 질문</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./css/question.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <!-- AdSense 코드 수정 -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7488656479974609"></script>
+    <script>
+        // 자동 광고 명시적 비활성화
+        (adsbygoogle=window.adsbygoogle||[]).pauseAdBreak=1;
+    </script>
+</head>
+<body class="bg-gradient-to-br from-slate-100 to-blue-50">
+    <!-- 진행바 -->
+    <div class="fixed top-0 left-0 w-full h-2 bg-gray-800 z-50">
+        <div id="progress" class="progress-bar h-full cyber-gradient" style="width: 0%"></div>
+    </div>
 
-    .container {
-        text-align: center;
-        background-color: #fff;
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        position: relative;  /* 추가 */
-    }
+    <!-- 질문 컨테이너 -->
+    <main class="pt-8 pb-16">
+        <div id="questionContainer" class="question-container w-full max-w-2xl mx-auto px-4">            
+            <div class="bg-white/90 backdrop-blur-sm rounded-3xl p-6 shadow-xl mb-6 neon-border">
+                <h2 id="questionText" class="text-lg md:text-xl font-bold text-center mb-3 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent text-wrap">
+                    질문이 여기에 표시됩니다
+                </h2>
+                <p id="questionContext" class="text-center text-gray-600 text-sm text-wrap">
+                    부가설명이 여기에 표시됩니다
+                </p>
+            </div>
 
-    .button-container {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        margin-top: 30px;
-    }
+            <!-- 답변 버튼들 -->
+            <div id="options" class="options"></div>
 
-    .main-image {
-        width: 80%;
-        max-width: 400px;
-        margin: 0 auto;
-        display: block;
-    }
-
-    .btn {
-        padding: 15px 25px;
-        border: none;
-        border-radius: 8px;
-        font-size: 1.2em;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        display: block;
-        width: 100%;
-        max-width: 300px;
-        margin: 0 auto;
-        text-decoration: none;
-        text-align: center;
-        color: #fff;
-    }
-
-    .btn-start {
-        background-color: #007bff;
-    }
-
-    .btn-bucket {
-        background-color: #28a745;
-    }
-
-    .btn:hover {
-        opacity: 0.9;
-        transform: translateY(-2px);
-    }
-
-    /* 모바일 스타일 추가 */
-    @media (max-width: 640px) {
-        .container {
-            cursor: pointer;
-            width: 90%;
-            padding: 20px;
-        }
-
-        .main-image {
-            width: 100%;
-            max-width: none;
-        }
-
-        .button-container {
-            display: none;  /* 버튼 숨기기 */
-        }
-
-        /* 전체 컨테이너를 클릭 가능하게 만들기 */
-        .container::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 1;
-        }
-
-        /* 시작하기 링크를 컨테이너 전체에 적용 */
-        .container {
-            position: relative;
-        }
-    }
-</style>
-
-<!-- HTML 수정 -->
-<body>
-    <div class="container" onclick="location.href='./question.html'">  <!-- onclick 추가 -->
-        <img src="../images/quiz07-main.jpg" alt="상식 입문" class="main-image">
-        <div class="button-container">
-            <button onclick="location.href='./question.html'" class="btn btn-start">시작하기</button>
-            <a href="https://coffeemania68.github.io/BucketTimer" target="_blank" class="btn btn-bucket">2025 버킷타이머 받기</a>
+            <!-- 정답 및 점수 표시 -->
+            <div id="answer-feedback" class="hidden mt-4 p-4 rounded-xl bg-white/80 backdrop-blur-sm mx-4">
+                <p id="correct-answer" class="correct-answer text-wrap"></p>
+                <p id="current-score" class="current-score"></p>
+            </div>
         </div>
-    </div>    
+    </main>
+
+    <!-- 하단 고정 광고 -->
+    <div class="fixed bottom-0 left-0 right-0 w-full bg-white shadow-lg" style="z-index: 999; height: 60px;">
+        <div class="max-w-2xl mx-auto flex justify-center items-center h-full">
+            <ins class="adsbygoogle"
+                 style="display:inline-block;width:320px;height:50px"
+                 data-ad-client="ca-pub-7488656479974609"
+                 data-ad-slot="3483672797"></ins>
+            <script>
+                 try {
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                 } catch (e) {
+                     console.error('Ad error:', e);
+                 }
+            </script>
+        </div>
+    </div>
+
+    <script type="module">
+        import quizDataSets from './quizDataSets.js';
+
+        // URL에서 퀴즈 번호 가져오기
+        const urlParams = new URLSearchParams(window.location.search);
+        const quizNumber = urlParams.get('quiz') || '7';
+        const currentQuiz = quizDataSets[`set${quizNumber}`];
+        
+        // 방문자 카운터 업데이트
+        function updateVisitorCount() {
+            const baseVisitors = 23456;
+            let challengeCount = sessionStorage.getItem('challengeCount') || 0;
+            challengeCount = parseInt(challengeCount) + 1;
+            sessionStorage.setItem('challengeCount', challengeCount);
+            const totalVisitors = baseVisitors + parseInt(challengeCount);
+            return totalVisitors;
+        }
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        const questionContainer = document.getElementById('questionContainer');
+        const questionText = document.getElementById('questionText');
+        const questionContext = document.getElementById('questionContext');
+        const progress = document.getElementById('progress');
+        const answerFeedback = document.getElementById('answer-feedback');
+        const correctAnswerElement = document.getElementById('correct-answer');
+        const currentScoreElement = document.getElementById('current-score');
+        const optionsElement = document.getElementById('options');
+
+        function loadQuestion() {
+            const currentQuestion = currentQuiz.questions[currentQuestionIndex];
+
+            // 애니메이션 리셋
+            questionContainer.style.animation = 'none';
+            questionContainer.offsetHeight;
+            questionContainer.style.animation = null;
+
+            // 질문과 컨텍스트 업데이트
+            questionText.textContent = currentQuestion.question;
+            questionContext.textContent = currentQuestion.context || '';
+
+            // 진행바 업데이트
+            const progressPercentage = (currentQuestionIndex / currentQuiz.questions.length) * 100;
+            progress.style.width = `${progressPercentage}%`;
+
+            // 피드백 숨기기
+            answerFeedback.classList.add('hidden');
+
+            // 슬라이드 애니메이션 적용
+            questionContainer.style.animation = 'slideIn 0.5s ease-out';
+
+            // 기존 옵션 제거
+            optionsElement.innerHTML = '';
+
+            // 새로운 옵션 버튼 생성
+            currentQuestion.options.forEach(option => {
+                const button = document.createElement('button');
+                button.innerText = option;
+                button.classList.add('option');
+                button.addEventListener('click', () => checkAnswer(option));
+                optionsElement.appendChild(button);
+            });
+        }
+
+        function checkAnswer(selectedOption) {
+            const currentQuestion = currentQuiz.questions[currentQuestionIndex];
+            const isCorrect = selectedOption === currentQuestion.correct;
+
+            if (isCorrect) {
+                score++;
+                confetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.6 }
+                });
+            }
+
+            correctAnswerElement.textContent = `정답: ${currentQuestion.correct}`;
+            currentScoreElement.textContent = `현재 점수: ${score} / ${currentQuiz.questions.length}`;
+            answerFeedback.classList.remove('hidden');
+
+            setTimeout(() => {
+                currentQuestionIndex++;
+                if (currentQuestionIndex < currentQuiz.questions.length) {
+                    loadQuestion();
+                } else {
+                    localStorage.setItem('userScore', score);
+                    localStorage.setItem('totalQuestions', currentQuiz.questions.length);
+                    localStorage.setItem('quizNumber', quizNumber);
+                    localStorage.setItem('totalPlayers', updateVisitorCount());
+                    window.location.href = `result.html?quiz=${quizNumber}`;
+                }
+            }, 800);
+        }
+
+        // 첫 문제 로드
+        loadQuestion();
+    </script>
 </body>
 </html>
