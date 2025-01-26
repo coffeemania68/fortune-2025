@@ -208,44 +208,50 @@
                 rankDisplay.textContent = `상위 ${rankPercentage}%`;
             }
 
-            // 다음 퀴즈 추천
-            const nextQuizNumber = parseInt(quizNumber) + 1;
-            const prevQuizNumber = parseInt(quizNumber) - 1;
-            const recommendationsContainer = document.getElementById('quiz-recommendations');
-            
-            // 이전 퀴즈 버튼 (파란색)
-            if (prevQuizNumber >= 7) {
-                recommendationsContainer.innerHTML += `
-                    <a href="question.html?quiz=${prevQuizNumber}" class="recommendation-btn bg-blue-500 hover:bg-blue-600">
-                        ⬅️ 퀴즈 ${prevQuizNumber}
-                    </a>
-                `;
-            }
-            
-            // 다음 퀴즈 버튼 (빨간색)
-            if (nextQuizNumber <= 18) {
-                recommendationsContainer.innerHTML += `
-                    <a href="question.html?quiz=${nextQuizNumber}" class="recommendation-btn bg-red-500 hover:bg-red-600">
-                        퀴즈 ${nextQuizNumber} ➡️
-                    </a>
-                `;
-            }
+  // 다음 퀴즈 추천
+const nextQuizNumber = parseInt(quizNumber) + 1;
+const prevQuizNumber = parseInt(quizNumber) - 1;
+const recommendationsContainer = document.getElementById('quiz-recommendations');
 
-            // 다음 퀴즈 티저 메시지
-            const teaserMessages = [
-                "더 신기한 문제들이 기다리고 있어요! 🎯",
-                "다음 퀴즈는 더 재미있을걸요? 🌟",
-                "새로운 도전이 여러분을 기다립니다! ✨"
-            ];
-            const randomTeaser = teaserMessages[Math.floor(Math.random() * teaserMessages.length)];
-            document.getElementById('next-quiz-teaser').textContent = randomTeaser;
-    // 재도전 버튼 수정
-    document.getElementById('retry-button').addEventListener('click', function(e) {
-        e.preventDefault();
-        const quizNumber = localStorage.getItem('quizNumber') || '7';
-        window.location.href = `question.html?quiz=${quizNumber}`;
-    });
+// 이전 퀴즈 버튼 (파란색)
+if (prevQuizNumber >= 7) {
+    const formattedPrevQuizNumber = prevQuizNumber.toString().padStart(2, '0');
+    recommendationsContainer.innerHTML += `
+        <a href="https://quiz.drivemoments.kr/tests/quiz${formattedPrevQuizNumber}/question.html" 
+           class="recommendation-btn bg-blue-500 hover:bg-blue-600">
+            ⬅️ 퀴즈 ${prevQuizNumber}
+        </a>
+    `;
+}
+
+// 다음 퀴즈 버튼 (빨간색)
+if (nextQuizNumber <= 18) {
+    const formattedNextQuizNumber = nextQuizNumber.toString().padStart(2, '0');
+    recommendationsContainer.innerHTML += `
+        <a href="https://quiz.drivemoments.kr/tests/quiz${formattedNextQuizNumber}/question.html" 
+           class="recommendation-btn bg-red-500 hover:bg-red-600">
+            퀴즈 ${nextQuizNumber} ➡️
+        </a>
+    `;
+}
+
+// Quiz teaser messages
+const teaserMessages = [
+    "더 신기한 문제들이 기다리고 있어요! 🎯",
+    "다음 퀴즈는 더 재미있을걸요? 🌟",
+    "새로운 도전이 여러분을 기다립니다! ✨"
+];
+const randomTeaser = teaserMessages[Math.floor(Math.random() * teaserMessages.length)];
+document.getElementById('next-quiz-teaser').textContent = randomTeaser;
+
+// Retry button
+document.getElementById('retry-button').addEventListener('click', function(e) {
+    e.preventDefault();
+    const quizNumber = localStorage.getItem('quizNumber') || '07';
+    const formattedQuizNumber = quizNumber.padStart(2, '0');
+    window.location.href = `https://quiz.drivemoments.kr/tests/quiz${formattedQuizNumber}/question.html`;
 });
+
 
 // 카카오톡 공유하기 함수
 function shareKakao() {
