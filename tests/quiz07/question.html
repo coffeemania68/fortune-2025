@@ -6,11 +6,28 @@
     <title>상식 입문 - 질문</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="./css/question.css">
-    <!-- 폭죽 효과를 위한 라이브러리 -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-    <!-- 애드센스 코드 추가 -->
+    <!-- 애드센스 코드 -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7488656479974609"
      crossorigin="anonymous"></script>
+    <!-- 광고 영역을 위한 추가 스타일 -->
+    <style>
+        .ad-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            z-index: 40;
+            padding: 10px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        }
+        
+        /* 메인 컨텐츠가 광고와 겹치지 않도록 하단 패딩 추가 */
+        .main-content {
+            padding-bottom: 120px;
+        }
+    </style>
 </head>
 <body class="bg-gradient-to-br from-slate-100 to-blue-50 min-h-screen">
     <!-- 진행바 -->
@@ -19,7 +36,7 @@
     </div>
 
     <!-- 질문 컨테이너 -->
-        <div class="min-h-screen flex flex-col items-center justify-center px-4 py-20">
+    <div class="min-h-screen flex flex-col items-center justify-center px-4 py-20 main-content">
         <div id="questionContainer" class="question-container w-full max-w-2xl">            
             <div class="bg-white/90 backdrop-blur-sm rounded-3xl p-8 shadow-xl mb-8 neon-border">
                 <h2 id="questionText" class="text-xl md:text-2xl font-bold text-center mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent text-wrap">
@@ -39,9 +56,11 @@
                 <p id="current-score" class="current-score"></p>
             </div>
         </div>
-    
-       <!-- 광고 위치 조정 -->
-        <div class="w-full max-w-2xl mt-8">
+    </div>
+
+    <!-- 하단 고정 광고 -->
+    <div class="ad-container">
+        <div class="max-w-2xl mx-auto">
             <ins class="adsbygoogle"
                  style="display:block"
                  data-ad-client="ca-pub-7488656479974609"
